@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Echoes Software Technologies</title>
+  <meta name="description" content="Get in touch with Echoes Software Technologies. Contact our team for inquiries, support, or to schedule a consultation.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-blue': '#1864ff'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <script>
+    // Function to open the contact modal
+    function openContactModal() {
+      document.getElementById('contactModal').classList.remove('hidden');
+      document.getElementById('contactModal').classList.add('flex');
+    }
+    
+    // Function to close the contact modal
+    function closeContactModal() {
+      document.getElementById('contactModal').classList.add('hidden');
+      document.getElementById('contactModal').classList.remove('flex');
+    }
+    
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      const modal = document.getElementById('contactModal');
+      if (event.target === modal) {
+        closeContactModal();
+      }
+    }
+    
+    // Add event listener to all 'Get Started' buttons
+    document.addEventListener('DOMContentLoaded', function() {
+      const getStartedButtons = document.querySelectorAll('.get-started-btn');
+      getStartedButtons.forEach(button => {
+        button.addEventListener('click', openContactModal);
+      });
+      
+      // Initialize lucide icons
+      lucide.createIcons();
+    });
+  </script>
+</head>
+<body class="bg-white text-gray-900" style="font-family: 'Poppins', sans-serif;">
+  <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <span class="text-2xl font-bold text-brand-blue">Echoes</span>
+            <span class="text-xl font-light text-gray-700 ml-1">Software Technologies</span>
+          </div>
+        </div>
+        <nav class="hidden md:flex space-x-8">
+          <a href="./index.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Home</a>
+          <a href="./solutions.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Solutions</a>
+          <a href="./services.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Services</a>
+          <a href="./about.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">About</a>
+          <a href="./contact.html" class="text-brand-blue font-medium">Contact</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+          <button class="get-started-btn bg-brand-blue text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors">Get Started</button>
+          <button class="md:hidden p-2">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="bg-[#1864ff] py-20 lg:py-32">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h1 class="text-4xl lg:text-6xl font-bold text-white leading-tight mb-6">Get in Touch</h1>
+          <p class="text-xl text-white max-w-3xl mx-auto">We're here to answer your questions and discuss how our solutions can transform your business. Reach out to us using any of the methods below.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-16">
+          <div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">Contact Information</h2>
+            
+            <div class="space-y-8">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-6">
+                  <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900 mb-2">Our Headquarters</h3>
+                  <p class="text-gray-600">1234 Innovation Drive<br>Suite 500<br>Tech City, CA 94043</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-6">
+                  <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900 mb-2">Phone</h3>
+                  <p class="text-gray-600">
+                    <a href="tel:+11234567890" class="hover:text-brand-blue transition-colors">+1 (123) 456-7890</a><br>
+                    <a href="tel:+11234567891" class="hover:text-brand-blue transition-colors">+1 (123) 456-7891</a>
+                  </p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-6">
+                  <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900 mb-2">Email</h3>
+                  <p class="text-gray-600">
+                    <a href="mailto:info@echoes-software.com" class="hover:text-brand-blue transition-colors">info@echoes-software.com</a><br>
+                    <a href="mailto:sales@echoes-software.com" class="hover:text-brand-blue transition-colors">sales@echoes-software.com</a><br>
+                    <a href="mailto:support@echoes-software.com" class="hover:text-brand-blue transition-colors">support@echoes-software.com</a>
+                  </p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-6">
+                  <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900 mb-2">Business Hours</h3>
+                  <p class="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM PST<br>Saturday - Sunday: Closed</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">Send Us a Message</h2>
+            
+            <form class="space-y-6">
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                  <input type="text" id="firstName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent">
+                </div>
+                <div>
+                  <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                  <input type="text" id="lastName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent">
+                </div>
+              </div>
+              
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent">
+              </div>
+              
+              <div>
+                <label for="company" class="block text-sm font-medium text-gray-700 mb-2">Company</label>
+                <input type="text" id="company" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent">
+              </div>
+              
+              <div>
+                <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                <input type="text" id="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent">
+              </div>
+              
+              <div>
+                <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent"></textarea>
+              </div>
+              
+              <div>
+                <button type="submit" class="w-full bg-brand-blue text-white px-6 py-4 rounded-full font-semibold hover:bg-blue-700 transition-colors">
+                  Send Message
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Our Global Offices</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">We serve clients worldwide from our strategically located offices across the globe.</p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-gray-50 rounded-2xl p-8 text-center">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">North America</h3>
+            <p class="text-gray-600 mb-4">1234 Innovation Drive<br>Suite 500<br>Tech City, CA 94043</p>
+            <p class="text-gray-600">+1 (123) 456-7890</p>
+          </div>
+          
+          <div class="bg-gray-50 rounded-2xl p-8 text-center">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Europe</h3>
+            <p class="text-gray-600 mb-4">456 Innovation Square<br>London, UK WC2N 5DU</p>
+            <p class="text-gray-600">+44 20 7123 4567</p>
+          </div>
+          
+          <div class="bg-gray-50 rounded-2xl p-8 text-center">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Asia-Pacific</h3>
+            <p class="text-gray-600 mb-4">789 Innovation Tower<br>Singapore 048623</p>
+            <p class="text-gray-600">+65 6123 4567</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-br from-blue-50 to-white py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
+          <div class="grid lg:grid-cols-2 gap-0">
+            <div class="p-12 lg:p-16 flex flex-col justify-center">
+              <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+                Ready to Transform Your Business?
+              </h2>
+              <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                Join hundreds of companies that trust Echoes Software Technologies to deliver innovative solutions. Schedule a consultation today and discover how we can accelerate your digital transformation.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="https://forms.gle/K3LySpfU6YYvQKGj9" target="_blank" class="inline-block bg-[#1864ff] hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                  Schedule Consultation
+                </a>
+                <a href="https://forms.gle/JNS54uLpgQXWP8NZ9" target="_blank" class="inline-block border-2 border-[#1864ff] text-[#1864ff] hover:bg-[#1864ff] hover:text-white font-semibold px-8 py-4 rounded-full transition-all duration-300">
+                  Request Demo
+                </a>
+              </div>
+              <div class="mt-8 flex items-center gap-6 text-sm text-gray-500">
+                <div class="flex items-center gap-2">
+                  <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span>Free consultation</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span>No commitment required</span>
+                </div>
+              </div>
+            </div>
+            <div class="relative bg-gradient-to-br from-[#1864ff] to-blue-700 p-12 lg:p-16 flex items-center justify-center">
+              <img data-ai="generate" data-slot="cta-main" data-prompt="Professional business team collaborating on software development project in modern office environment with laptops and digital screens" data-ar="4:3" src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/cta/cta-main-3784e0b0ce6e4eadaafd560623263cce.png" alt="Professional software development team collaboration" width="800" height="600" class="w-full rounded-2xl object-cover shadow-2xl" loading="lazy" decoding="async" fetchpriority="auto">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Contact Modal -->
+  <div id="contactModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-2xl font-bold text-gray-900">Get in Touch</h3>
+          <button onclick="closeContactModal()" class="text-gray-500 hover:text-gray-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        
+        <form class="space-y-4">
+          <div>
+            <label for="modalName" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <input type="text" id="modalName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent">
+          </div>
+          
+          <div>
+            <label for="modalEmail" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input type="email" id="modalEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent">
+          </div>
+          
+          <div>
+            <label for="modalMessage" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+            <textarea id="modalMessage" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent"></textarea>
+          </div>
+          
+          <div class="pt-4">
+            <button type="submit" class="w-full bg-brand-blue text-white px-6 py-4 rounded-full font-semibold hover:bg-blue-700 transition-colors">
+              Send Message
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="col-span-1 md:col-span-2">
+          <div class="mb-4">
+            <span class="text-2xl font-bold text-brand-blue">Echoes</span>
+            <span class="text-xl font-light text-gray-300 ml-1">Software Technologies</span>
+          </div>
+          <p class="text-gray-400 mb-4 max-w-md">Delivering premium enterprise software solutions that transform businesses through technology and innovation.</p>
+          <div class="flex space-x-4">
+            <a href="https://www.linkedin.com/company/echoes-software-solutions/posts/?feedView=all" class="text-gray-400 hover:text-white transition-colors">
+              <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </a>
+            <a href="tel:+918148549511" class="text-gray-400 hover:text-white transition-colors">
+              <i data-lucide="message-circle" class="w-5 h-5"></i>
+            </a>
+            <a href="https://www.instagram.com/echoes_software.tech/" class="text-gray-400 hover:text-white transition-colors">
+              <i data-lucide="instagram" class="w-5 h-5"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Solutions</h3>
+          <ul class="space-y-2">
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Enterprise Software</a></li>
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Cloud Solutions</a></li>
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Custom Development</a></li>
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Integration Services</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Company</h3>
+          <ul class="space-y-2">
+            <li><a href="./about.html" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">News</a></li>
+            <li><a href="./contact.html" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm">© 2026 Echoes Software Technologies. All rights reserved.</p>
+        <div class="flex space-x-6 mt-4 md:mt-0">
+          <a href="./privacy-policy.html" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+          <a href="./terms-of-service.html" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Security</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

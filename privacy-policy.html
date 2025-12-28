@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | Echoes Software Technologies</title>
+  <meta name="description" content="Privacy policy for Echoes Software Technologies. Learn how we collect, use, and protect your personal information.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-blue': '#1864ff'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <script>
+    // Function to open the contact modal
+    function openContactModal() {
+      document.getElementById('contactModal').classList.remove('hidden');
+      document.getElementById('contactModal').classList.add('flex');
+    }
+    
+    // Function to close the contact modal
+    function closeContactModal() {
+      document.getElementById('contactModal').classList.add('hidden');
+      document.getElementById('contactModal').classList.remove('flex');
+    }
+    
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      const modal = document.getElementById('contactModal');
+      if (event.target === modal) {
+        closeContactModal();
+      }
+    }
+    
+    // Add event listener to all 'Get Started' buttons
+    document.addEventListener('DOMContentLoaded', function() {
+      const getStartedButtons = document.querySelectorAll('.get-started-btn');
+      getStartedButtons.forEach(button => {
+        button.addEventListener('click', openContactModal);
+      });
+      
+      // Initialize lucide icons
+      lucide.createIcons();
+    });
+  </script>
+</head>
+<body class="bg-white text-gray-900" style="font-family: 'Poppins', sans-serif;">
+  <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <span class="text-2xl font-bold text-brand-blue">Echoes</span>
+            <span class="text-xl font-light text-gray-700 ml-1">Software Technologies</span>
+          </div>
+        </div>
+        <nav class="hidden md:flex space-x-8">
+          <a href="./index.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Home</a>
+          <a href="./solutions.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Solutions</a>
+          <a href="./services.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Services</a>
+          <a href="./about.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">About</a>
+          <a href="./contact.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Contact</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+          <button class="get-started-btn bg-brand-blue text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors">Get Started</button>
+          <button class="md:hidden p-2">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="bg-[#1864ff] py-20 lg:py-32">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h1 class="text-4xl lg:text-6xl font-bold text-white leading-tight mb-6">Privacy Policy</h1>
+          <p class="text-xl text-white max-w-3xl mx-auto">Learn how we collect, use, and protect your personal information when you use our services.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="prose prose-lg max-w-none">
+          <h2 class="text-3xl font-bold text-gray-900 mb-6">Last Updated: December 28, 2025</h2>
+          
+          <p class="text-gray-600 mb-6">Echoes Software Technologies ("we", "our", "us") respects your privacy and is committed to protecting the personal information of our users, clients, and visitors. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our websites, applications, products, and services (collectively, the "Services").</p>
+          
+          <p class="text-gray-600 mb-6">By using our Services, you agree to the practices described in this Privacy Policy.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">1. Information We Collect</h3>
+          <p class="text-gray-600 mb-4">We may collect the following types of information:</p>
+          
+          <h4 class="text-xl font-semibold text-gray-900 mt-6 mb-3">1.1 Personal Information</h4>
+          <p class="text-gray-600 mb-4">Information that can identify you, such as:</p>
+          <ul class="list-disc list-inside text-gray-600 mb-4 space-y-2">
+            <li>Name</li>
+            <li>Email address</li>
+            <li>Phone number</li>
+            <li>Company or organization name</li>
+            <li>Account login credentials (if applicable)</li>
+          </ul>
+          
+          <h4 class="text-xl font-semibold text-gray-900 mt-6 mb-3">1.2 Technical and Usage Information</h4>
+          <p class="text-gray-600 mb-4">Automatically collected information, including:</p>
+          <ul class="list-disc list-inside text-gray-600 mb-4 space-y-2">
+            <li>IP address</li>
+            <li>Browser type and version</li>
+            <li>Device information</li>
+            <li>Operating system</li>
+            <li>Pages visited, time spent, and interaction data</li>
+          </ul>
+          
+          <h4 class="text-xl font-semibold text-gray-900 mt-6 mb-3">1.3 Cookies and Similar Technologies</h4>
+          <p class="text-gray-600 mb-4">We may use cookies and similar tracking technologies to improve functionality, analyze usage, and enhance user experience. You can control cookies through your browser settings.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">2. How We Use Your Information</h3>
+          <p class="text-gray-600 mb-4">We use the collected information to:</p>
+          <ul class="list-disc list-inside text-gray-600 mb-4 space-y-2">
+            <li>Provide, operate, and maintain our Services</li>
+            <li>Improve and personalize user experience</li>
+            <li>Communicate with you, including support and service-related messages</li>
+            <li>Process transactions and manage accounts</li>
+            <li>Ensure security and prevent fraud</li>
+            <li>Comply with legal and regulatory obligations</li>
+          </ul>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">3. Sharing and Disclosure of Information</h3>
+          <p class="text-gray-600 mb-4">We do not sell or rent your personal information. We may share information only in the following circumstances:</p>
+          
+          <ul class="list-disc list-inside text-gray-600 mb-4 space-y-2">
+            <li><strong>Service Providers:</strong> With trusted third-party vendors who perform services on our behalf (e.g., hosting, analytics, customer support)</li>
+            <li><strong>Legal Requirements:</strong> When required by law, regulation, or legal process</li>
+            <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets</li>
+            <li><strong>With Consent:</strong> When you explicitly consent to sharing</li>
+          </ul>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">4. Data Security</h3>
+          <p class="text-gray-600 mb-4">We implement reasonable administrative, technical, and organizational measures to protect your information from unauthorized access, loss, misuse, or disclosure. However, no method of transmission over the internet or electronic storage is completely secure.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">5. Data Retention</h3>
+          <p class="text-gray-600 mb-4">We retain personal information only for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">6. Your Rights and Choices</h3>
+          <p class="text-gray-600 mb-4">Depending on applicable laws, you may have the right to:</p>
+          <ul class="list-disc list-inside text-gray-600 mb-4 space-y-2">
+            <li>Access the personal information we hold about you</li>
+            <li>Request correction or deletion of your information</li>
+            <li>Withdraw consent where processing is based on consent</li>
+            <li>Object to or restrict certain processing activities</li>
+          </ul>
+          <p class="text-gray-600 mb-4">To exercise these rights, please contact us using the details below.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">7. Third-Party Links</h3>
+          <p class="text-gray-600 mb-4">Our Services may contain links to third-party websites or services. We are not responsible for the privacy practices or content of those third parties.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">8. Children’s Privacy</h3>
+          <p class="text-gray-600 mb-4">Our Services are not directed to children under the age of 13. We do not knowingly collect personal information from children. If we become aware that such information has been collected, we will take appropriate steps to delete it.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">9. Changes to This Privacy Policy</h3>
+          <p class="text-gray-600 mb-4">We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated "Last Updated" date. Continued use of the Services after changes indicates acceptance of the revised policy.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">10. Contact Us</h3>
+          <p class="text-gray-600 mb-4">If you have any questions or concerns about this Privacy Policy or our data practices, please contact us:</p>
+          <div class="bg-gray-50 p-6 rounded-lg mb-8">
+            <p class="text-gray-700"><strong>Echoes Software Technologies</strong></p>
+            <p class="text-gray-700"><strong>Email:</strong> echoessoftwaretech@gmail.com</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="col-span-1 md:col-span-2">
+          <div class="mb-4">
+            <span class="text-2xl font-bold text-brand-blue">Echoes</span>
+            <span class="text-xl font-light text-gray-300 ml-1">Software Technologies</span>
+          </div>
+          <p class="text-gray-400 mb-4 max-w-md">Delivering premium enterprise software solutions that transform businesses through technology and innovation.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i data-lucide="twitter" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i data-lucide="github" class="w-5 h-5"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Solutions</h3>
+          <ul class="space-y-2">
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Enterprise Software</a></li>
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Cloud Solutions</a></li>
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Custom Development</a></li>
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Integration Services</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Company</h3>
+          <ul class="space-y-2">
+            <li><a href="./about.html" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">News</a></li>
+            <li><a href="./contact.html" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm">© 2026 Echoes Software Technologies. All rights reserved.</p>
+        <div class="flex space-x-6 mt-4 md:mt-0">
+          <a href="./privacy-policy.html" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+          <a href="./terms-of-service.html" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Security</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Contact Modal -->
+  <div id="contactModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-2xl font-bold text-gray-900">Get in Touch</h3>
+          <button onclick="closeContactModal()" class="text-gray-500 hover:text-gray-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        
+        <form class="space-y-4">
+          <div>
+            <label for="modalName" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <input type="text" id="modalName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent">
+          </div>
+          
+          <div>
+            <label for="modalEmail" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input type="email" id="modalEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent">
+          </div>
+          
+          <div>
+            <label for="modalMessage" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+            <textarea id="modalMessage" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent"></textarea>
+          </div>
+          
+          <div class="pt-4">
+            <button type="submit" class="w-full bg-brand-blue text-white px-6 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+              Send Message
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

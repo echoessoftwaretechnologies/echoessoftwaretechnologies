@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service | Echoes Software Technologies</title>
+  <meta name="description" content="Terms of service for Echoes Software Technologies. Read our terms and conditions for using our services and website.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-blue': '#1864ff'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <script>
+    // Function to open the contact modal
+    function openContactModal() {
+      document.getElementById('contactModal').classList.remove('hidden');
+      document.getElementById('contactModal').classList.add('flex');
+    }
+    
+    // Function to close the contact modal
+    function closeContactModal() {
+      document.getElementById('contactModal').classList.add('hidden');
+      document.getElementById('contactModal').classList.remove('flex');
+    }
+    
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      const modal = document.getElementById('contactModal');
+      if (event.target === modal) {
+        closeContactModal();
+      }
+    }
+    
+    // Add event listener to all 'Get Started' buttons
+    document.addEventListener('DOMContentLoaded', function() {
+      const getStartedButtons = document.querySelectorAll('.get-started-btn');
+      getStartedButtons.forEach(button => {
+        button.addEventListener('click', openContactModal);
+      });
+      
+      // Initialize lucide icons
+      lucide.createIcons();
+    });
+  </script>
+</head>
+<body class="bg-white text-gray-900" style="font-family: 'Poppins', sans-serif;">
+  <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <span class="text-2xl font-bold text-brand-blue">Echoes</span>
+            <span class="text-xl font-light text-gray-700 ml-1">Software Technologies</span>
+          </div>
+        </div>
+        <nav class="hidden md:flex space-x-8">
+          <a href="./index.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Home</a>
+          <a href="./solutions.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Solutions</a>
+          <a href="./services.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Services</a>
+          <a href="./about.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">About</a>
+          <a href="./contact.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Contact</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+          <button class="get-started-btn bg-brand-blue text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors">Get Started</button>
+          <button class="md:hidden p-2">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="bg-[#1864ff] py-20 lg:py-32">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h1 class="text-4xl lg:text-6xl font-bold text-white leading-tight mb-6">Terms of Service</h1>
+          <p class="text-xl text-white max-w-3xl mx-auto">Please read these terms and conditions carefully before using our services and website.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="prose prose-lg max-w-none">
+          <h2 class="text-3xl font-bold text-gray-900 mb-6">Last Updated: December 28, 2025</h2>
+          
+          <p class="text-gray-600 mb-6">Welcome to Echoes Software Technologies ("Company", "we", "our", "us"). These Terms & Conditions ("Terms") govern your access to and use of our websites, applications, software, products, and services (collectively, the "Services").</p>
+          
+          <p class="text-gray-600 mb-6">By accessing or using our Services, you agree to be bound by these Terms. If you do not agree, please do not use our Services.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">1. Eligibility</h3>
+          <p class="text-gray-600 mb-4">By using our Services, you represent that you have the legal capacity to enter into a binding agreement under applicable laws. If you are using the Services on behalf of an organization, you represent that you are authorized to bind that organization to these Terms.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">2. Use of Services</h3>
+          <p class="text-gray-600 mb-4">You agree to use the Services only for lawful purposes and in accordance with these Terms. You must not:</p>
+          <ul class="list-disc list-inside text-gray-600 mb-4 space-y-2">
+            <li>Violate any applicable laws or regulations</li>
+            <li>Infringe upon intellectual property or proprietary rights</li>
+            <li>Attempt to gain unauthorized access to systems or data</li>
+            <li>Interfere with or disrupt the operation or security of the Services</li>
+            <li>Use the Services to transmit malicious code, spam, or harmful content</li>
+          </ul>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">3. Accounts and Responsibilities</h3>
+          <p class="text-gray-600 mb-4">If any part of the Services requires account creation:</p>
+          <ul class="list-disc list-inside text-gray-600 mb-4 space-y-2">
+            <li>You are responsible for maintaining the confidentiality of your account credentials</li>
+            <li>You agree to provide accurate and complete information</li>
+            <li>You are responsible for all activities that occur under your account</li>
+            <li>We reserve the right to suspend or terminate accounts that violate these Terms</li>
+          </ul>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">4. Intellectual Property Rights</h3>
+          <p class="text-gray-600 mb-4">All content, software, designs, logos, trademarks, and materials provided through the Services are owned by or licensed to Echoes Software Technologies and are protected by intellectual property laws.</p>
+          <p class="text-gray-600 mb-4">You may not copy, modify, distribute, sell, or create derivative works from any part of the Services without our prior written consent.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">5. Payments and Fees (If Applicable)</h3>
+          <p class="text-gray-600 mb-4">Certain Services may be subject to fees or charges. Where applicable:</p>
+          <ul class="list-disc list-inside text-gray-600 mb-4 space-y-2">
+            <li>Prices, payment terms, and billing cycles will be disclosed before purchase</li>
+            <li>Payments are non-refundable unless otherwise stated in writing</li>
+            <li>We reserve the right to change pricing with reasonable notice</li>
+          </ul>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">6. Third-Party Services and Links</h3>
+          <p class="text-gray-600 mb-4">Our Services may integrate with or link to third-party websites or services. We do not control and are not responsible for third-party content, policies, or practices. Your use of third-party services is at your own risk.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">7. Disclaimer of Warranties</h3>
+          <p class="text-gray-600 mb-4">The Services are provided on an "as is" and "as available" basis. To the maximum extent permitted by law, we disclaim all warranties, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
+          <p class="text-gray-600 mb-4">We do not guarantee that the Services will be uninterrupted, error-free, or secure.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">8. Limitation of Liability</h3>
+          <p class="text-gray-600 mb-4">To the fullest extent permitted by law, Echoes Software Technologies shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or business opportunities, arising out of or related to your use of the Services.</p>
+          <p class="text-gray-600 mb-4">Our total liability for any claim shall not exceed the amount paid by you (if any) for the Services giving rise to the claim.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">9. Indemnification</h3>
+          <p class="text-gray-600 mb-4">You agree to indemnify and hold harmless Echoes Software Technologies, its directors, employees, and partners from any claims, damages, losses, liabilities, and expenses arising from:</p>
+          <ul class="list-disc list-inside text-gray-600 mb-4 space-y-2">
+            <li>Your use of the Services</li>
+            <li>Your violation of these Terms</li>
+            <li>Your infringement of any third-party rights</li>
+          </ul>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">10. Termination</h3>
+          <p class="text-gray-600 mb-4">We reserve the right to suspend or terminate your access to the Services at any time, with or without notice, if you violate these Terms or engage in conduct that we consider harmful to our interests or users.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">11. Governing Law and Jurisdiction</h3>
+          <p class="text-gray-600 mb-4">These Terms shall be governed by and construed in accordance with the laws of India. The courts located in India shall have exclusive jurisdiction over any disputes arising under these Terms.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">12. Changes to These Terms</h3>
+          <p class="text-gray-600 mb-4">We may update these Terms from time to time. Any changes will be effective upon posting with an updated "Last Updated" date. Continued use of the Services after changes constitutes acceptance of the revised Terms.</p>
+          
+          <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">13. Contact Information</h3>
+          <p class="text-gray-600 mb-4">If you have any questions about these Terms & Conditions, please contact us:</p>
+          <div class="bg-gray-50 p-6 rounded-lg mb-8">
+            <p class="text-gray-700"><strong>Echoes Software Technologies</strong></p>
+            <p class="text-gray-700"><strong>Email:</strong> echoessoftwaretech@gmail.com</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="col-span-1 md:col-span-2">
+          <div class="mb-4">
+            <span class="text-2xl font-bold text-brand-blue">Echoes</span>
+            <span class="text-xl font-light text-gray-300 ml-1">Software Technologies</span>
+          </div>
+          <p class="text-gray-400 mb-4 max-w-md">Delivering premium enterprise software solutions that transform businesses through technology and innovation.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i data-lucide="twitter" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i data-lucide="github" class="w-5 h-5"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Solutions</h3>
+          <ul class="space-y-2">
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Enterprise Software</a></li>
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Cloud Solutions</a></li>
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Custom Development</a></li>
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Integration Services</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Company</h3>
+          <ul class="space-y-2">
+            <li><a href="./about.html" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">News</a></li>
+            <li><a href="./contact.html" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm">© 2026 Echoes Software Technologies. All rights reserved.</p>
+        <div class="flex space-x-6 mt-4 md:mt-0">
+          <a href="./privacy-policy.html" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+          <a href="./terms-of-service.html" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Security</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Contact Modal -->
+  <div id="contactModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-2xl font-bold text-gray-900">Get in Touch</h3>
+          <button onclick="closeContactModal()" class="text-gray-500 hover:text-gray-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        
+        <form class="space-y-4">
+          <div>
+            <label for="modalName" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <input type="text" id="modalName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent">
+          </div>
+          
+          <div>
+            <label for="modalEmail" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input type="email" id="modalEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent">
+          </div>
+          
+          <div>
+            <label for="modalMessage" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+            <textarea id="modalMessage" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent"></textarea>
+          </div>
+          
+          <div class="pt-4">
+            <button type="submit" class="w-full bg-brand-blue text-white px-6 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+              Send Message
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

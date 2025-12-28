@@ -1,0 +1,267 @@
+<!doctype html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Echoes Software Technologies - Premium Enterprise Software Solutions</title>
+  <meta name="description" content="Leading software company delivering premium enterprise solutions. Transform your business with professional software development services.">
+  <link rel="canonical" href="https://echoes-software.com">
+  <meta property="og:title" content="Echoes Software Technologies - Premium Enterprise Software Solutions">
+  <meta property="og:description" content="Leading software company delivering premium enterprise solutions. Transform your business with professional software development services.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://echoes-software.com">
+  <meta property="og:image" content="https://echoes-software.com/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Echoes Software Technologies - Premium Enterprise Software Solutions">
+  <meta name="twitter:description" content="Leading software company delivering premium enterprise solutions. Transform your business with professional software development services.">
+  <meta name="twitter:image" content="https://echoes-software.com/twitter-image.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-blue': '#1864ff'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <script>
+    // Contact modal functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get all elements with the get-started-btn class
+      const getStartedButtons = document.querySelectorAll('.get-started-btn');
+      
+      // Add click event listener to each button
+      getStartedButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          // Show the contact modal
+          const modal = document.getElementById('contactModal');
+          if (modal) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+          }
+        });
+      });
+      
+      // Close modal when close button is clicked
+      const closeModalButtons = document.querySelectorAll('.close-modal');
+      closeModalButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const modal = document.getElementById('contactModal');
+          if (modal) {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+          }
+        });
+      });
+      
+      // Close modal when clicking outside the modal content
+      window.addEventListener('click', function(event) {
+        const modal = document.getElementById('contactModal');
+        if (event.target === modal) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+      });
+    });
+  </script>
+</head>
+<body class="bg-white text-gray-900" style="font-family: 'Poppins', sans-serif;">
+  <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <span class="text-2xl font-bold text-brand-blue">Echoes</span>
+            <span class="text-xl font-light text-gray-700 ml-1">Software Technologies</span>
+          </div>
+        </div>
+        <nav class="hidden md:flex space-x-8">
+          <a href="./index.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Home</a>
+          <a href="./solutions.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Solutions</a>
+          <a href="./services.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Services</a>
+          <a href="./about.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">About</a>
+          <a href="./contact.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Contact</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+          <button class="get-started-btn bg-brand-blue text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors">Get Started</button>
+          <button class="md:hidden p-2">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main><section class="bg-white py-20 lg:py-32"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="grid lg:grid-cols-2 gap-12 items-center"><div class="space-y-8"><h1 class="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">Premium Enterprise <span class="text-blue-600">Software Solutions</span></h1><p class="text-xl text-gray-600 leading-relaxed">Echoes Software Technologies delivers a software that transforms business operations, enhances productivity, and drives measurable ROI for Fortune 500 companies worldwide.</p><div class="flex flex-col sm:flex-row gap-4"><a href="https://forms.gle/K3LySpfU6YYvQKGj9" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-colors duration-200">Schedule Consultation</a><a href="./services.html" class="border-2 border-gray-300 hover:border-blue-600 text-gray-700 hover:text-blue-600 px-8 py-4 rounded-full font-semibold text-lg transition-colors duration-200 inline-block">Learn More</a></div><div class="flex items-center space-x-8 text-sm text-gray-500"><div class="flex items-center space-x-2"><svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg><span>ISO 27001 Certified</span></div><div class="flex items-center space-x-2"><svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg><span>24/7 Enterprise Support</span></div></div></div><div class="relative"><img data-ai="generate" data-slot="hero-main" data-prompt="Modern corporate office environment with professionals using advanced software on multiple monitors, clean and sophisticated technology workspace" data-ar="4:3" src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/hero/hero-main-945a2e8068804d6589463d3d3821634c.png" alt="Enterprise software solutions in action" width="800" height="600" class="w-full rounded-2xl object-cover shadow-2xl" loading="lazy" decoding="async" fetchpriority="auto"><div class="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent rounded-2xl"></div></div></div></div></section><section class="bg-gray-50 py-20"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-16"><h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Enterprise-Grade Software Capabilities</h2><p class="text-xl text-gray-600 max-w-3xl mx-auto">Our comprehensive suite of software solutions is designed to meet the most demanding enterprise requirements with unmatched performance and reliability.</p></div><div class="grid md:grid-cols-3 gap-8"><div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"><div class="mb-6"><img data-ai="generate" data-slot="features-1" data-prompt="Advanced cloud infrastructure with servers and data visualization, modern technology illustration" data-ar="16:9" src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/features/features-1-607fff1a09474a709640de019cc71fc3.png" alt="Cloud infrastructure" width="400" height="225" class="w-full rounded-xl object-cover" loading="lazy" decoding="async" fetchpriority="auto"></div><h3 class="text-2xl font-bold text-gray-900 mb-4">Scalable Cloud Architecture</h3><p class="text-gray-600 mb-6">Built on enterprise-grade cloud infrastructure that scales seamlessly from startup to Fortune 500, ensuring optimal performance at any size.</p><ul class="space-y-2 text-sm text-gray-600"><li class="flex items-center"><svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Auto-scaling capabilities</li><li class="flex items-center"><svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>99.99% uptime guarantee</li><li class="flex items-center"><svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Global CDN distribution</li></ul></div><div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"><div class="mb-6"><img data-ai="generate" data-slot="features-2" data-prompt="Advanced security shield with encryption symbols and cybersecurity elements, professional technology design" data-ar="16:9" src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/features/features-2-f878106d63814a39b552c4aa5d947d65.png" alt="Enterprise security" width="400" height="225" class="w-full rounded-xl object-cover" loading="lazy" decoding="async" fetchpriority="auto"></div><h3 class="text-2xl font-bold text-gray-900 mb-4">Advanced Security Framework</h3><p class="text-gray-600 mb-6">Military-grade security protocols and compliance standards that protect your most sensitive data and ensure regulatory compliance.</p><ul class="space-y-2 text-sm text-gray-600"><li class="flex items-center"><svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>End-to-end encryption</li><li class="flex items-center"><svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>SOC 2 Type II certified</li><li class="flex items-center"><svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Multi-factor authentication</li></ul></div><div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"><div class="mb-6"><img data-ai="generate" data-slot="features-3" data-prompt="Business analytics dashboard with charts, graphs and data visualization on modern interface" data-ar="16:9" src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/features/features-3-b518b003c15d49658f6f86d799a0c684.png" alt="Analytics and insights" width="400" height="225" class="w-full rounded-xl object-cover" loading="lazy" decoding="async" fetchpriority="auto"></div><h3 class="text-2xl font-bold text-gray-900 mb-4">Intelligent Analytics</h3><p class="text-gray-600 mb-6">AI-powered analytics and real-time insights that transform raw data into actionable business intelligence for strategic decision-making.</p><ul class="space-y-2 text-sm text-gray-600"><li class="flex items-center"><svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Real-time dashboards</li><li class="flex items-center"><svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Predictive modeling</li><li class="flex items-center"><svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Custom reporting</li></ul></div></div></div></section><section class="bg-white py-20"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="grid lg:grid-cols-2 gap-16 items-center"><div class="space-y-8"><h2 class="text-3xl lg:text-4xl font-bold text-gray-900">Measurable Business Impact &#x26; ROI</h2><p class="text-xl text-gray-600">Our enterprise clients consistently achieve significant operational improvements and cost savings within the first year of implementation.</p><div class="grid sm:grid-cols-2 gap-6"><div class="bg-blue-50 rounded-xl p-6"><div class="text-3xl font-bold text-blue-600 mb-2">40%</div><div class="text-gray-700 font-medium">Operational Efficiency Increase</div></div><div class="bg-blue-50 rounded-xl p-6"><div class="text-3xl font-bold text-blue-600 mb-2">$2.5M</div><div class="text-gray-700 font-medium">Average Annual Cost Savings</div></div><div class="bg-blue-50 rounded-xl p-6"><div class="text-3xl font-bold text-blue-600 mb-2">6 Months</div><div class="text-gray-700 font-medium">Average ROI Breakeven</div></div><div class="bg-blue-50 rounded-xl p-6"><div class="text-3xl font-bold text-blue-600 mb-2">99.8%</div><div class="text-gray-700 font-medium">Client Satisfaction Rate</div></div></div><div class="space-y-4"><div class="flex items-start space-x-4"><div class="flex-shrink-0 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center"><svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></div><div><h3 class="font-semibold text-gray-900">Streamlined Operations</h3><p class="text-gray-600">Eliminate redundant processes and automate complex workflows to reduce operational overhead by up to 40%.</p></div></div><div class="flex items-start space-x-4"><div class="flex-shrink-0 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center"><svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></div><div><h3 class="font-semibold text-gray-900">Enhanced Decision Making</h3><p class="text-gray-600">Real-time data insights enable faster, more informed strategic decisions that drive competitive advantage.</p></div></div><div class="flex items-start space-x-4"><div class="flex-shrink-0 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center"><svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></div><div><h3 class="font-semibold text-gray-900">Scalable Growth</h3><p class="text-gray-600">Future-proof architecture that grows with your business, supporting expansion without performance degradation.</p></div></div></div></div><div class="relative"><img data-ai="generate" data-slot="benefits-main" data-prompt="Professional business team analyzing growth charts and ROI metrics on large displays in modern corporate boardroom" data-ar="4:3" src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/benefits/benefits-main-e7f9229f779741c6915ff0d199c9cdd1.png" alt="Business growth and ROI visualization" width="800" height="600" class="w-full rounded-2xl object-cover shadow-xl" loading="lazy" decoding="async" fetchpriority="auto"></div></div></div></section><section class="py-24 bg-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-16"><h2 class="text-4xl font-bold text-gray-900 mb-4">Comprehensive Software Solutions</h2><p class="text-xl text-gray-600 max-w-3xl mx-auto">From custom development to enterprise consulting, we deliver innovative solutions that drive business growth and digital transformation.</p></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16"><div class="bg-gray-50 rounded-2xl p-8"><img data-ai="generate" data-slot="services-1" data-prompt="Professional software development team working on custom applications in modern office environment" data-ar="16:9" src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/services/services-1-da0ae4e712a64822bff4dcdce96bd59b.png" alt="Custom Software Development" width="1200" height="900" class="w-full rounded-2xl object-cover shadow-sm mb-6" loading="lazy" decoding="async" fetchpriority="auto"><h3 class="text-2xl font-bold text-gray-900 mb-4">Custom Software Development</h3><p class="text-gray-600 mb-6">Tailored solutions built from the ground up to meet your unique business requirements. Our expert developers create scalable, secure, and high-performance applications.</p><ul class="space-y-3 text-gray-600"><li class="flex items-center"><svg class="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Web &#x26; Mobile Applications</li><li class="flex items-center"><svg class="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Enterprise Software Solutions</li><li class="flex items-center"><svg class="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>API Development &#x26; Integration</li></ul></div><div class="bg-gray-50 rounded-2xl p-8"><img data-ai="generate" data-slot="services-2" data-prompt="Business consultants analyzing data and technology solutions in corporate boardroom setting" data-ar="16:9" src="COMPANY_OFFICE.jpeg" alt="Technology Consulting" width="1200" height="900" class="w-full rounded-2xl object-cover shadow-sm mb-6" loading="lazy" decoding="async" fetchpriority="auto"><h3 class="text-2xl font-bold text-gray-900 mb-4">Technology Consulting</h3><p class="text-gray-600 mb-6">Strategic guidance to optimize your technology stack and accelerate digital transformation. Our consultants bring deep industry expertise to every engagement.</p><ul class="space-y-3 text-gray-600"><li class="flex items-center"><svg class="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Digital Strategy &#x26; Planning</li><li class="flex items-center"><svg class="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Architecture &#x26; Design</li><li class="flex items-center"><svg class="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>Technology Audits</li></ul></div></div><div class="grid grid-cols-1 md:grid-cols-3 gap-8"><div class="text-center p-6 bg-white border border-gray-200 rounded-xl hover:shadow-lg transition-shadow"><div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></div><h3 class="text-xl font-semibold text-gray-900 mb-2">24/7 Support</h3><p class="text-gray-600">Round-the-clock technical support and maintenance to ensure your systems run smoothly.</p></div><div class="text-center p-6 bg-white border border-gray-200 rounded-xl hover:shadow-lg transition-shadow"><div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div><h3 class="text-xl font-semibold text-gray-900 mb-2">Security First</h3><p class="text-gray-600">Enterprise-grade security measures and compliance standards built into every solution.</p></div><div class="text-center p-6 bg-white border border-gray-200 rounded-xl hover:shadow-lg transition-shadow"><div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div><h3 class="text-xl font-semibold text-gray-900 mb-2">Rapid Deployment</h3><p class="text-gray-600">Agile development methodologies for faster time-to-market and iterative improvements.</p></div></div></div></section><section class="py-24 bg-gray-50"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-16"><h2 class="text-4xl font-bold text-gray-900 mb-4">Trusted by Industry Leaders</h2><p class="text-xl text-gray-600 max-w-3xl mx-auto">See how enterprise clients have transformed their operations with our innovative software solutions and expert consulting services.</p></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16"><div class="bg-white rounded-2xl p-8 shadow-lg"><img data-ai="generate" data-slot="testimonials-1" data-prompt="Professional CEO or executive in modern corporate office environment, confident business leader" data-ar="1:1" src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/testimonials/testimonials-1-05120bd1dada417188f35d3e4f18e5e6.png" alt="Sarah Chen, CTO" width="400" height="400" class="w-20 h-20 rounded-full object-cover mb-6" loading="lazy" decoding="async" fetchpriority="auto"><blockquote class="text-lg text-gray-700 mb-6 italic">"Echoes Software Technologies transformed our entire digital infrastructure. Their custom ERP solution increased our operational efficiency by 40% and the implementation was seamless. The team's expertise and professionalism exceeded our expectations."</blockquote><div class="border-t pt-6"><div class="font-semibold text-gray-900">Sarah Chen</div><div class="text-gray-600">Chief Technology Officer</div><div class="text-blue-600 font-medium">TechCorp Industries</div></div></div><div class="bg-white rounded-2xl p-8 shadow-lg"><img data-ai="generate" data-slot="testimonials-2" data-prompt="Professional business executive or director in corporate setting, confident leadership portrait" data-ar="1:1" src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/testimonials/testimonials-2-da16795ac3cd4890b0a6677312449ec0.png" alt="Michael Rodriguez, VP of Operations" width="400" height="400" class="w-20 h-20 rounded-full object-cover mb-6" loading="lazy" decoding="async" fetchpriority="auto"><blockquote class="text-lg text-gray-700 mb-6 italic">"The consulting services provided by Echoes helped us modernize our legacy systems and adopt cloud-native architecture. Their strategic guidance was invaluable, and the results speak for themselves - 60% reduction in system downtime."</blockquote><div class="border-t pt-6"><div class="font-semibold text-gray-900">Michael Rodriguez</div><div class="text-gray-600">VP of Operations</div><div class="text-blue-600 font-medium">Global Manufacturing Solutions</div></div></div></div><div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center"><div class="bg-white rounded-xl p-6 shadow-sm"><div class="text-3xl font-bold text-blue-600 mb-2">150+</div><div class="text-gray-600">Enterprise Clients</div></div><div class="bg-white rounded-xl p-6 shadow-sm"><div class="text-3xl font-bold text-blue-600 mb-2">99.9%</div><div class="text-gray-600">System Uptime</div></div><div class="bg-white rounded-xl p-6 shadow-sm"><div class="text-3xl font-bold text-blue-600 mb-2">24/7</div><div class="text-gray-600">Support Coverage</div></div></div><div class="mt-16 text-center"><div class="inline-flex items-center space-x-8 text-gray-400"><div class="text-lg font-semibold">Microsoft Partner</div><div class="w-px h-6 bg-gray-300"></div><div class="text-lg font-semibold">AWS Certified</div><div class="w-px h-6 bg-gray-300"></div><div class="text-lg font-semibold">ISO 27001</div><div class="w-px h-6 bg-gray-300"></div><div class="text-lg font-semibold">SOC 2 Compliant</div></div></div></div></section><section class="py-24 bg-white"><div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-16"><h2 class="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2><p class="text-xl text-gray-600">Get answers to common questions about our implementation process, pricing, and technical requirements.</p></div><div class="space-y-6"><div class="bg-gray-50 rounded-xl p-6"><h3 class="text-xl font-semibold text-gray-900 mb-3">What is your typical implementation timeline?</h3><p class="text-gray-600">Implementation timelines vary based on project complexity. Simple applications typically take 8-12 weeks, while enterprise solutions may require 6-12 months. We provide detailed project timelines during our initial consultation phase.</p></div><div class="bg-gray-50 rounded-xl p-6"><h3 class="text-xl font-semibold text-gray-900 mb-3">How do you handle pricing for custom development projects?</h3><p class="text-gray-600">We offer flexible pricing models including fixed-price projects, time and materials, and dedicated team arrangements. Pricing is determined after a thorough requirements analysis and is always transparent with no hidden costs.</p></div><div class="bg-gray-50 rounded-xl p-6"><h3 class="text-xl font-semibold text-gray-900 mb-3">What level of support do you provide post-implementation?</h3><p class="text-gray-600">We offer comprehensive 24/7 support packages including monitoring, maintenance, updates, and technical assistance. Our support tiers range from basic maintenance to full managed services depending on your needs.</p></div><div class="bg-gray-50 rounded-xl p-6"><h3 class="text-xl font-semibold text-gray-900 mb-3">What are the minimum technical requirements for your solutions?</h3><p class="text-gray-600">Technical requirements vary by solution. We support cloud-native deployments on AWS, Azure, and Google Cloud, as well as on-premises installations. Our team conducts a technical assessment to ensure compatibility with your existing infrastructure.</p></div><div class="bg-gray-50 rounded-xl p-6"><h3 class="text-xl font-semibold text-gray-900 mb-3">Do you provide training for our internal teams?</h3><p class="text-gray-600">Yes, we include comprehensive training as part of our implementation process. This covers end-user training, administrator training, and technical documentation. We also offer ongoing training sessions as your team grows.</p></div><div class="bg-gray-50 rounded-xl p-6"><h3 class="text-xl font-semibold text-gray-900 mb-3">How do you ensure data security and compliance?</h3><p class="text-gray-600">Security is built into every solution we develop. We follow industry best practices, maintain SOC 2 compliance, and can meet specific regulatory requirements like GDPR, HIPAA, or SOX depending on your industry needs.</p></div><div class="bg-gray-50 rounded-xl p-6"><h3 class="text-xl font-semibold text-gray-900 mb-3">Can you integrate with our existing systems?</h3><p class="text-gray-600">Absolutely. We specialize in system integration and can connect new solutions with your existing ERP, CRM, databases, and third-party applications through APIs and custom integration layers.</p></div><div class="bg-gray-50 rounded-xl p-6"><h3 class="text-xl font-semibold text-gray-900 mb-3">What happens if we need changes after the project is completed?</h3><p class="text-gray-600">We build solutions with scalability and flexibility in mind. Post-implementation changes can be handled through our maintenance agreements or separate enhancement projects. We maintain detailed documentation to facilitate future modifications.</p></div></div><div class="mt-16 text-center bg-blue-50 rounded-2xl p-8"><h3 class="text-2xl font-bold text-gray-900 mb-4">Still Have Questions?</h3><p class="text-gray-600 mb-6">Our team of experts is ready to discuss your specific requirements and provide detailed answers to your technical and business questions.</p><a href="#contact" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">Contact Our Experts<svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></a></div></div></section><section class="bg-gradient-to-br from-blue-50 to-white py-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
+      <div class="grid lg:grid-cols-2 gap-0">
+        <div class="p-12 lg:p-16 flex flex-col justify-center">
+          <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            Ready to Transform Your Business?
+          </h2>
+          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+            Join hundreds of companies that trust Echoes Software Technologies to deliver innovative solutions. Schedule a consultation today and discover how we can accelerate your digital transformation.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="https://forms.gle/K3LySpfU6YYvQKGj9" target="_blank" class="inline-block bg-[#1864ff] hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+              Schedule Consultation
+            </a>
+            <a href="https://forms.gle/JNS54uLpgQXWP8NZ9" target="_blank" class="inline-block border-2 border-[#1864ff] text-[#1864ff] hover:bg-[#1864ff] hover:text-white font-semibold px-8 py-4 rounded-full transition-all duration-300">
+              Request Demo
+            </a>
+          </div>
+          <div class="mt-8 flex items-center gap-6 text-sm text-gray-500">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span>Free consultation</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+              <span>No commitment required</span>
+            </div>
+          </div>
+        </div>
+        <div class="relative bg-gradient-to-br from-[#1864ff] to-blue-700 p-12 lg:p-16 flex items-center justify-center">
+          <img data-ai="generate" data-slot="cta-main" data-prompt="Professional business team collaborating on software development project in modern office environment with laptops and digital screens" data-ar="4:3" src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/cta/cta-main-3784e0b0ce6e4eadaafd560623263cce.png" alt="Professional software development team collaboration" width="800" height="600" class="w-full rounded-2xl object-cover shadow-2xl" loading="lazy" decoding="async" fetchpriority="auto">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section></main>
+
+  <footer class="bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="col-span-1 md:col-span-2">
+          <div class="mb-4">
+            <span class="text-2xl font-bold text-brand-blue">Echoes</span>
+            <span class="text-xl font-light text-gray-300 ml-1">Software Technologies</span>
+          </div>
+          <p class="text-gray-400 mb-4 max-w-md">Delivering premium enterprise software solutions that transform businesses through technology and innovation.</p>
+          <div class="flex space-x-4">
+            <a href="https://www.linkedin.com/company/echoes-software-solutions/posts/?feedView=all" class="text-gray-400 hover:text-white transition-colors">
+              <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </a>
+            <a href="https://wa.me/+918148549511" class="text-gray-400 hover:text-white transition-colors" target="_blank">
+              <i data-lucide="message-circle" class="w-5 h-5"></i>
+            </a>
+            <a href="https://www.instagram.com/echoes_software.tech/" class="text-gray-400 hover:text-white transition-colors">
+              <i data-lucide="instagram" class="w-5 h-5"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Solutions</h3>
+          <ul class="space-y-2">
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Enterprise Software</a></li>
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Cloud Solutions</a></li>
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Custom Development</a></li>
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Integration Services</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Company</h3>
+          <ul class="space-y-2">
+            <li><a href="./about.html" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">News</a></li>
+            <li><a href="./contact.html" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm">© 2026 Echoes Software Technologies. All rights reserved.</p>
+        <div class="flex space-x-6 mt-4 md:mt-0">
+          <a href="./privacy-policy.html" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+          <a href="./terms-of-service.html" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Security</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Contact Modal -->
+  <div id="contactModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md relative overflow-hidden">
+      <!-- Modal Header -->
+      <div class="bg-brand-blue p-6 text-white">
+        <div class="flex justify-between items-center">
+          <h3 class="text-xl font-bold">Contact Us</h3>
+          <button class="close-modal text-white hover:text-gray-200">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Modal Body -->
+      <div class="p-6">
+        <form id="contactForm">
+          <div class="space-y-4">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+              <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent" required>
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent" required>
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+              <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent" placeholder="Tell us about your project..." required></textarea>
+            </div>
+            <div>
+              <button type="submit" class="w-full bg-brand-blue text-white py-3 px-4 rounded-full font-semibold hover:bg-blue-700 transition-colors">Send Message</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+    
+    // Form submission handler
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form data
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        message: document.getElementById('message').value
+      };
+      
+      // Here you would typically send the data to your backend
+      console.log('Form submitted:', formData);
+      
+      // Show a success message
+      alert('Thank you for your message! We will contact you soon.');
+      
+      // Close the modal
+      const modal = document.getElementById('contactModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      
+      // Reset the form
+      this.reset();
+    });
+  </script>
+</body></html>

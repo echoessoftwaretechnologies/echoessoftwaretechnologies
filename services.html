@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services | Echoes Software Technologies</title>
+  <meta name="description" content="Explore our comprehensive software services designed to transform your business operations.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-blue': '#1864ff'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <script>
+    // Function to open the contact modal
+    function openContactModal() {
+      document.getElementById('contactModal').classList.remove('hidden');
+      document.getElementById('contactModal').classList.add('flex');
+    }
+    
+    // Function to close the contact modal
+    function closeContactModal() {
+      document.getElementById('contactModal').classList.add('hidden');
+      document.getElementById('contactModal').classList.remove('flex');
+    }
+    
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      const modal = document.getElementById('contactModal');
+      if (event.target === modal) {
+        closeContactModal();
+      }
+    }
+    
+    // Add event listener to all 'Get Started' buttons
+    document.addEventListener('DOMContentLoaded', function() {
+      const getStartedButtons = document.querySelectorAll('.get-started-btn');
+      getStartedButtons.forEach(button => {
+        button.addEventListener('click', openContactModal);
+      });
+      
+      // Initialize lucide icons
+      lucide.createIcons();
+    });
+  </script>
+</head>
+<body class="bg-white text-gray-900" style="font-family: 'Poppins', sans-serif;">
+  <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <span class="text-2xl font-bold text-brand-blue">Echoes</span>
+            <span class="text-xl font-light text-gray-700 ml-1">Software Technologies</span>
+          </div>
+        </div>
+        <nav class="hidden md:flex space-x-8">
+          <a href="./index.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Home</a>
+          <a href="./solutions.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Solutions</a>
+          <a href="./services.html" class="text-brand-blue font-medium">Services</a>
+          <a href="./about.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">About</a>
+          <a href="./contact.html" class="text-gray-600 hover:text-brand-blue transition-colors font-medium">Contact</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+          <button class="get-started-btn bg-brand-blue text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors">Get Started</button>
+          <button class="md:hidden p-2">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="bg-[#1864ff] py-20 lg:py-32">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h1 class="text-4xl lg:text-6xl font-bold text-white leading-tight mb-6">Our Professional Services</h1>
+          <p class="text-xl text-white max-w-3xl mx-auto">Comprehensive software services designed to transform your business operations, enhance productivity, and drive measurable ROI.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Services</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">We provide comprehensive digital solutions to help your business grow and succeed in the modern marketplace.</p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+          <div class="bg-gray-50 rounded-2xl p-8">
+            <img data-ai="generate" data-slot="services-1" data-prompt="Professional software development team working on custom applications in modern office environment" data-ar="16:9" src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/services/services-1-da0ae4e712a64822bff4dcdce96bd59b.png" alt="Website Development" width="1200" height="900" class="w-full rounded-2xl object-cover shadow-sm mb-6" loading="lazy" decoding="async" fetchpriority="auto">
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Website & Web Application</h3>
+            <p class="text-gray-600 mb-6">Custom websites and web applications built with the latest technologies to ensure performance, security, and scalability.</p>
+            <ul class="space-y-3 text-gray-600">
+              <li class="flex items-center">
+                <svg class="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Custom Website Development</span>
+              </li>
+              <li class="flex items-center">
+                <svg class="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Web Application Development</span>
+              </li>
+              <li class="flex items-center">
+                <svg class="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Responsive Design</span>
+              </li>
+            </ul>
+          </div>
+          <div class="bg-gray-50 rounded-2xl p-8">
+            <img data-ai="generate" data-slot="services-2" data-prompt="Business consultants analyzing data and technology solutions in corporate boardroom setting" data-ar="16:9" src="COMPANY_OFFICE.jpeg" alt="Cloud DevOps" width="1200" height="900" class="w-full rounded-2xl object-cover shadow-sm mb-6" loading="lazy" decoding="async" fetchpriority="auto">
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Cloud DevOps & Digital Marketing</h3>
+            <p class="text-gray-600 mb-6">Complete cloud infrastructure management and digital marketing solutions to boost your online presence.</p>
+            <ul class="space-y-3 text-gray-600">
+              <li class="flex items-center">
+                <svg class="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Cloud Infrastructure</span>
+              </li>
+              <li class="flex items-center">
+                <svg class="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>SEO & SMM</span>
+              </li>
+              <li class="flex items-center">
+                <svg class="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Paid Advertising</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-center p-6 bg-white border border-gray-200 rounded-xl hover:shadow-lg transition-shadow">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Free IT Consulting</h3>
+            <p class="text-gray-600">Get expert advice on your technology stack with our complimentary consulting sessions.</p>
+          </div>
+          <div class="text-center p-6 bg-white border border-gray-200 rounded-xl hover:shadow-lg transition-shadow">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Graphic & UI/UX Design</h3>
+            <p class="text-gray-600">Beautiful designs that enhance user experience and strengthen your brand identity.</p>
+          </div>
+          <div class="text-center p-6 bg-white border border-gray-200 rounded-xl hover:shadow-lg transition-shadow">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">AI Solutions</h3>
+            <p class="text-gray-600">Leverage artificial intelligence to automate processes and gain competitive advantage.</p>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+          <div class="text-center p-6 bg-white border border-gray-200 rounded-xl hover:shadow-lg transition-shadow">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Video & Photo Editing</h3>
+            <p class="text-gray-600">Professional media editing services to enhance your visual content and marketing materials.</p>
+          </div>
+          <div class="text-center p-6 bg-white border border-gray-200 rounded-xl hover:shadow-lg transition-shadow">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.874-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Custom Software</h3>
+            <p class="text-gray-600">Bespoke software solutions tailored to meet your specific business requirements.</p>
+          </div>
+          <div class="text-center p-6 bg-white border border-gray-200 rounded-xl hover:shadow-lg transition-shadow">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">E-Commerce Solutions</h3>
+            <p class="text-gray-600">Complete e-commerce platforms to help you sell products and grow your online business.</p>
+          </div>
+        </div>
+        
+        <div class="text-center mt-12 p-8 bg-gray-50 rounded-2xl">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-2">Maintenance & Support</h3>
+          <p class="text-gray-600 max-w-2xl mx-auto">Ongoing maintenance and support services to ensure your digital assets continue to perform at their best.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-gray-50 py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Enterprise-Grade Service Capabilities</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">Our comprehensive suite of services is designed to meet the most demanding enterprise requirements with unmatched performance and reliability.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="mb-6">
+              <img data-ai="generate" data-slot="features-1" data-prompt="Advanced cloud infrastructure with servers and data visualization, modern technology illustration" data-ar="16:9" src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/features/features-1-607fff1a09474a709640de019cc71fc3.png" alt="Cloud infrastructure" width="400" height="225" class="w-full rounded-xl object-cover" loading="lazy" decoding="async" fetchpriority="auto">
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Cloud Migration & Management</h3>
+            <p class="text-gray-600 mb-6">Seamlessly migrate your applications and data to the cloud with our expert team. We provide ongoing management to ensure optimal performance and cost efficiency.</p>
+            <ul class="space-y-2 text-sm text-gray-600">
+              <li class="flex items-center">
+                <svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Multi-cloud strategies</span>
+              </li>
+              <li class="flex items-center">
+                <svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Cost optimization</span>
+              </li>
+              <li class="flex items-center">
+                <svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Performance monitoring</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="mb-6">
+              <img data-ai="generate" data-slot="features-2" data-prompt="Advanced security shield with encryption symbols and cybersecurity elements, professional technology design" data-ar="16:9" src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/features/features-2-f878106d63814a39b552c4aa5d947d65.png" alt="Enterprise security" width="400" height="225" class="w-full rounded-xl object-cover" loading="lazy" decoding="async" fetchpriority="auto">
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Security Assessment & Implementation</h3>
+            <p class="text-gray-600 mb-6">Comprehensive security evaluation and implementation of enterprise-grade security measures to protect your critical assets and ensure regulatory compliance.</p>
+            <ul class="space-y-2 text-sm text-gray-600">
+              <li class="flex items-center">
+                <svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Vulnerability assessments</span>
+              </li>
+              <li class="flex items-center">
+                <svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Compliance frameworks</span>
+              </li>
+              <li class="flex items-center">
+                <svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Security training</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="mb-6">
+              <img data-ai="generate" data-slot="features-3" data-prompt="Business analytics dashboard with charts, graphs and data visualization on modern interface" data-ar="16:9" src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/features/features-3-b518b003c15d49658f6f86d799a0c684.png" alt="Analytics and insights" width="400" height="225" class="w-full rounded-xl object-cover" loading="lazy" decoding="async" fetchpriority="auto">
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Data Analytics & Business Intelligence</h3>
+            <p class="text-gray-600 mb-6">Transform your data into actionable insights with our advanced analytics and business intelligence services that drive strategic decision-making.</p>
+            <ul class="space-y-2 text-sm text-gray-600">
+              <li class="flex items-center">
+                <svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Custom dashboards</span>
+              </li>
+              <li class="flex items-center">
+                <svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Predictive modeling</span>
+              </li>
+              <li class="flex items-center">
+                <svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Data visualization</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-br from-blue-50 to-white py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
+          <div class="grid lg:grid-cols-2 gap-0">
+            <div class="p-12 lg:p-16 flex flex-col justify-center">
+              <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+                Ready to Transform Your Business?
+              </h2>
+              <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                Join hundreds of companies that trust Echoes Software Technologies to deliver innovative solutions. Schedule a consultation today and discover how we can accelerate your digital transformation.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="https://forms.gle/K3LySpfU6YYvQKGj9" target="_blank" class="inline-block bg-[#1864ff] hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                  Schedule Consultation
+                </a>
+                <a href="https://forms.gle/JNS54uLpgQXWP8NZ9" target="_blank" class="inline-block border-2 border-[#1864ff] text-[#1864ff] hover:bg-[#1864ff] hover:text-white font-semibold px-8 py-4 rounded-full transition-all duration-300">
+                  Request Demo
+                </a>
+              </div>
+              <div class="mt-8 flex items-center gap-6 text-sm text-gray-500">
+                <div class="flex items-center gap-2">
+                  <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span>Free consultation</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span>No commitment required</span>
+                </div>
+              </div>
+            </div>
+            <div class="relative bg-gradient-to-br from-[#1864ff] to-blue-700 p-12 lg:p-16 flex items-center justify-center">
+              <img data-ai="generate" data-slot="cta-main" data-prompt="Professional business team collaborating on software development project in modern office environment with laptops and digital screens" data-ar="4:3" src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/cta/cta-main-3784e0b0ce6e4eadaafd560623263cce.png" alt="Professional software development team collaboration" width="800" height="600" class="w-full rounded-2xl object-cover shadow-2xl" loading="lazy" decoding="async" fetchpriority="auto">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="col-span-1 md:col-span-2">
+          <div class="mb-4">
+            <span class="text-2xl font-bold text-brand-blue">Echoes</span>
+            <span class="text-xl font-light text-gray-300 ml-1">Software Technologies</span>
+          </div>
+          <p class="text-gray-400 mb-4 max-w-md">Delivering premium enterprise software solutions that transform businesses through technology and innovation.</p>
+          <div class="flex space-x-4">
+            <a href="https://www.linkedin.com/company/echoes-software-solutions/posts/?feedView=all" class="text-gray-400 hover:text-white transition-colors">
+              <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </a>
+            <a href="tel:+918148549511" class="text-gray-400 hover:text-white transition-colors">
+              <i data-lucide="message-circle" class="w-5 h-5"></i>
+            </a>
+            <a href="https://www.instagram.com/echoes_software.tech/" class="text-gray-400 hover:text-white transition-colors">
+              <i data-lucide="instagram" class="w-5 h-5"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Solutions</h3>
+          <ul class="space-y-2">
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Enterprise Software</a></li>
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Cloud Solutions</a></li>
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Custom Development</a></li>
+            <li><a href="./solutions.html" class="text-gray-400 hover:text-white transition-colors">Integration Services</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Company</h3>
+          <ul class="space-y-2">
+            <li><a href="./about.html" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">News</a></li>
+            <li><a href="./contact.html" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm">© 2026 Echoes Software Technologies. All rights reserved.</p>
+        <div class="flex space-x-6 mt-4 md:mt-0">
+          <a href="./privacy-policy.html" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+          <a href="./terms-of-service.html" class="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Security</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Contact Modal -->
+  <div id="contactModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-2xl font-bold text-gray-900">Get in Touch</h3>
+          <button onclick="closeContactModal()" class="text-gray-500 hover:text-gray-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        
+        <form class="space-y-4">
+          <div>
+            <label for="modalName" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <input type="text" id="modalName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent">
+          </div>
+          
+          <div>
+            <label for="modalEmail" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input type="email" id="modalEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent">
+          </div>
+          
+          <div>
+            <label for="modalMessage" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+            <textarea id="modalMessage" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent"></textarea>
+          </div>
+          
+          <div class="pt-4">
+            <button type="submit" class="w-full bg-brand-blue text-white px-6 py-4 rounded-full font-semibold hover:bg-blue-700 transition-colors">
+              Send Message
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
