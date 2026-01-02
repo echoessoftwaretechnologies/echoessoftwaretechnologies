@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance Management - Echoes Software Technologies</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'vivid-blue': '#1864ff'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <button id="menuToggle" class="md:hidden mr-4 p-2 rounded-full text-gray-700 hover:bg-gray-100 transition-colors">
+            <i data-lucide="menu" class="h-6 w-6"></i>
+          </button>
+          <div class="flex-shrink-0 flex items-center">
+            <div class="w-10 h-10 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold mr-3">
+              ES
+            </div>
+            <span class="text-xl font-bold text-gray-900">echoess<span class="text-vivid-blue">.in</span></span>
+          </div>
+        </div>
+        <nav class="hidden md:flex space-x-2">
+          <a href="admin-dashboard.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-vivid-blue hover:bg-gray-50 rounded-full transition-colors">
+            <i data-lucide="home" class="h-4 w-4 inline mr-2"></i>
+            Home
+          </a>
+          <a href="admin-dashboard.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-vivid-blue hover:bg-gray-50 rounded-full transition-colors">
+            <i data-lucide="grid" class="h-4 w-4 inline mr-2"></i>
+            Dashboard
+          </a>
+          <a href="attendance-management.html" class="px-4 py-2 text-sm font-medium bg-vivid-blue text-white rounded-full transition-colors">
+            <i data-lucide="calendar" class="h-4 w-4 inline mr-2"></i>
+            Attendance
+          </a>
+        </nav>
+        <div class="flex items-center space-x-4">
+          <div class="hidden md:block text-sm text-gray-600">
+            Welcome, <span id="currentUserName" class="font-medium text-vivid-blue">Admin</span>
+          </div>
+          <button id="logoutButton" class="hidden md:flex items-center space-x-1 bg-red-600 text-white px-4 py-2 rounded-full font-medium hover:bg-red-700 transition-colors">
+            <i data-lucide="log-out" class="h-4 w-4"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-white border-r border-gray-200 min-h-screen fixed md:static md:translate-x-0 z-40 transform -translate-x-full md:-translate-x-0 transition-transform duration-300 ease-in-out">
+      <div class="p-4">
+        <div class="flex justify-between items-center mb-4">
+          <button id="closeSidebar" class="md:hidden p-2 rounded-full text-gray-700 hover:bg-gray-100">
+            <i data-lucide="x" class="h-5 w-5"></i>
+          </button>
+        </div>
+        <nav>
+          <a href="crm-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="users" class="h-5 w-5"></i>
+            <span>CRM Management</span>
+          </a>
+          <a href="attendance-management.html" class="flex items-center space-x-3 px-4 py-3 bg-blue-50 text-vivid-blue rounded-full">
+            <i data-lucide="calendar" class="h-5 w-5"></i>
+            <span>Attendance Management</span>
+          </a>
+          <a href="employee-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="user" class="h-5 w-5"></i>
+            <span>Employee Management</span>
+          </a>
+          <a href="password-manager.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="key" class="h-5 w-5"></i>
+            <span>Password Manager</span>
+          </a>
+        </nav>
+        
+        <div class="mt-auto pt-4 border-t border-gray-200">
+          <div class="p-4 bg-gray-50 rounded-full mb-4">
+            <div class="text-sm font-medium text-gray-900" id="sidebarUserName">Admin</div>
+            <div class="text-xs text-gray-600">Logged in as admin</div>
+          </div>
+          <button id="sidebarLogoutButton" class="w-full flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-full transition-colors">
+            <i data-lucide="log-out" class="h-5 w-5"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Overlay for mobile -->
+    <div id="sidebarOverlay" class="fixed inset-0 z-30 bg-black bg-opacity-50 hidden md:hidden"></div>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-center mb-8">
+          <h1 class="text-3xl font-bold text-gray-900">Attendance Management</h1>
+          <button class="bg-vivid-blue text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors">
+            Mark Attendance
+          </button>
+        </div>
+
+        <!-- Attendance Overview Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="user-check" class="h-6 w-6 text-vivid-blue"></i>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-gray-900">128</p>
+                <p class="text-sm text-gray-600">Total Employees</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="check-circle" class="h-6 w-6 text-green-600"></i>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-gray-900">122</p>
+                <p class="text-sm text-gray-600">Present Today</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="x-circle" class="h-6 w-6 text-red-600"></i>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-gray-900">4</p>
+                <p class="text-sm text-gray-600">Absent Today</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="clock" class="h-6 w-6 text-yellow-600"></i>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-gray-900">96%</p>
+                <p class="text-sm text-gray-600">Attendance Rate</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attendance Table -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+          <div class="p-6 border-b border-gray-200 flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+            <h2 class="text-xl font-semibold text-gray-900">Today's Attendance</h2>
+            <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 w-full md:w-auto">
+              <div class="relative">
+                <input type="text" id="searchAttendance" placeholder="Search employees..." class="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+                <i data-lucide="search" class="absolute right-3 top-2.5 h-5 w-5 text-gray-400"></i>
+              </div>
+              <select id="filterStatus" class="w-full md:w-auto px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+                <option value="all">All Statuses</option>
+                <option value="present">Present</option>
+                <option value="absent">Absent</option>
+                <option value="late">Late</option>
+                <option value="half-day">Half Day</option>
+              </select>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-in</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-out</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold">
+                        JD
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">John Doe</div>
+                        <div class="text-sm text-gray-500">Engineering</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Engineering</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">09:02 AM</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">06:05 PM</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Present
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <a href="#" class="text-vivid-blue hover:text-blue-700 mr-3">View</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900">Edit</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold">
+                        SJ
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">Sarah Johnson</div>
+                        <div class="text-sm text-gray-500">Marketing</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Marketing</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">08:58 AM</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">05:52 PM</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Present
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <a href="#" class="text-vivid-blue hover:text-blue-700 mr-3">View</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900">Edit</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold">
+                        MB
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">Michael Brown</div>
+                        <div class="text-sm text-gray-500">Sales</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Sales</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">09:15 AM</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">06:10 PM</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Present
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <a href="#" class="text-vivid-blue hover:text-blue-700 mr-3">View</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900">Edit</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10 bg-gray-300 rounded-full flex items-center justify-center text-white font-bold">
+                        AP
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">Alice Parker</div>
+                        <div class="text-sm text-gray-500">HR</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">HR</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                      Absent
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <a href="#" class="text-vivid-blue hover:text-blue-700 mr-3">View</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900">Edit</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Check authentication status
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if user is logged in
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      
+      // If not logged in, redirect to login page
+      if (isLoggedIn !== 'true') {
+        window.location.href = 'login.html';
+      }
+      
+      // Initialize logout functionality
+      document.getElementById('logoutButton').addEventListener('click', function() {
+        // Clear login state
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentUser');
+        
+        // Redirect to login page
+        window.location.href = 'login.html';
+      });
+      
+      // Display current user's name in header and sidebar
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        document.getElementById('currentUserName').textContent = currentUser;
+        document.getElementById('sidebarUserName').textContent = currentUser;
+      }
+      
+      // Initialize sidebar logout functionality
+      const sidebarLogoutButton = document.getElementById('sidebarLogoutButton');
+      if (sidebarLogoutButton) {
+        sidebarLogoutButton.addEventListener('click', function() {
+          // Clear login state
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('currentUser');
+          
+          // Redirect to login page
+          window.location.href = 'login.html';
+        });
+      }
+      
+      // Initialize icons
+      lucide.createIcons();
+      
+      // Mark Attendance button functionality
+      const markAttendanceBtn = document.querySelector('button.bg-vivid-blue');
+      if (markAttendanceBtn) {
+        markAttendanceBtn.addEventListener('click', function() {
+          document.getElementById('attendanceModal').classList.remove('hidden');
+          
+          // Set today's date as default
+          const today = new Date().toISOString().split('T')[0];
+          document.getElementById('attendanceDate').value = today;
+        });
+      }
+      
+      // Close modal functionality
+      document.querySelectorAll('.modal-close').forEach(function(button) {
+        button.addEventListener('click', function() {
+          document.getElementById('attendanceModal').classList.add('hidden');
+        });
+      });
+      
+      // Close modal when clicking outside the modal
+      document.getElementById('attendanceModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.add('hidden');
+        }
+      });
+      
+      // Handle attendance form submission
+      document.getElementById('attendanceForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = {
+          employeeId: document.getElementById('employeeSelect').value,
+          date: document.getElementById('attendanceDate').value,
+          checkIn: document.getElementById('checkInTime').value,
+          checkOut: document.getElementById('checkOutTime').value,
+          status: document.getElementById('status').value
+        };
+        
+        // In a real app, this would be an API call
+        console.log('Attendance data:', formData);
+        
+        // For demo purposes, just show an alert
+        alert(`Attendance has been marked for employee ID: ${formData.employeeId}`);
+        
+        // Reset form and close modal
+        this.reset();
+        document.getElementById('attendanceModal').classList.add('hidden');
+      });
+      
+      // Handle edit/view functionality for attendance records
+      document.querySelectorAll('a.text-vivid-blue').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const action = this.textContent.trim();
+          alert(`${action} functionality would be implemented here`);
+        });
+      });
+      
+      document.querySelectorAll('a.text-gray-600').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const action = this.textContent.trim();
+          alert(`${action} functionality would be implemented here`);
+        });
+      });
+      
+      // Attendance search and filter functionality
+      const searchAttendanceInput = document.getElementById('searchAttendance');
+      const filterAttendanceStatus = document.getElementById('filterStatus');
+      const attendanceTableRows = document.querySelectorAll('tbody tr');
+      
+      function filterAttendanceTable() {
+        const searchTerm = searchAttendanceInput.value.toLowerCase();
+        const statusFilter = filterAttendanceStatus.value;
+        
+        attendanceTableRows.forEach(function(row) {
+          const employeeName = row.querySelector('td:first-child .text-gray-900').textContent.toLowerCase();
+          const department = row.querySelector('td:nth-child(2) .text-gray-900').textContent.toLowerCase();
+          const status = row.querySelector('.text-xs').textContent.toLowerCase();
+          
+          const matchesSearch = employeeName.includes(searchTerm) || department.includes(searchTerm);
+          const matchesStatus = statusFilter === 'all' || status.includes(statusFilter);
+          
+          if (matchesSearch && matchesStatus) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      }
+      
+      // Add event listeners for attendance search and filter
+      searchAttendanceInput.addEventListener('input', filterAttendanceTable);
+      filterAttendanceStatus.addEventListener('change', filterAttendanceTable);
+      
+      // Attendance details modal functionality
+      document.querySelectorAll('tbody tr').forEach(function(row) {
+        // Add click event to the 'View' link
+        const viewLink = row.querySelector('a.text-vivid-blue');
+        if (viewLink) {
+          viewLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get row data
+            const employeeCell = row.querySelector('td:first-child');
+            const employeeName = employeeCell.querySelector('.text-gray-900').textContent;
+            const department = employeeCell.querySelector('.text-gray-500').textContent;
+            const initials = employeeCell.querySelector('.flex-shrink-0').textContent.trim();
+            const checkIn = row.querySelector('td:nth-child(3)').textContent;
+            const checkOut = row.querySelector('td:nth-child(4)').textContent;
+            const status = row.querySelector('td:nth-child(5) .text-xs').textContent;
+            
+            // Update modal content
+            document.getElementById('attendanceDetailName').textContent = employeeName;
+            document.getElementById('attendanceDetailDepartment').textContent = department;
+            document.getElementById('attendanceInitials').textContent = initials;
+            document.getElementById('attendanceDetailDate').textContent = new Date().toISOString().split('T')[0];
+            document.getElementById('attendanceDetailCheckIn').textContent = checkIn;
+            document.getElementById('attendanceDetailCheckOut').textContent = checkOut;
+            document.getElementById('attendanceDetailStatus').textContent = status;
+            
+            // Update status badge styling
+            document.getElementById('attendanceDetailStatus').className = 'font-medium px-2 inline-flex text-xs leading-5 font-semibold rounded-full';
+            if (status === 'Present') {
+              document.getElementById('attendanceDetailStatus').classList.add('bg-green-100', 'text-green-800');
+            } else if (status === 'Absent') {
+              document.getElementById('attendanceDetailStatus').classList.add('bg-red-100', 'text-red-800');
+            } else if (status === 'Late') {
+              document.getElementById('attendanceDetailStatus').classList.add('bg-yellow-100', 'text-yellow-800');
+            } else {
+              document.getElementById('attendanceDetailStatus').classList.add('bg-blue-100', 'text-blue-800');
+            }
+            
+            // Calculate working hours (for demo purposes)
+            if (checkIn !== '-' && checkOut !== '-') {
+              document.getElementById('attendanceDetailHours').textContent = '8.5 hours';
+              document.getElementById('attendanceDetailLate').textContent = '2 minutes';
+            } else {
+              document.getElementById('attendanceDetailHours').textContent = 'N/A';
+              document.getElementById('attendanceDetailLate').textContent = 'N/A';
+            }
+            
+            // Show the modal
+            document.getElementById('attendanceDetailsModal').classList.remove('hidden');
+          });
+        }
+      });
+      
+      // Close attendance details modal
+      document.querySelectorAll('#attendanceDetailsModal .modal-close').forEach(function(button) {
+        button.addEventListener('click', function() {
+          document.getElementById('attendanceDetailsModal').classList.add('hidden');
+        });
+      });
+      
+      // Edit attendance button in details modal
+      document.querySelector('.edit-attendance-btn').addEventListener('click', function() {
+        document.getElementById('attendanceDetailsModal').classList.add('hidden');
+        document.getElementById('attendanceModal').classList.remove('hidden');
+      });
+      
+      // Close modal when clicking outside
+      document.getElementById('attendanceDetailsModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.add('hidden');
+        }
+      });
+    });
+  </script>
+  
+  <script>
+    // Mobile sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById('menuToggle');
+      const closeSidebar = document.getElementById('closeSidebar');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      
+      // Toggle sidebar on menu button click
+      menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('-translate-x-full');
+        sidebarOverlay.classList.toggle('hidden');
+      });
+      
+      // Close sidebar on close button click
+      closeSidebar.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Close sidebar when clicking on overlay
+      sidebarOverlay.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth < 768 && 
+            !sidebar.contains(event.target) && 
+            !menuToggle.contains(event.target) &&
+            sidebar.classList.contains('translate-x-0')) {
+          sidebar.classList.add('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        }
+      });
+      
+      // Update sidebar position on window resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768) {
+          sidebar.classList.remove('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        } else {
+          sidebar.classList.add('-translate-x-full');
+        }
+      });
+    });
+  </script>
+  
+  <!-- Mark Attendance Modal -->
+  <div id="attendanceModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-900">Mark Attendance</h3>
+          <button class="modal-close text-gray-400 hover:text-gray-600">
+            <i data-lucide="x" class="h-6 w-6"></i>
+          </button>
+        </div>
+        
+        <form id="attendanceForm" class="space-y-4">
+          <div>
+            <label for="employeeSelect" class="block text-sm font-medium text-gray-700 mb-1">Employee</label>
+            <select id="employeeSelect" name="employeeSelect" required class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+              <option value="">Select Employee</option>
+              <option value="1">John Doe</option>
+              <option value="2">Sarah Johnson</option>
+              <option value="3">Michael Brown</option>
+              <option value="4">Alice Parker</option>
+            </select>
+          </div>
+          
+          <div>
+            <label for="attendanceDate" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+            <input type="date" id="attendanceDate" name="attendanceDate" required class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+          </div>
+          
+          <div>
+            <label for="checkInTime" class="block text-sm font-medium text-gray-700 mb-1">Check-in Time</label>
+            <input type="time" id="checkInTime" name="checkInTime" class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+          </div>
+          
+          <div>
+            <label for="checkOutTime" class="block text-sm font-medium text-gray-700 mb-1">Check-out Time</label>
+            <input type="time" id="checkOutTime" name="checkOutTime" class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+          </div>
+          
+          <div>
+            <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+            <select id="status" name="status" class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+              <option value="present">Present</option>
+              <option value="absent">Absent</option>
+              <option value="late">Late</option>
+              <option value="half-day">Half Day</option>
+              <option value="on-leave">On Leave</option>
+            </select>
+          </div>
+          
+          <div class="flex justify-end space-x-3 pt-4">
+            <button type="button" class="modal-close px-4 py-2 text-gray-700 border border-gray-300 rounded-full hover:bg-gray-50">Cancel</button>
+            <button type="submit" class="px-4 py-2 bg-vivid-blue text-white rounded-full hover:bg-blue-700">Mark Attendance</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Attendance Details Modal -->
+  <div id="attendanceDetailsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-900">Attendance Details</h3>
+          <button class="modal-close text-gray-400 hover:text-gray-600">
+            <i data-lucide="x" class="h-6 w-6"></i>
+          </button>
+        </div>
+        
+        <div class="space-y-6">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 h-16 w-16 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
+              <span id="attendanceInitials">JD</span>
+            </div>
+            <div>
+              <h4 id="attendanceDetailName" class="text-xl font-bold text-gray-900">John Doe</h4>
+              <p id="attendanceDetailDepartment" class="text-gray-600">Engineering</p>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h5 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Attendance Information</h5>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Date:</span>
+                  <span id="attendanceDetailDate" class="font-medium">2023-11-15</span>
+                </div>
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Check-in:</span>
+                  <span id="attendanceDetailCheckIn" class="font-medium">09:02 AM</span>
+                </div>
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Check-out:</span>
+                  <span id="attendanceDetailCheckOut" class="font-medium">06:05 PM</span>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h5 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Status Information</h5>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Status:</span>
+                  <span id="attendanceDetailStatus" class="font-medium px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Present</span>
+                </div>
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Working Hours:</span>
+                  <span id="attendanceDetailHours" class="font-medium">8.5 hours</span>
+                </div>
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Late Arrival:</span>
+                  <span id="attendanceDetailLate" class="font-medium">2 minutes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h5 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Recent Attendance</h5>
+            <div class="space-y-3">
+              <div class="p-3 border border-gray-200 rounded-full">
+                <div class="flex justify-between">
+                  <span>Nov 14, 2023</span>
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Present</span>
+                </div>
+                <div class="text-sm text-gray-600 mt-1">Check-in: 09:00 AM | Check-out: 06:00 PM</div>
+              </div>
+              <div class="p-3 border border-gray-200 rounded-full">
+                <div class="flex justify-between">
+                  <span>Nov 13, 2023</span>
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Late</span>
+                </div>
+                <div class="text-sm text-gray-600 mt-1">Check-in: 09:15 AM | Check-out: 06:00 PM</div>
+              </div>
+              <div class="p-3 border border-gray-200 rounded-full">
+                <div class="flex justify-between">
+                  <span>Nov 12, 2023</span>
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Present</span>
+                </div>
+                <div class="text-sm text-gray-600 mt-1">Check-in: 08:58 AM | Check-out: 05:52 PM</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex justify-end space-x-3 pt-4">
+            <button type="button" class="modal-close px-4 py-2 text-gray-700 border border-gray-300 rounded-full hover:bg-gray-50">Close</button>
+            <button type="button" class="px-4 py-2 bg-vivid-blue text-white rounded-full hover:bg-blue-700 edit-attendance-btn">Edit Attendance</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

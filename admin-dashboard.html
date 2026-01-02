@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Echoes Software Technologies</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'vivid-blue': '#1864ff'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <button id="menuToggle" class="md:hidden mr-4 p-2 rounded-full text-gray-700 hover:bg-gray-100 transition-colors">
+            <i data-lucide="menu" class="h-6 w-6"></i>
+          </button>
+          <div class="flex-shrink-0 flex items-center">
+            <div class="w-10 h-10 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold mr-3">
+              ES
+            </div>
+            <span class="text-xl font-bold text-gray-900">echoess<span class="text-vivid-blue">.in</span></span>
+          </div>
+        </div>
+        <nav class="hidden md:flex space-x-2">
+          <a href="admin-dashboard.html" class="px-4 py-2 text-sm font-medium bg-vivid-blue text-white rounded-full transition-colors">
+            <i data-lucide="home" class="h-4 w-4 inline mr-2"></i>
+            Home
+          </a>
+        </nav>
+        <div class="flex items-center space-x-4">
+          <div class="hidden md:block text-sm text-gray-600">
+            Welcome, <span id="currentUserName" class="font-medium text-vivid-blue">Admin</span>
+          </div>
+          <button id="logoutButton" class="hidden md:flex items-center space-x-1 bg-red-600 text-white px-4 py-2 rounded-full font-medium hover:bg-red-700 transition-colors">
+            <i data-lucide="log-out" class="h-4 w-4"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-white border-r border-gray-200 min-h-screen fixed md:static md:translate-x-0 z-40 transform -translate-x-full md:-translate-x-0 transition-transform duration-300 ease-in-out">
+      <div class="p-4">
+        <div class="flex justify-between items-center mb-4">
+          <button id="closeSidebar" class="md:hidden p-2 rounded-full text-gray-700 hover:bg-gray-100">
+            <i data-lucide="x" class="h-5 w-5"></i>
+          </button>
+        </div>
+        <nav>
+          <a href="crm-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="users" class="h-5 w-5"></i>
+            <span>CRM Management</span>
+          </a>
+          <a href="attendance-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="calendar" class="h-5 w-5"></i>
+            <span>Attendance Management</span>
+          </a>
+          <a href="employee-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="user" class="h-5 w-5"></i>
+            <span>Employee Management</span>
+          </a>
+          <a href="password-manager.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="key" class="h-5 w-5"></i>
+            <span>Password Manager</span>
+          </a>
+        </nav>
+        
+        <div class="mt-auto pt-4 border-t border-gray-200">
+          <div class="p-4 bg-gray-50 rounded-full mb-4">
+            <div class="text-sm font-medium text-gray-900" id="sidebarUserName">Admin</div>
+            <div class="text-xs text-gray-600">Logged in as admin</div>
+          </div>
+          <button id="sidebarLogoutButton" class="w-full flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-full transition-colors">
+            <i data-lucide="log-out" class="h-5 w-5"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Overlay for mobile -->
+    <div id="sidebarOverlay" class="fixed inset-0 z-30 bg-black bg-opacity-50 hidden md:hidden"></div>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+      <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">Admin Dashboard</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <a href="crm-management.html" class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+            <div class="flex items-center mb-4">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="users" class="h-6 w-6 text-vivid-blue"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900">CRM Management</h3>
+            </div>
+            <p class="text-gray-600">Manage customer relationships, sales pipeline, and client interactions.</p>
+          </a>
+          
+          <a href="attendance-management.html" class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+            <div class="flex items-center mb-4">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="calendar" class="h-6 w-6 text-vivid-blue"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900">Attendance Management</h3>
+            </div>
+            <p class="text-gray-600">Track employee attendance, schedules, and time management.</p>
+          </a>
+          
+          <a href="employee-management.html" class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+            <div class="flex items-center mb-4">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="user" class="h-6 w-6 text-vivid-blue"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900">Employee Management</h3>
+            </div>
+            <p class="text-gray-600">Manage employee profiles, permissions, and performance metrics.</p>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">System Overview</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="text-center p-4 bg-gray-50 rounded-full">
+                <div class="text-2xl font-bold text-vivid-blue">128</div>
+                <div class="text-sm text-gray-600">Total Employees</div>
+              </div>
+              <div class="text-center p-4 bg-gray-50 rounded-full">
+                <div class="text-2xl font-bold text-vivid-blue">42</div>
+                <div class="text-sm text-gray-600">Active Clients</div>
+              </div>
+              <div class="text-center p-4 bg-gray-50 rounded-full">
+                <div class="text-2xl font-bold text-vivid-blue">96%</div>
+                <div class="text-sm text-gray-600">Attendance Rate</div>
+              </div>
+              <div class="text-center p-4 bg-gray-50 rounded-full">
+                <div class="text-2xl font-bold text-vivid-blue">24</div>
+                <div class="text-sm text-gray-600">Pending Tasks</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Quick Stats</h2>
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-sm font-medium text-gray-700">System Health</span>
+                  <span class="text-sm font-medium text-green-600">98%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                  <div class="bg-green-600 h-2 rounded-full" style="width: 98%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-sm font-medium text-gray-700">Data Security</span>
+                  <span class="text-sm font-medium text-green-600">100%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                  <div class="bg-green-600 h-2 rounded-full" style="width: 100%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-sm font-medium text-gray-700">Performance</span>
+                  <span class="text-sm font-medium text-yellow-600">85%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                  <div class="bg-yellow-500 h-2 rounded-full" style="width: 85%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Recent Activity</h2>
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <div class="w-2 h-2 bg-vivid-blue rounded-full mt-2 mr-3"></div>
+                <div>
+                  <p class="text-sm text-gray-900">New client <span class="font-medium">John Smith</span> added to CRM</p>
+                  <p class="text-xs text-gray-500">2 minutes ago</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="w-2 h-2 bg-vivid-blue rounded-full mt-2 mr-3"></div>
+                <div>
+                  <p class="text-sm text-gray-900">Employee <span class="font-medium">Sarah Johnson</span> marked attendance</p>
+                  <p class="text-xs text-gray-500">15 minutes ago</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="w-2 h-2 bg-vivid-blue rounded-full mt-2 mr-3"></div>
+                <div>
+                  <p class="text-sm text-gray-900">New task assigned to <span class="font-medium">Development Team</span></p>
+                  <p class="text-xs text-gray-500">1 hour ago</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="w-2 h-2 bg-vivid-blue rounded-full mt-2 mr-3"></div>
+                <div>
+                  <p class="text-sm text-gray-900">System maintenance scheduled for tomorrow</p>
+                  <p class="text-xs text-gray-500">2 hours ago</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Upcoming Events</h2>
+            <div class="space-y-4">
+              <div class="p-3 border border-gray-200 rounded-full">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <h4 class="font-medium text-gray-900">Team Meeting</h4>
+                    <p class="text-sm text-gray-600">10:00 AM - Conference Room</p>
+                  </div>
+                  <span class="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded">Today</span>
+                </div>
+              </div>
+              <div class="p-3 border border-gray-200 rounded-full">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <h4 class="font-medium text-gray-900">Client Presentation</h4>
+                    <p class="text-sm text-gray-600">2:00 PM - Client Office</p>
+                  </div>
+                  <span class="text-sm bg-green-100 text-green-800 px-2 py-1 rounded">Today</span>
+                </div>
+              </div>
+              <div class="p-3 border border-gray-200 rounded-full">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <h4 class="font-medium text-gray-900">Project Deadline</h4>
+                    <p class="text-sm text-gray-600">5:00 PM - Online</p>
+                  </div>
+                  <span class="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Tomorrow</span>
+                </div>
+              </div>
+              <div class="p-3 border border-gray-200 rounded-full">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <h4 class="font-medium text-gray-900">Quarterly Review</h4>
+                    <p class="text-sm text-gray-600">9:00 AM - Main Hall</p>
+                  </div>
+                  <span class="text-sm bg-gray-100 text-gray-800 px-2 py-1 rounded">Jan 15</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">Performance Charts</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <canvas id="attendanceChart" width="400" height="200"></canvas>
+            </div>
+            <div>
+              <canvas id="clientGrowthChart" width="400" height="200"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Check authentication status
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if user is logged in
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      
+      // If not logged in, redirect to login page
+      if (isLoggedIn !== 'true') {
+        window.location.href = 'login.html';
+      }
+      
+      // Initialize logout functionality
+      document.getElementById('logoutButton').addEventListener('click', function() {
+        // Clear login state
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentUser');
+        
+        // Redirect to login page
+        window.location.href = 'login.html';
+      });
+      
+      // Display current user's name in header and sidebar
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        document.getElementById('currentUserName').textContent = currentUser;
+        document.getElementById('sidebarUserName').textContent = currentUser;
+      }
+      
+      // Initialize sidebar logout functionality
+      const sidebarLogoutButton = document.getElementById('sidebarLogoutButton');
+      if (sidebarLogoutButton) {
+        sidebarLogoutButton.addEventListener('click', function() {
+          // Clear login state
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('currentUser');
+          
+          // Redirect to login page
+          window.location.href = 'login.html';
+        });
+      }
+      
+      // Initialize icons
+      lucide.createIcons();
+    });
+  </script>
+  
+  <script>
+    // Mobile sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById('menuToggle');
+      const closeSidebar = document.getElementById('closeSidebar');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      
+      // Toggle sidebar on menu button click
+      menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('-translate-x-full');
+        sidebarOverlay.classList.toggle('hidden');
+      });
+      
+      // Close sidebar on close button click
+      closeSidebar.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Close sidebar when clicking on overlay
+      sidebarOverlay.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth < 768 && 
+            !sidebar.contains(event.target) && 
+            !menuToggle.contains(event.target) &&
+            sidebar.classList.contains('translate-x-0')) {
+          sidebar.classList.add('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        }
+      });
+      
+      // Update sidebar position on window resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768) {
+          sidebar.classList.remove('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        } else {
+          sidebar.classList.add('-translate-x-full');
+        }
+      });
+    });
+  </script>
+  
+  <script>
+    // Initialize charts
+    document.addEventListener('DOMContentLoaded', function() {
+      // Attendance Chart
+      const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
+      new Chart(attendanceCtx, {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Attendance Rate',
+            data: [95, 92, 98, 90, 88, 75, 80],
+            borderColor: '#1864ff',
+            backgroundColor: 'rgba(24, 100, 255, 0.1)',
+            tension: 0.4,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: true
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: false,
+              min: 70,
+              max: 100
+            }
+          }
+        }
+      });
+      
+      // Client Growth Chart
+      const clientGrowthCtx = document.getElementById('clientGrowthChart').getContext('2d');
+      new Chart(clientGrowthCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+          datasets: [{
+            label: 'New Clients',
+            data: [12, 19, 15, 22, 18, 25],
+            backgroundColor: '#1864ff',
+            borderColor: '#1864ff',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: true
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
