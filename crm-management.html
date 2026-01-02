@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM Management - Echoes Software Technologies</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'vivid-blue': '#1864ff'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <button id="menuToggle" class="md:hidden mr-4 p-2 rounded-full text-gray-700 hover:bg-gray-100 transition-colors">
+            <i data-lucide="menu" class="h-6 w-6"></i>
+          </button>
+          <div class="flex-shrink-0 flex items-center">
+            <div class="w-10 h-10 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold mr-3">
+              ES
+            </div>
+            <span class="text-xl font-bold text-gray-900">echoess<span class="text-vivid-blue">.in</span></span>
+          </div>
+        </div>
+        <nav class="hidden md:flex space-x-2">
+          <a href="admin-dashboard.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-vivid-blue hover:bg-gray-50 rounded-full transition-colors">
+            <i data-lucide="home" class="h-4 w-4 inline mr-2"></i>
+            Home
+          </a>
+          <a href="admin-dashboard.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-vivid-blue hover:bg-gray-50 rounded-full transition-colors">
+            <i data-lucide="grid" class="h-4 w-4 inline mr-2"></i>
+            Dashboard
+          </a>
+          <a href="crm-management.html" class="px-4 py-2 text-sm font-medium bg-vivid-blue text-white rounded-full transition-colors">
+            <i data-lucide="users" class="h-4 w-4 inline mr-2"></i>
+            CRM
+          </a>
+        </nav>
+        <div class="flex items-center space-x-4">
+          <div class="hidden md:block text-sm text-gray-600">
+            Welcome, <span id="currentUserName" class="font-medium text-vivid-blue">Admin</span>
+          </div>
+          <button id="logoutButton" class="hidden md:flex items-center space-x-1 bg-red-600 text-white px-4 py-2 rounded-full font-medium hover:bg-red-700 transition-colors">
+            <i data-lucide="log-out" class="h-4 w-4"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-white border-r border-gray-200 min-h-screen fixed md:static md:translate-x-0 z-40 transform -translate-x-full md:-translate-x-0 transition-transform duration-300 ease-in-out">
+      <div class="p-4">
+        <div class="flex justify-between items-center mb-4">
+          <button id="closeSidebar" class="md:hidden p-2 rounded-full text-gray-700 hover:bg-gray-100">
+            <i data-lucide="x" class="h-5 w-5"></i>
+          </button>
+        </div>
+        <nav>
+          <a href="crm-management.html" class="flex items-center space-x-3 px-4 py-3 bg-blue-50 text-vivid-blue rounded-full">
+            <i data-lucide="users" class="h-5 w-5"></i>
+            <span>CRM Management</span>
+          </a>
+          <a href="attendance-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="calendar" class="h-5 w-5"></i>
+            <span>Attendance Management</span>
+          </a>
+          <a href="employee-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="user" class="h-5 w-5"></i>
+            <span>Employee Management</span>
+          </a>
+          <a href="password-manager.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="key" class="h-5 w-5"></i>
+            <span>Password Manager</span>
+          </a>
+        </nav>
+        
+        <div class="mt-auto pt-4 border-t border-gray-200">
+          <div class="p-4 bg-gray-50 rounded-full mb-4">
+            <div class="text-sm font-medium text-gray-900" id="sidebarUserName">Admin</div>
+            <div class="text-xs text-gray-600">Logged in as admin</div>
+          </div>
+          <button id="sidebarLogoutButton" class="w-full flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-full transition-colors">
+            <i data-lucide="log-out" class="h-5 w-5"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Overlay for mobile -->
+    <div id="sidebarOverlay" class="fixed inset-0 z-30 bg-black bg-opacity-50 hidden md:hidden"></div>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-center mb-8">
+          <h1 class="text-3xl font-bold text-gray-900">CRM Management</h1>
+          <button class="bg-vivid-blue text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors">
+            Add New Client
+          </button>
+        </div>
+
+        <!-- CRM Overview Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="users" class="h-6 w-6 text-vivid-blue"></i>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-gray-900">128</p>
+                <p class="text-sm text-gray-600">Total Clients</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="trending-up" class="h-6 w-6 text-green-600"></i>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-gray-900">24</p>
+                <p class="text-sm text-gray-600">New This Month</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="dollar-sign" class="h-6 w-6 text-yellow-600"></i>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-gray-900">$42.8K</p>
+                <p class="text-sm text-gray-600">Monthly Revenue</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="zap" class="h-6 w-6 text-purple-600"></i>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-gray-900">96%</p>
+                <p class="text-sm text-gray-600">Satisfaction</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Client Table -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+          <div class="p-6 border-b border-gray-200 flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+            <h2 class="text-xl font-semibold text-gray-900">Client List</h2>
+            <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 w-full md:w-auto">
+              <div class="relative">
+                <input type="text" id="searchClients" placeholder="Search clients..." class="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+                <i data-lucide="search" class="absolute right-3 top-2.5 h-5 w-5 text-gray-400"></i>
+              </div>
+              <select id="filterStatus" class="w-full md:w-auto px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+                <option value="all">All Statuses</option>
+                <option value="active">Active</option>
+                <option value="follow-up">Follow-up</option>
+                <option value="prospect">Prospect</option>
+                <option value="lead">Lead</option>
+              </select>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Contact</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr class="view-client" data-client-id="1">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold">
+                        AC
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">Acme Corporation</div>
+                        <div class="text-sm text-gray-500">Enterprise</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">John Smith</div>
+                    <div class="text-sm text-gray-500">john@acme.com</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Active
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-11-15</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$12,500</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                      Enterprise
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <a href="#" class="text-vivid-blue hover:text-blue-700 mr-3 edit-client" data-client-id="1">Edit</a>
+                    <a href="#" class="text-red-600 hover:text-red-900 delete-client" data-client-id="1">Delete</a>
+                  </td>
+                </tr>
+                <tr class="view-client" data-client-id="2">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold">
+                        GT
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">Global Tech</div>
+                        <div class="text-sm text-gray-500">Enterprise</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Sarah Johnson</div>
+                    <div class="text-sm text-gray-500">sarah@globaltech.com</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                      Follow-up
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-11-10</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$8,200</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                      Enterprise
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <a href="#" class="text-vivid-blue hover:text-blue-700 mr-3 edit-client" data-client-id="2">Edit</a>
+                    <a href="#" class="text-red-600 hover:text-red-900 delete-client" data-client-id="2">Delete</a>
+                  </td>
+                </tr>
+                <tr class="view-client" data-client-id="3">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold">
+                        MN
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">Mega Networks</div>
+                        <div class="text-sm text-gray-500">Business</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Michael Brown</div>
+                    <div class="text-sm text-gray-500">michael@meganet.com</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Active
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-11-18</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$15,600</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Business
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <a href="#" class="text-vivid-blue hover:text-blue-700 mr-3 edit-client" data-client-id="3">Edit</a>
+                    <a href="#" class="text-red-600 hover:text-red-900 delete-client" data-client-id="3">Delete</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Check authentication status
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if user is logged in
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      
+      // If not logged in, redirect to login page
+      if (isLoggedIn !== 'true') {
+        window.location.href = 'login.html';
+      }
+      
+      // Initialize logout functionality
+      document.getElementById('logoutButton').addEventListener('click', function() {
+        // Clear login state
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentUser');
+        
+        // Redirect to login page
+        window.location.href = 'login.html';
+      });
+      
+      // Display current user's name in header and sidebar
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        document.getElementById('currentUserName').textContent = currentUser;
+        document.getElementById('sidebarUserName').textContent = currentUser;
+      }
+      
+      // Initialize sidebar logout functionality
+      const sidebarLogoutButton = document.getElementById('sidebarLogoutButton');
+      if (sidebarLogoutButton) {
+        sidebarLogoutButton.addEventListener('click', function() {
+          // Clear login state
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('currentUser');
+          
+          // Redirect to login page
+          window.location.href = 'login.html';
+        });
+      }
+      
+      // Initialize icons
+      lucide.createIcons();
+      
+      // Add New Client button functionality
+      const addClientBtn = document.querySelector('button.bg-vivid-blue');
+      if (addClientBtn) {
+        addClientBtn.addEventListener('click', function() {
+          document.getElementById('clientModal').classList.remove('hidden');
+        });
+      }
+      
+      // Close modal functionality
+      document.querySelector('#clientModal .modal-close').addEventListener('click', function() {
+        document.getElementById('clientModal').classList.add('hidden');
+      });
+      
+      // Close modal when clicking outside the modal
+      document.getElementById('clientModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.add('hidden');
+        }
+      });
+      
+      // Handle form submission
+      document.getElementById('clientForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = {
+          name: document.getElementById('clientName').value,
+          email: document.getElementById('clientEmail').value,
+          company: document.getElementById('clientCompany').value,
+          phone: document.getElementById('clientPhone').value,
+          status: document.getElementById('clientStatus').value
+        };
+        
+        // In a real app, this would be an API call
+        console.log('New client data:', formData);
+        
+        // For demo purposes, just show an alert
+        alert(`Client ${formData.name} has been added successfully!`);
+        
+        // Reset form and close modal
+        this.reset();
+        document.getElementById('clientModal').classList.add('hidden');
+      });
+      
+      // Handle edit client functionality
+      document.querySelectorAll('.edit-client').forEach(function(button) {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          const clientId = this.getAttribute('data-client-id');
+          
+          // In a real app, this would fetch client data and populate the form
+          alert('Edit client with ID: ' + clientId);
+          
+          // For demo, just show the modal with pre-filled data
+          document.getElementById('clientModal').classList.remove('hidden');
+        });
+      });
+      
+      // Handle delete client functionality
+      document.querySelectorAll('.delete-client').forEach(function(button) {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          const clientId = this.getAttribute('data-client-id');
+          
+          if (confirm('Are you sure you want to delete client with ID: ' + clientId + '?')) {
+            // In a real app, this would make an API call to delete the client
+            console.log('Deleting client with ID:', clientId);
+            
+            // For demo purposes, just show an alert
+            alert('Client with ID ' + clientId + ' has been deleted!');
+          }
+        });
+      });
+      
+      // Search functionality
+      const searchInput = document.getElementById('searchClients');
+      const filterStatus = document.getElementById('filterStatus');
+      const tableRows = document.querySelectorAll('tbody tr');
+      
+      function filterTable() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const statusFilter = filterStatus.value;
+        
+        tableRows.forEach(function(row) {
+          const clientName = row.querySelector('td:first-child .text-gray-900').textContent.toLowerCase();
+          const clientEmail = row.querySelector('td:nth-child(2) .text-gray-500').textContent.toLowerCase();
+          const status = row.querySelector('.text-xs').textContent.toLowerCase();
+          
+          const matchesSearch = clientName.includes(searchTerm) || clientEmail.includes(searchTerm);
+          const matchesStatus = statusFilter === 'all' || status.includes(statusFilter);
+          
+          if (matchesSearch && matchesStatus) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      }
+      
+      // Add event listeners for search and filter
+      searchInput.addEventListener('input', filterTable);
+      filterStatus.addEventListener('change', filterTable);
+      
+      // Client details modal functionality
+      document.querySelectorAll('.view-client').forEach(function(row) {
+        row.addEventListener('click', function(e) {
+          // Prevent opening details if clicking on edit/delete buttons
+          if (e.target.classList.contains('edit-client') || e.target.classList.contains('delete-client')) {
+            return;
+          }
+          
+          const clientId = this.getAttribute('data-client-id');
+          
+          // In a real app, this would fetch client details from the server
+          // For demo purposes, we'll use sample data based on client ID
+          let clientData = {};
+          
+          if (clientId === '1') {
+            clientData = {
+              name: 'Acme Corporation',
+              company: 'Enterprise',
+              contact: 'John Smith',
+              email: 'john@acme.com',
+              phone: '+1 (555) 123-4567',
+              status: 'Active',
+              type: 'Enterprise',
+              value: '$12,500',
+              initials: 'AC'
+            };
+          } else if (clientId === '2') {
+            clientData = {
+              name: 'Global Tech',
+              company: 'Enterprise',
+              contact: 'Sarah Johnson',
+              email: 'sarah@globaltech.com',
+              phone: '+1 (555) 987-6543',
+              status: 'Follow-up',
+              type: 'Enterprise',
+              value: '$8,200',
+              initials: 'GT'
+            };
+          } else if (clientId === '3') {
+            clientData = {
+              name: 'Mega Networks',
+              company: 'Business',
+              contact: 'Michael Brown',
+              email: 'michael@meganet.com',
+              phone: '+1 (555) 456-7890',
+              status: 'Active',
+              type: 'Business',
+              value: '$15,600',
+              initials: 'MN'
+            };
+          }
+          
+          // Update modal content with client data
+          document.getElementById('clientDetailName').textContent = clientData.name;
+          document.getElementById('clientDetailCompany').textContent = clientData.company;
+          document.getElementById('clientDetailContact').textContent = clientData.contact;
+          document.getElementById('clientDetailEmail').textContent = clientData.email;
+          document.getElementById('clientDetailPhone').textContent = clientData.phone;
+          document.getElementById('clientDetailStatus').textContent = clientData.status;
+          document.getElementById('clientDetailStatus').className = 'font-medium px-2 inline-flex text-xs leading-5 font-semibold rounded-full';
+          if (clientData.status === 'Active') {
+            document.getElementById('clientDetailStatus').classList.add('bg-green-100', 'text-green-800');
+          } else if (clientData.status === 'Follow-up') {
+            document.getElementById('clientDetailStatus').classList.add('bg-yellow-100', 'text-yellow-800');
+          } else {
+            document.getElementById('clientDetailStatus').classList.add('bg-blue-100', 'text-blue-800');
+          }
+          document.getElementById('clientDetailType').textContent = clientData.type;
+          document.getElementById('clientDetailValue').textContent = clientData.value;
+          document.getElementById('clientInitials').textContent = clientData.initials;
+          
+          // Show the modal
+          document.getElementById('clientDetailsModal').classList.remove('hidden');
+        });
+      });
+      
+      // Close client details modal
+      document.querySelectorAll('#clientDetailsModal .modal-close').forEach(function(button) {
+        button.addEventListener('click', function() {
+          document.getElementById('clientDetailsModal').classList.add('hidden');
+        });
+      });
+      
+      // Edit client button in details modal
+      document.querySelector('.edit-client-btn').addEventListener('click', function() {
+        document.getElementById('clientDetailsModal').classList.add('hidden');
+        document.getElementById('clientModal').classList.remove('hidden');
+      });
+      
+      // Close modal when clicking outside
+      document.getElementById('clientDetailsModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.add('hidden');
+        }
+      });
+    });
+  </script>
+  
+  <script>
+    // Mobile sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById('menuToggle');
+      const closeSidebar = document.getElementById('closeSidebar');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      
+      // Toggle sidebar on menu button click
+      menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('-translate-x-full');
+        sidebarOverlay.classList.toggle('hidden');
+      });
+      
+      // Close sidebar on close button click
+      closeSidebar.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Close sidebar when clicking on overlay
+      sidebarOverlay.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth < 768 && 
+            !sidebar.contains(event.target) && 
+            !menuToggle.contains(event.target) &&
+            sidebar.classList.contains('translate-x-0')) {
+          sidebar.classList.add('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        }
+      });
+      
+      // Update sidebar position on window resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768) {
+          sidebar.classList.remove('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        } else {
+          sidebar.classList.add('-translate-x-full');
+        }
+      });
+    });
+  </script>
+  
+  <!-- Add Client Modal -->
+  <div id="clientModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-900">Add New Client</h3>
+          <button class="modal-close text-gray-400 hover:text-gray-600">
+            <i data-lucide="x" class="h-6 w-6"></i>
+          </button>
+        </div>
+        
+        <form id="clientForm" class="space-y-4">
+          <div>
+            <label for="clientName" class="block text-sm font-medium text-gray-700 mb-1">Client Name</label>
+            <input type="text" id="clientName" name="clientName" required class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+          </div>
+          
+          <div>
+            <label for="clientEmail" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input type="email" id="clientEmail" name="clientEmail" required class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+          </div>
+          
+          <div>
+            <label for="clientCompany" class="block text-sm font-medium text-gray-700 mb-1">Company</label>
+            <input type="text" id="clientCompany" name="clientCompany" required class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+          </div>
+          
+          <div>
+            <label for="clientPhone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+            <input type="tel" id="clientPhone" name="clientPhone" class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+          </div>
+          
+          <div>
+            <label for="clientStatus" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+            <select id="clientStatus" name="clientStatus" class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+              <option value="active">Active</option>
+              <option value="prospect">Prospect</option>
+              <option value="lead">Lead</option>
+              <option value="follow-up">Follow-up</option>
+            </select>
+          </div>
+          
+          <div class="flex justify-end space-x-3 pt-4">
+            <button type="button" class="modal-close px-4 py-2 text-gray-700 border border-gray-300 rounded-full hover:bg-gray-50">Cancel</button>
+            <button type="submit" class="px-4 py-2 bg-vivid-blue text-white rounded-full hover:bg-blue-700">Add Client</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Client Details Modal -->
+  <div id="clientDetailsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-900">Client Details</h3>
+          <button class="modal-close text-gray-400 hover:text-gray-600">
+            <i data-lucide="x" class="h-6 w-6"></i>
+          </button>
+        </div>
+        
+        <div class="space-y-6">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 h-16 w-16 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
+              <span id="clientInitials">AC</span>
+            </div>
+            <div>
+              <h4 id="clientDetailName" class="text-xl font-bold text-gray-900">Acme Corporation</h4>
+              <p id="clientDetailCompany" class="text-gray-600">Enterprise</p>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h5 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Contact Information</h5>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Name:</span>
+                  <span id="clientDetailContact" class="font-medium">John Smith</span>
+                </div>
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Email:</span>
+                  <span id="clientDetailEmail" class="font-medium text-vivid-blue">john@acme.com</span>
+                </div>
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Phone:</span>
+                  <span id="clientDetailPhone" class="font-medium">+1 (555) 123-4567</span>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h5 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Client Details</h5>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Status:</span>
+                  <span id="clientDetailStatus" class="font-medium px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+                </div>
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Type:</span>
+                  <span id="clientDetailType" class="font-medium px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Enterprise</span>
+                </div>
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Value:</span>
+                  <span id="clientDetailValue" class="font-medium">$12,500</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h5 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Recent Activity</h5>
+            <div class="space-y-3">
+              <div class="flex items-start">
+                <div class="w-2 h-2 bg-vivid-blue rounded-full mt-2 mr-3"></div>
+                <div>
+                  <p class="text-sm text-gray-900">Contract renewal discussion</p>
+                  <p class="text-xs text-gray-500">2 days ago</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="w-2 h-2 bg-vivid-blue rounded-full mt-2 mr-3"></div>
+                <div>
+                  <p class="text-sm text-gray-900">Project completion</p>
+                  <p class="text-xs text-gray-500">1 week ago</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="w-2 h-2 bg-vivid-blue rounded-full mt-2 mr-3"></div>
+                <div>
+                  <p class="text-sm text-gray-900">Initial consultation</p>
+                  <p class="text-xs text-gray-500">1 month ago</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex justify-end space-x-3 pt-4">
+            <button type="button" class="modal-close px-4 py-2 text-gray-700 border border-gray-300 rounded-full hover:bg-gray-50">Close</button>
+            <button type="button" class="px-4 py-2 bg-vivid-blue text-white rounded-full hover:bg-blue-700 edit-client-btn">Edit Client</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Management - Echoes Software Technologies</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'vivid-blue': '#1864ff'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <button id="menuToggle" class="md:hidden mr-4 p-2 rounded-full text-gray-700 hover:bg-gray-100 transition-colors">
+            <i data-lucide="menu" class="h-6 w-6"></i>
+          </button>
+          <div class="flex-shrink-0 flex items-center">
+            <div class="w-10 h-10 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold mr-3">
+              ES
+            </div>
+            <span class="text-xl font-bold text-gray-900">echoess<span class="text-vivid-blue">.in</span></span>
+          </div>
+        </div>
+        <nav class="hidden md:flex space-x-2">
+          <a href="admin-dashboard.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-vivid-blue hover:bg-gray-50 rounded-full transition-colors">
+            <i data-lucide="home" class="h-4 w-4 inline mr-2"></i>
+            Home
+          </a>
+          <a href="admin-dashboard.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-vivid-blue hover:bg-gray-50 rounded-full transition-colors">
+            <i data-lucide="grid" class="h-4 w-4 inline mr-2"></i>
+            Dashboard
+          </a>
+          <a href="employee-management.html" class="px-4 py-2 text-sm font-medium bg-vivid-blue text-white rounded-full transition-colors">
+            <i data-lucide="user" class="h-4 w-4 inline mr-2"></i>
+            Employees
+          </a>
+        </nav>
+        <div class="flex items-center space-x-4">
+          <div class="hidden md:block text-sm text-gray-600">
+            Welcome, <span id="currentUserName" class="font-medium text-vivid-blue">Admin</span>
+          </div>
+          <button id="logoutButton" class="hidden md:flex items-center space-x-1 bg-red-600 text-white px-4 py-2 rounded-full font-medium hover:bg-red-700 transition-colors">
+            <i data-lucide="log-out" class="h-4 w-4"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-white border-r border-gray-200 min-h-screen fixed md:static md:translate-x-0 z-40 transform -translate-x-full md:-translate-x-0 transition-transform duration-300 ease-in-out">
+      <div class="p-4">
+        <div class="flex justify-between items-center mb-4">
+          <button id="closeSidebar" class="md:hidden p-2 rounded-full text-gray-700 hover:bg-gray-100">
+            <i data-lucide="x" class="h-5 w-5"></i>
+          </button>
+        </div>
+        <nav>
+          <a href="crm-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="users" class="h-5 w-5"></i>
+            <span>CRM Management</span>
+          </a>
+          <a href="attendance-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="calendar" class="h-5 w-5"></i>
+            <span>Attendance Management</span>
+          </a>
+          <a href="employee-management.html" class="flex items-center space-x-3 px-4 py-3 bg-blue-50 text-vivid-blue rounded-full">
+            <i data-lucide="user" class="h-5 w-5"></i>
+            <span>Employee Management</span>
+          </a>
+          <a href="password-manager.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="key" class="h-5 w-5"></i>
+            <span>Password Manager</span>
+          </a>
+        </nav>
+        
+        <div class="mt-auto pt-4 border-t border-gray-200">
+          <div class="p-4 bg-gray-50 rounded-full mb-4">
+            <div class="text-sm font-medium text-gray-900" id="sidebarUserName">Admin</div>
+            <div class="text-xs text-gray-600">Logged in as admin</div>
+          </div>
+          <button id="sidebarLogoutButton" class="w-full flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-full transition-colors">
+            <i data-lucide="log-out" class="h-5 w-5"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Overlay for mobile -->
+    <div id="sidebarOverlay" class="fixed inset-0 z-30 bg-black bg-opacity-50 hidden md:hidden"></div>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-center mb-8">
+          <h1 class="text-3xl font-bold text-gray-900">Employee Management</h1>
+          <button class="bg-vivid-blue text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors">
+            Add New Employee
+          </button>
+        </div>
+
+        <!-- Employee Overview Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="users" class="h-6 w-6 text-vivid-blue"></i>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-gray-900">128</p>
+                <p class="text-sm text-gray-600">Total Employees</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="user-check" class="h-6 w-6 text-green-600"></i>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-gray-900">122</p>
+                <p class="text-sm text-gray-600">Active Employees</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="user-plus" class="h-6 w-6 text-yellow-600"></i>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-gray-900">6</p>
+                <p class="text-sm text-gray-600">Pending Onboarding</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="trending-up" class="h-6 w-6 text-purple-600"></i>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-gray-900">94%</p>
+                <p class="text-sm text-gray-600">Satisfaction</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Employee Table -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+          <div class="p-6 border-b border-gray-200 flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+            <h2 class="text-xl font-semibold text-gray-900">Employee Directory</h2>
+            <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 w-full md:w-auto">
+              <div class="relative">
+                <input type="text" id="searchEmployees" placeholder="Search employees..." class="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+                <i data-lucide="search" class="absolute right-3 top-2.5 h-5 w-5 text-gray-400"></i>
+              </div>
+              <select id="filterDepartment" class="w-full md:w-auto px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+                <option value="all">All Departments</option>
+                <option value="engineering">Engineering</option>
+                <option value="marketing">Marketing</option>
+                <option value="sales">Sales</option>
+                <option value="hr">HR</option>
+                <option value="finance">Finance</option>
+              </select>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Position</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Join Date</th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold">
+                        JD
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">John Doe</div>
+                        <div class="text-sm text-gray-500">johndoe@echoes.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Senior Developer</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Engineering</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Active
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2022-03-15</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <a href="#" class="text-vivid-blue hover:text-blue-700 mr-3">Edit</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900">View</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold">
+                        SJ
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">Sarah Johnson</div>
+                        <div class="text-sm text-gray-500">sarahj@echoes.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Marketing Manager</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Marketing</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Active
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2021-07-22</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <a href="#" class="text-vivid-blue hover:text-blue-700 mr-3">Edit</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900">View</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold">
+                        MB
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">Michael Brown</div>
+                        <div class="text-sm text-gray-500">michaelb@echoes.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Sales Director</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Sales</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Active
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2020-11-05</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <a href="#" class="text-vivid-blue hover:text-blue-700 mr-3">Edit</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900">View</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold">
+                        AP
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">Alice Parker</div>
+                        <div class="text-sm text-gray-500">alicep@echoes.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">HR Specialist</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Human Resources</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Active
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-01-10</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <a href="#" class="text-vivid-blue hover:text-blue-700 mr-3">Edit</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900">View</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Check authentication status
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if user is logged in
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      
+      // If not logged in, redirect to login page
+      if (isLoggedIn !== 'true') {
+        window.location.href = 'login.html';
+      }
+      
+      // Initialize logout functionality
+      document.getElementById('logoutButton').addEventListener('click', function() {
+        // Clear login state
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentUser');
+        
+        // Redirect to login page
+        window.location.href = 'login.html';
+      });
+      
+      // Display current user's name in header and sidebar
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        document.getElementById('currentUserName').textContent = currentUser;
+        document.getElementById('sidebarUserName').textContent = currentUser;
+      }
+      
+      // Initialize sidebar logout functionality
+      const sidebarLogoutButton = document.getElementById('sidebarLogoutButton');
+      if (sidebarLogoutButton) {
+        sidebarLogoutButton.addEventListener('click', function() {
+          // Clear login state
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('currentUser');
+          
+          // Redirect to login page
+          window.location.href = 'login.html';
+        });
+      }
+      
+      // Initialize icons
+      lucide.createIcons();
+      
+      // Add New Employee button functionality
+      const addEmployeeBtn = document.querySelector('button.bg-vivid-blue');
+      if (addEmployeeBtn) {
+        addEmployeeBtn.addEventListener('click', function() {
+          document.getElementById('employeeModal').classList.remove('hidden');
+          
+          // Set today's date as default for start date
+          const today = new Date().toISOString().split('T')[0];
+          document.getElementById('startDate').value = today;
+        });
+      }
+      
+      // Close modal functionality
+      document.querySelectorAll('.modal-close').forEach(function(button) {
+        button.addEventListener('click', function() {
+          document.getElementById('employeeModal').classList.add('hidden');
+        });
+      });
+      
+      // Close modal when clicking outside the modal
+      document.getElementById('employeeModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.add('hidden');
+        }
+      });
+      
+      // Handle employee form submission
+      document.getElementById('employeeForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = {
+          firstName: document.getElementById('firstName').value,
+          lastName: document.getElementById('lastName').value,
+          email: document.getElementById('email').value,
+          position: document.getElementById('position').value,
+          department: document.getElementById('department').value,
+          startDate: document.getElementById('startDate').value,
+          status: document.getElementById('employeeStatus').value,
+          phone: document.getElementById('phone').value
+        };
+        
+        // In a real app, this would be an API call
+        console.log('New employee data:', formData);
+        
+        // For demo purposes, just show an alert
+        alert(`Employee ${formData.firstName} ${formData.lastName} has been added successfully!`);
+        
+        // Reset form and close modal
+        this.reset();
+        document.getElementById('employeeModal').classList.add('hidden');
+      });
+      
+      // Handle edit/view functionality for employee records
+      document.querySelectorAll('a.text-vivid-blue').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const action = this.textContent.trim();
+          alert(`${action} functionality would be implemented here`);
+        });
+      });
+      
+      document.querySelectorAll('a.text-gray-600').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const action = this.textContent.trim();
+          alert(`${action} functionality would be implemented here`);
+        });
+      });
+      
+      // Employee search and filter functionality
+      const searchEmployeeInput = document.getElementById('searchEmployees');
+      const filterDepartment = document.getElementById('filterDepartment');
+      const employeeTableRows = document.querySelectorAll('tbody tr');
+      
+      function filterEmployeeTable() {
+        const searchTerm = searchEmployeeInput.value.toLowerCase();
+        const departmentFilter = filterDepartment.value;
+        
+        employeeTableRows.forEach(function(row) {
+          const employeeName = row.querySelector('td:first-child .text-gray-900').textContent.toLowerCase();
+          const employeeEmail = row.querySelector('td:first-child .text-gray-500').textContent.toLowerCase();
+          const department = row.querySelector('td:nth-child(3) .text-gray-900').textContent.toLowerCase();
+          
+          const matchesSearch = employeeName.includes(searchTerm) || employeeEmail.includes(searchTerm);
+          const matchesDepartment = departmentFilter === 'all' || department.includes(departmentFilter);
+          
+          if (matchesSearch && matchesDepartment) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      }
+      
+      // Add event listeners for employee search and filter
+      searchEmployeeInput.addEventListener('input', filterEmployeeTable);
+      filterDepartment.addEventListener('change', filterEmployeeTable);
+      
+      // Employee details modal functionality
+      document.querySelectorAll('tbody tr').forEach(function(row) {
+        // Add click event to the 'View' link
+        const viewLink = row.querySelector('a.text-gray-600');
+        if (viewLink) {
+          viewLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get row data
+            const employeeCell = row.querySelector('td:first-child');
+            const employeeName = employeeCell.querySelector('.text-gray-900').textContent;
+            const employeeEmail = employeeCell.querySelector('.text-gray-500').textContent;
+            const initials = employeeCell.querySelector('.flex-shrink-0').textContent.trim();
+            const position = row.querySelector('td:nth-child(2) .text-gray-900').textContent;
+            const department = row.querySelector('td:nth-child(3) .text-gray-900').textContent;
+            const status = row.querySelector('td:nth-child(4) .text-xs').textContent;
+            const startDate = row.querySelector('td:nth-child(5)').textContent;
+            
+            // Update modal content
+            document.getElementById('employeeDetailName').textContent = employeeName;
+            document.getElementById('employeeDetailPosition').textContent = position;
+            document.getElementById('employeeInitials').textContent = initials;
+            document.getElementById('employeeDetailEmail').textContent = employeeEmail;
+            document.getElementById('employeeDetailDepartment').textContent = department;
+            document.getElementById('employeeDetailStatus').textContent = status;
+            document.getElementById('employeeDetailStartDate').textContent = startDate;
+            
+            // Update status badge styling
+            document.getElementById('employeeDetailStatus').className = 'font-medium px-2 inline-flex text-xs leading-5 font-semibold rounded-full';
+            if (status === 'Active') {
+              document.getElementById('employeeDetailStatus').classList.add('bg-green-100', 'text-green-800');
+            } else if (status === 'Probation') {
+              document.getElementById('employeeDetailStatus').classList.add('bg-yellow-100', 'text-yellow-800');
+            } else if (status === 'On Leave') {
+              document.getElementById('employeeDetailStatus').classList.add('bg-blue-100', 'text-blue-800');
+            } else {
+              document.getElementById('employeeDetailStatus').classList.add('bg-red-100', 'text-red-800');
+            }
+            
+            // Set a random phone number for demo purposes
+            document.getElementById('employeeDetailPhone').textContent = '+1 (555) ' + Math.floor(1000000 + Math.random() * 9000000).toString();
+            document.getElementById('employeeDetailId').textContent = 'EMP-' + Math.floor(1000 + Math.random() * 9000);
+            
+            // Show the modal
+            document.getElementById('employeeDetailsModal').classList.remove('hidden');
+          });
+        }
+      });
+      
+      // Close employee details modal
+      document.querySelectorAll('#employeeDetailsModal .modal-close').forEach(function(button) {
+        button.addEventListener('click', function() {
+          document.getElementById('employeeDetailsModal').classList.add('hidden');
+        });
+      });
+      
+      // Edit employee button in details modal
+      document.querySelector('.edit-employee-btn').addEventListener('click', function() {
+        document.getElementById('employeeDetailsModal').classList.add('hidden');
+        document.getElementById('employeeModal').classList.remove('hidden');
+      });
+      
+      // Close modal when clicking outside
+      document.getElementById('employeeDetailsModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.add('hidden');
+        }
+      });
+    });
+  </script>
+  
+  <script>
+    // Mobile sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById('menuToggle');
+      const closeSidebar = document.getElementById('closeSidebar');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      
+      // Toggle sidebar on menu button click
+      menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('-translate-x-full');
+        sidebarOverlay.classList.toggle('hidden');
+      });
+      
+      // Close sidebar on close button click
+      closeSidebar.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Close sidebar when clicking on overlay
+      sidebarOverlay.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth < 768 && 
+            !sidebar.contains(event.target) && 
+            !menuToggle.contains(event.target) &&
+            sidebar.classList.contains('translate-x-0')) {
+          sidebar.classList.add('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        }
+      });
+      
+      // Update sidebar position on window resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768) {
+          sidebar.classList.remove('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        } else {
+          sidebar.classList.add('-translate-x-full');
+        }
+      });
+    });
+  </script>
+  
+  <!-- Add Employee Modal -->
+  <div id="employeeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-900">Add New Employee</h3>
+          <button class="modal-close text-gray-400 hover:text-gray-600">
+            <i data-lucide="x" class="h-6 w-6"></i>
+          </button>
+        </div>
+        
+        <form id="employeeForm" class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+              <input type="text" id="firstName" name="firstName" required class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+            </div>
+            <div>
+              <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+              <input type="text" id="lastName" name="lastName" required class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+            </div>
+          </div>
+          
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="position" class="block text-sm font-medium text-gray-700 mb-1">Position</label>
+              <input type="text" id="position" name="position" required class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+            </div>
+            <div>
+              <label for="department" class="block text-sm font-medium text-gray-700 mb-1">Department</label>
+              <select id="department" name="department" required class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+                <option value="">Select Department</option>
+                <option value="engineering">Engineering</option>
+                <option value="marketing">Marketing</option>
+                <option value="sales">Sales</option>
+                <option value="hr">Human Resources</option>
+                <option value="finance">Finance</option>
+                <option value="operations">Operations</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="startDate" class="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+              <input type="date" id="startDate" name="startDate" required class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+            </div>
+            <div>
+              <label for="employeeStatus" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+              <select id="employeeStatus" name="employeeStatus" class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+                <option value="active">Active</option>
+                <option value="probation">Probation</option>
+                <option value="on-leave">On Leave</option>
+                <option value="terminated">Terminated</option>
+              </select>
+            </div>
+          </div>
+          
+          <div>
+            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+            <input type="tel" id="phone" name="phone" class="w-full px-3 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-vivid-blue">
+          </div>
+          
+          <div class="flex justify-end space-x-3 pt-4">
+            <button type="button" class="modal-close px-4 py-2 text-gray-700 border border-gray-300 rounded-full hover:bg-gray-50">Cancel</button>
+            <button type="submit" class="px-4 py-2 bg-vivid-blue text-white rounded-full hover:bg-blue-700">Add Employee</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Employee Details Modal -->
+  <div id="employeeDetailsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-900">Employee Details</h3>
+          <button class="modal-close text-gray-400 hover:text-gray-600">
+            <i data-lucide="x" class="h-6 w-6"></i>
+          </button>
+        </div>
+        
+        <div class="space-y-6">
+          <div class="flex items-start">
+            <div class="flex-shrink-0 h-16 w-16 bg-vivid-blue rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
+              <span id="employeeInitials">JD</span>
+            </div>
+            <div>
+              <h4 id="employeeDetailName" class="text-xl font-bold text-gray-900">John Doe</h4>
+              <p id="employeeDetailPosition" class="text-gray-600">Senior Developer</p>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h5 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Contact Information</h5>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Email:</span>
+                  <span id="employeeDetailEmail" class="font-medium text-vivid-blue">johndoe@echoes.com</span>
+                </div>
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Phone:</span>
+                  <span id="employeeDetailPhone" class="font-medium">+1 (555) 123-4567</span>
+                </div>
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Department:</span>
+                  <span id="employeeDetailDepartment" class="font-medium">Engineering</span>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h5 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Employment Details</h5>
+              <div class="space-y-2">
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Status:</span>
+                  <span id="employeeDetailStatus" class="font-medium px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+                </div>
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Start Date:</span>
+                  <span id="employeeDetailStartDate" class="font-medium">2022-03-15</span>
+                </div>
+                <div class="flex">
+                  <span class="text-gray-500 w-24">Employee ID:</span>
+                  <span id="employeeDetailId" class="font-medium">EMP-001</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h5 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Recent Activity</h5>
+            <div class="space-y-3">
+              <div class="flex items-start">
+                <div class="w-2 h-2 bg-vivid-blue rounded-full mt-2 mr-3"></div>
+                <div>
+                  <p class="text-sm text-gray-900">Completed project milestone</p>
+                  <p class="text-xs text-gray-500">2 days ago</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="w-2 h-2 bg-vivid-blue rounded-full mt-2 mr-3"></div>
+                <div>
+                  <p class="text-sm text-gray-900">Attended team meeting</p>
+                  <p class="text-xs text-gray-500">1 week ago</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="w-2 h-2 bg-vivid-blue rounded-full mt-2 mr-3"></div>
+                <div>
+                  <p class="text-sm text-gray-900">Submitted performance review</p>
+                  <p class="text-xs text-gray-500">2 weeks ago</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex justify-end space-x-3 pt-4">
+            <button type="button" class="modal-close px-4 py-2 text-gray-700 border border-gray-300 rounded-full hover:bg-gray-50">Close</button>
+            <button type="button" class="px-4 py-2 bg-vivid-blue text-white rounded-full hover:bg-blue-700 edit-employee-btn">Edit Employee</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
