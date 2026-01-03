@@ -122,7 +122,7 @@
       // In a real application, this would be a server-side check
       // For now, we'll use a simple hardcoded check
       const validCredentials = [
-        { username: 'admin', password: 'admin@echoess.in' },
+        { username: 'admin', password: 'admin123' },
         { username: 'user', password: 'user123' }
       ];
       
@@ -131,6 +131,13 @@
       );
     }
   </script>
+  
+  <!-- Disable right-click functionality -->
+  <script>
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      return false;
+    });
+  </script>
 </body>
-
 </html>
