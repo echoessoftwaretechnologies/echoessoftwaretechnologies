@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice Generator - Echoes Software Technologies</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @media print {
+      @page {
+        margin: 0;
+      }
+      body * {
+        visibility: hidden;
+      }
+      .invoice-container, .invoice-container * {
+        visibility: visible;
+      }
+      .invoice-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 210mm; /* A4 width */
+        min-height: 297mm; /* A4 height */
+        margin: 0;
+        padding: 15mm;
+        box-sizing: border-box;
+        box-shadow: none;
+      }
+    }
+    
+    .invoice-container {
+      width: 210mm; /* A4 width */
+      min-height: 297mm; /* A4 height */
+      margin: 0;
+      padding: 15mm;
+      background: white;
+      box-sizing: border-box;
+      margin: 0 auto;
+    }
+    
+    .invoice-header {
+      border-bottom: 2px solid #1864ff;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .invoice-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    
+    .invoice-table th, .invoice-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    
+    .invoice-table th {
+      background-color: #f5f7fa;
+      font-weight: 600;
+    }
+    
+    .total-row {
+      font-weight: bold;
+      background-color: #f5f7fa;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'vivid-blue': '#1864ff'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <button id="menuToggle" class="md:hidden mr-4 p-2 rounded-full text-gray-700 hover:bg-gray-100 transition-colors">
+            <i data-lucide="menu" class="h-6 w-6"></i>
+          </button>
+          <div class="flex-shrink-0 flex items-center">
+            <img src="2.png" alt="Echoes Software Technologies" width="150" height="40">
+          </div>
+        </div>
+        <nav class="hidden md:flex space-x-2">
+          <a href="admin-dashboard.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="home" class="h-4 w-4 inline mr-2"></i>
+            Home
+          </a>
+          <a href="invoice-generator.html" class="px-4 py-2 text-sm font-medium bg-vivid-blue text-white rounded-full transition-colors">
+            <i data-lucide="file-text" class="h-4 w-4 inline mr-2"></i>
+            Invoice Generator
+          </a>
+        </nav>
+        <div class="flex items-center space-x-4">
+          <div class="hidden md:block text-sm text-gray-600">
+            Welcome, <span id="currentUserName" class="font-medium text-vivid-blue">Admin</span>
+          </div>
+          <button id="logoutButton" class="hidden md:flex items-center space-x-1 bg-red-600 text-white px-4 py-2 rounded-full font-medium hover:bg-red-700 transition-colors">
+            <i data-lucide="log-out" class="h-4 w-4"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-white border-r border-gray-200 min-h-screen fixed md:static md:translate-x-0 z-40 transform -translate-x-full md:-translate-x-0 transition-transform duration-300 ease-in-out">
+      <div class="p-4">
+        <div class="flex justify-between items-center mb-4">
+          <button id="closeSidebar" class="md:hidden p-2 rounded-full text-gray-700 hover:bg-gray-100">
+            <i data-lucide="x" class="h-5 w-5"></i>
+          </button>
+        </div>
+        <nav>
+          <a href="crm-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="users" class="h-5 w-5"></i>
+            <span>CRM Management</span>
+          </a>
+          <a href="attendance-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="calendar" class="h-5 w-5"></i>
+            <span>Attendance Management</span>
+          </a>
+          <a href="employee-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="user" class="h-5 w-5"></i>
+            <span>Employee Management</span>
+          </a>
+          <a href="password-manager.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="key" class="h-5 w-5"></i>
+            <span>Password Manager</span>
+          </a>
+          <a href="invoice-generator.html" class="flex items-center space-x-3 px-4 py-3 bg-vivid-blue text-white rounded-full transition-colors">
+            <i data-lucide="file-text" class="h-5 w-5"></i>
+            <span>Invoice Generator</span>
+          </a>
+        </nav>
+        
+        <div class="mt-auto pt-4 border-t border-gray-200">
+          <div class="p-4 bg-gray-50 rounded-full mb-4">
+            <div class="text-sm font-medium text-gray-900" id="sidebarUserName">Admin</div>
+            <div class="text-xs text-gray-600">Logged in as admin</div>
+          </div>
+          <button id="sidebarLogoutButton" class="w-full flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-full transition-colors">
+            <i data-lucide="log-out" class="h-5 w-5"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Overlay for mobile -->
+    <div id="sidebarOverlay" class="fixed inset-0 z-30 bg-black bg-opacity-50 hidden md:hidden"></div>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-center mb-8">
+          <h1 class="text-3xl font-bold text-gray-900">Invoice Generator</h1>
+          <button id="generateInvoiceBtn" class="bg-vivid-blue text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition-colors flex items-center">
+            <i data-lucide="printer" class="h-5 w-5 mr-2"></i>
+            Generate & Print Invoice
+          </button>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Form Section -->
+          <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-900 mb-6">Invoice Details</h2>
+            
+            <form id="invoiceForm">
+              <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Company Information</label>
+                <input type="text" id="companyName" placeholder="Company Name" value="Echoes Software Technologies" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                <input type="text" id="companyAddress" placeholder="Company Address" class="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                <div class="grid grid-cols-2 gap-2 mt-2">
+                  <input type="text" id="companyCity" placeholder="City" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                  <input type="text" id="companyZip" placeholder="ZIP" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                </div>
+                <input type="text" id="companyCountry" placeholder="Country" class="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+              </div>
+              
+              <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Bill To</label>
+                <input type="text" id="clientName" placeholder="Client Name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                <input type="text" id="clientAddress" placeholder="Client Address" class="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                <div class="grid grid-cols-2 gap-2 mt-2">
+                  <input type="text" id="clientCity" placeholder="City" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                  <input type="text" id="clientZip" placeholder="ZIP" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                </div>
+                <input type="text" id="clientCountry" placeholder="Country" class="w-full p-3 border border-gray-300 rounded-lg mt-2 focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+              </div>
+              
+              <div class="grid grid-cols-2 gap-4 mb-6">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Invoice Number</label>
+                  <input type="text" id="invoiceNumber" placeholder="INV-001" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+                  <input type="date" id="invoiceDate" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                </div>
+              </div>
+              
+              <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Items</label>
+                <div id="itemsContainer">
+                  <div class="item-row grid grid-cols-12 gap-2 mb-2">
+                    <input type="text" class="col-span-5 p-3 border border-gray-300 rounded-lg item-description focus:ring-2 focus:ring-vivid-blue focus:border-transparent" placeholder="Description">
+                    <input type="number" class="col-span-2 p-3 border border-gray-300 rounded-lg item-quantity focus:ring-2 focus:ring-vivid-blue focus:border-transparent" placeholder="Qty" min="1">
+                    <input type="number" class="col-span-3 p-3 border border-gray-300 rounded-lg item-price focus:ring-2 focus:ring-vivid-blue focus:border-transparent" placeholder="Price" min="0" step="0.01">
+                    <div class="col-span-2">
+                      <button type="button" class="remove-item-btn bg-red-100 text-red-600 p-3 rounded-lg hover:bg-red-200">Remove</button>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" id="addItemBtn" class="mt-2 text-vivid-blue hover:text-blue-700 font-medium flex items-center">
+                  <i data-lucide="plus" class="h-4 w-4 mr-1"></i> Add Item
+                </button>
+              </div>
+              
+              <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Notes</label>
+                <textarea id="notes" rows="3" placeholder="Additional notes..." class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent"></textarea>
+              </div>
+            </form>
+          </div>
+          
+          <!-- Preview Section -->
+          <div class="lg:col-span-2">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <h2 class="text-xl font-semibold text-gray-900 mb-6">Invoice Preview</h2>
+              <div id="invoicePreview" class="invoice-container bg-white border border-gray-300">
+                <div class="invoice-header">
+                  <div class="flex justify-between">
+                    <div>
+                      <h1 class="text-3xl font-bold text-vivid-blue">INVOICE</h1>
+                      <p class="text-sm text-gray-600 mt-1">Tax ID: 123-456-789</p>
+                    </div>
+                    <div class="text-right">
+                      <h2 id="previewCompanyName" class="text-xl font-bold">Echoes Software Technologies</h2>
+                      <p id="previewCompanyAddress" class="text-sm mt-1"></p>
+                      <p id="previewCompanyCityZip" class="text-sm"></p>
+                      <p id="previewCompanyCountry" class="text-sm"></p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-8 my-6">
+                  <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Bill To:</h3>
+                    <p id="previewClientName" class="font-medium"></p>
+                    <p id="previewClientAddress" class="text-sm mt-1"></p>
+                    <p id="previewClientCityZip" class="text-sm"></p>
+                    <p id="previewClientCountry" class="text-sm"></p>
+                  </div>
+                  <div class="text-right">
+                    <div class="mb-2">
+                      <p class="text-sm"><span class="font-medium">Invoice Number:</span> <span id="previewInvoiceNumber">INV-001</span></p>
+                      <p class="text-sm"><span class="font-medium">Date:</span> <span id="previewInvoiceDate"></span></p>
+                    </div>
+                  </div>
+                </div>
+                
+                <table class="invoice-table">
+                  <thead>
+                    <tr>
+                      <th>Description</th>
+                      <th class="text-right">Quantity</th>
+                      <th class="text-right">Price</th>
+                      <th class="text-right">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody id="previewItems">
+                    <!-- Items will be added here dynamically -->
+                  </tbody>
+                  <tfoot>
+                    <tr class="total-row">
+                      <td colspan="3" class="text-right font-semibold">Subtotal:</td>
+                      <td id="previewSubtotal" class="text-right font-semibold">$0.00</td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="text-right">Tax (10%):</td>
+                      <td id="previewTax" class="text-right">$0.00</td>
+                    </tr>
+                    <tr class="total-row">
+                      <td colspan="3" class="text-right font-semibold">Total:</td>
+                      <td id="previewTotal" class="text-right font-semibold">$0.00</td>
+                    </tr>
+                  </tfoot>
+                </table>
+                
+                <div class="mt-8">
+                  <h3 class="font-semibold text-gray-900 mb-2">Notes:</h3>
+                  <p id="previewNotes"></p>
+                </div>
+                
+                <div class="mt-12 pt-6 border-t border-gray-300 text-center">
+                  <p class="text-sm text-gray-600">Thank you for your business!</p>
+                  <p class="text-xs text-gray-500 mt-2">Payment is due within 30 days</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Check authentication status
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if user is logged in
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      
+      // If not logged in, redirect to login page
+      if (isLoggedIn !== 'true') {
+        window.location.href = 'login.html';
+      }
+      
+      // Initialize logout functionality
+      document.getElementById('logoutButton').addEventListener('click', function() {
+        // Clear login state
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentUser');
+        
+        // Redirect to login page
+        window.location.href = 'login.html';
+      });
+      
+      // Display current user's name in header and sidebar
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        document.getElementById('currentUserName').textContent = currentUser;
+        document.getElementById('sidebarUserName').textContent = currentUser;
+      }
+      
+      // Initialize sidebar logout functionality
+      const sidebarLogoutButton = document.getElementById('sidebarLogoutButton');
+      if (sidebarLogoutButton) {
+        sidebarLogoutButton.addEventListener('click', function() {
+          // Clear login state
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('currentUser');
+          
+          // Redirect to login page
+          window.location.href = 'login.html';
+        });
+      }
+      
+      // Initialize icons
+      lucide.createIcons();
+      
+      // Set today's date as default
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('invoiceDate').value = today;
+      document.getElementById('previewInvoiceDate').textContent = formatDate(today);
+    });
+
+    // Mobile sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById('menuToggle');
+      const closeSidebar = document.getElementById('closeSidebar');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      
+      // Toggle sidebar on menu button click
+      menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('-translate-x-full');
+        sidebarOverlay.classList.toggle('hidden');
+      });
+      
+      // Close sidebar on close button click
+      closeSidebar.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Close sidebar when clicking on overlay
+      sidebarOverlay.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth < 768 && 
+            !sidebar.contains(event.target) && 
+            !menuToggle.contains(event.target) &&
+            sidebar.classList.contains('translate-x-0')) {
+          sidebar.classList.add('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        }
+      });
+      
+      // Update sidebar position on window resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768) {
+          sidebar.classList.remove('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        } else {
+          sidebar.classList.add('-translate-x-full');
+        }
+      });
+    });
+
+    // Invoice generation functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add item row
+      document.getElementById('addItemBtn').addEventListener('click', function() {
+        const container = document.getElementById('itemsContainer');
+        const newRow = document.createElement('div');
+        newRow.className = 'item-row grid grid-cols-12 gap-2 mb-2';
+        newRow.innerHTML = `
+          <input type="text" class="col-span-5 p-3 border border-gray-300 rounded-lg item-description focus:ring-2 focus:ring-vivid-blue focus:border-transparent" placeholder="Description">
+          <input type="number" class="col-span-2 p-3 border border-gray-300 rounded-lg item-quantity focus:ring-2 focus:ring-vivid-blue focus:border-transparent" placeholder="Qty" min="1">
+          <input type="number" class="col-span-3 p-3 border border-gray-300 rounded-lg item-price focus:ring-2 focus:ring-vivid-blue focus:border-transparent" placeholder="Price" min="0" step="0.01">
+          <div class="col-span-2">
+            <button type="button" class="remove-item-btn bg-red-100 text-red-600 p-3 rounded-lg hover:bg-red-200">Remove</button>
+          </div>
+        `;
+        container.appendChild(newRow);
+        
+        // Add event listener to the new remove button
+        newRow.querySelector('.remove-item-btn').addEventListener('click', function() {
+          container.removeChild(newRow);
+          updatePreview();
+        });
+        
+        // Add input listeners to the new fields
+        newRow.querySelectorAll('input').forEach(input => {
+          input.addEventListener('input', updatePreview);
+        });
+      });
+
+      // Add event listeners to initial remove button
+      document.querySelector('.remove-item-btn').addEventListener('click', function() {
+        const container = document.getElementById('itemsContainer');
+        if (container.children.length > 1) {
+          container.removeChild(this.closest('.item-row'));
+          updatePreview();
+        }
+      });
+
+      // Add input listeners to all form fields
+      document.querySelectorAll('#invoiceForm input, #invoiceForm textarea').forEach(input => {
+        input.addEventListener('input', updatePreview);
+      });
+
+      // Initial update of preview
+      updatePreview();
+
+      // Generate and print invoice
+      document.getElementById('generateInvoiceBtn').addEventListener('click', function() {
+        // Update preview one more time to ensure all values are current
+        updatePreview();
+        
+        // Show the print dialog
+        window.print();
+      });
+    });
+
+    // Update preview function
+    function updatePreview() {
+      // Update company info
+      document.getElementById('previewCompanyName').textContent = document.getElementById('companyName').value || 'Echoes Software Technologies';
+      document.getElementById('previewCompanyAddress').textContent = document.getElementById('companyAddress').value;
+      
+      const companyCity = document.getElementById('companyCity').value;
+      const companyZip = document.getElementById('companyZip').value;
+      document.getElementById('previewCompanyCityZip').textContent = companyCity && companyZip ? `${companyCity}, ${companyZip}` : companyCity || companyZip;
+      
+      document.getElementById('previewCompanyCountry').textContent = document.getElementById('companyCountry').value;
+
+      // Update client info
+      document.getElementById('previewClientName').textContent = document.getElementById('clientName').value;
+      document.getElementById('previewClientAddress').textContent = document.getElementById('clientAddress').value;
+      
+      const clientCity = document.getElementById('clientCity').value;
+      const clientZip = document.getElementById('clientZip').value;
+      document.getElementById('previewClientCityZip').textContent = clientCity && clientZip ? `${clientCity}, ${clientZip}` : clientCity || clientZip;
+      
+      document.getElementById('previewClientCountry').textContent = document.getElementById('clientCountry').value;
+
+      // Update invoice details
+      document.getElementById('previewInvoiceNumber').textContent = document.getElementById('invoiceNumber').value || 'INV-001';
+      document.getElementById('previewInvoiceDate').textContent = formatDate(document.getElementById('invoiceDate').value);
+
+      // Update notes
+      document.getElementById('previewNotes').textContent = document.getElementById('notes').value;
+
+      // Update items table
+      const itemsContainer = document.getElementById('itemsContainer');
+      const previewItems = document.getElementById('previewItems');
+      previewItems.innerHTML = ''; // Clear existing items
+      
+      let subtotal = 0;
+      
+      for (let i = 0; i < itemsContainer.children.length; i++) {
+        const row = itemsContainer.children[i];
+        const description = row.querySelector('.item-description').value || 'Item';
+        const quantity = parseFloat(row.querySelector('.item-quantity').value) || 0;
+        const price = parseFloat(row.querySelector('.item-price').value) || 0;
+        const amount = quantity * price;
+        subtotal += amount;
+        
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${description}</td>
+          <td class="text-right">${quantity}</td>
+          <td class="text-right">$${price.toFixed(2)}</td>
+          <td class="text-right">$${amount.toFixed(2)}</td>
+        `;
+        previewItems.appendChild(tr);
+      }
+      
+      // Calculate tax and total
+      const taxRate = 0.10; // 10%
+      const tax = subtotal * taxRate;
+      const total = subtotal + tax;
+      
+      // Update totals
+      document.getElementById('previewSubtotal').textContent = `$${subtotal.toFixed(2)}`;
+      document.getElementById('previewTax').textContent = `$${tax.toFixed(2)}`;
+      document.getElementById('previewTotal').textContent = `$${total.toFixed(2)}`;
+    }
+
+    // Helper function to format date
+    function formatDate(dateString) {
+      if (!dateString) return '';
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+  </script>
+</body>
+</html>
