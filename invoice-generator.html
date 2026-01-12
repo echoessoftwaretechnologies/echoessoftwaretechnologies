@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     @media print {
       @page {
@@ -178,8 +180,8 @@
         <div class="flex justify-between items-center mb-8">
           <h1 class="text-3xl font-bold text-gray-900">Invoice Generator</h1>
           <button id="generateInvoiceBtn" class="bg-vivid-blue text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition-colors flex items-center">
-            <i data-lucide="printer" class="h-5 w-5 mr-2"></i>
-            Generate & Print Invoice
+            <i data-lucide="download" class="h-5 w-5 mr-2"></i>
+            Download Invoice PDF
           </button>
         </div>
         
@@ -470,13 +472,44 @@
       // Initial update of preview
       updatePreview();
 
-      // Generate and print invoice
+      // Generate and download invoice as PDF
       document.getElementById('generateInvoiceBtn').addEventListener('click', function() {
         // Update preview one more time to ensure all values are current
         updatePreview();
         
-        // Show the print dialog
-        window.print();
+        // Wait for DOM to update before capturing
+        setTimeout(function() {
+          const { jsPDF } = window.jspdf;
+          
+          // Capture the invoice container
+          html2canvas(document.querySelector('.invoice-container'), {
+            scale: 2, // Higher resolution
+            useCORS: true,
+            logging: false
+          }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgWidth = 210; // A4 width in mm
+            const pageHeight = 297; // A4 height in mm
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 0;
+            
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+            
+            // Add additional pages if content is taller than A4
+            while (heightLeft >= 0) {
+              position = heightLeft - imgHeight;
+              pdf.addPage();
+              pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+              heightLeft -= pageHeight;
+            }
+            
+            // Save the PDF with the specified filename
+            pdf.save('echoes_invoice.pdf');
+          });
+        }, 500); // Small delay to ensure DOM is updated
       });
     });
 
