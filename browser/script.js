@@ -547,9 +547,23 @@ Click OK to continue or Cancel to stay on current page.`);
         
         // Position the suggestions div below the address bar
         const addressBarRect = this.addressBar.getBoundingClientRect();
-        suggestionsDiv.style.top = `${addressBarRect.bottom + window.scrollY}px`;
-        suggestionsDiv.style.left = `${addressBarRect.left + window.scrollX}px`;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        
+        suggestionsDiv.style.top = `${addressBarRect.bottom + scrollTop}px`;
+        suggestionsDiv.style.left = `${addressBarRect.left + scrollLeft}px`;
         suggestionsDiv.style.width = `${addressBarRect.width}px`;
+        
+        // On mobile, adjust positioning to stay within viewport
+        if (window.innerWidth <= 768) {
+            suggestionsDiv.style.left = '2.5vw';
+            suggestionsDiv.style.width = '95vw';
+            suggestionsDiv.style.maxWidth = 'calc(100vw - 5vw)';
+            
+            // Ensure it doesn't go off screen vertically
+            const maxHeight = window.innerHeight - addressBarRect.bottom - 20;
+            suggestionsDiv.style.maxHeight = `${maxHeight}px`;
+        }
         
         // For demo purposes, we'll create mock suggestions
         // In a real implementation, this would call an API like Google Suggest
@@ -706,8 +720,17 @@ window.addEventListener('resize', function() {
     // Handle mobile orientation changes
     if (window.innerWidth <= 768) {
         document.body.classList.add('mobile-view');
+        // Hide suggestions on resize to prevent positioning issues
+        if (browser) {
+            browser.hideSuggestions();
+        }
     } else {
         document.body.classList.remove('mobile-view');
+    }
+    
+    // Re-position suggestions if they're visible
+    if (browser && document.getElementById('suggestions-container')?.style.display === 'block') {
+        browser.showSuggestions();
     }
 });
 
@@ -729,5 +752,13 @@ document.addEventListener('touchend', function(e) {
 window.addEventListener('load', function() {
     if (window.innerWidth <= 768) {
         document.body.classList.add('mobile-view');
+    }
+    
+    // Add viewport meta tag dynamically if not present
+    if (!document.querySelector('meta[name="viewport"]')) {
+        const viewportMeta = document.createElement('meta');
+        viewportMeta.name = 'viewport';
+        viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+        document.head.appendChild(viewportMeta);
     }
 });
