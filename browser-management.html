@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browser Management - Echoes Software Technologies</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'vivid-blue': '#1864ff'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .browser-tab.active {
+      background-color: #1864ff;
+      color: white;
+    }
+    .browser-frame {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .iframe-container {
+      height: 600px;
+      overflow: auto;
+    }
+    
+    /* Chrome-like scrollbar styling */
+    .iframe-container::-webkit-scrollbar {
+      width: 12px;
+    }
+    
+    .iframe-container::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    
+    .iframe-container::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 10px;
+    }
+    
+    .iframe-container::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+    
+    /* Google Chrome-like browser styling */
+    .chrome-browser-window {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .chrome-tab-bar {
+      background: #f1f3f4;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .chrome-tab {
+      background: white;
+      border: 1px solid #dadce0;
+      border-radius: 12px 12px 0 0;
+      padding: 6px 16px;
+      margin-right: 4px;
+      font-size: 14px;
+      color: #5f6368;
+      cursor: pointer;
+      position: relative;
+      min-width: 120px;
+      text-align: center;
+    }
+    
+    .chrome-tab.active {
+      background: white;
+      color: #202124;
+      border-bottom: 1px solid white;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 -4px 6px -1px rgba(24, 100, 255, 0.1);
+    }
+    
+    .chrome-tab .close-btn {
+      margin-left: 8px;
+      font-size: 16px;
+      line-height: 1;
+    }
+    
+    .chrome-nav-bar {
+      background: white;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #dadce0;
+    }
+    
+    .chrome-nav-buttons {
+      display: flex;
+      margin-right: 12px;
+    }
+    
+    .chrome-nav-button {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      margin-right: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    
+    .chrome-back-button {
+      background: #f1f3f4;
+    }
+    
+    .chrome-forward-button {
+      background: #f1f3f4;
+    }
+    
+    .chrome-reload-button {
+      background: #f1f3f4;
+    }
+    
+    .chrome-address-bar {
+      flex: 1;
+      background: #f1f3f4;
+      border-radius: 20px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #202124;
+    }
+    
+    .chrome-url-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 14px;
+      padding: 2px 8px;
+    }
+    
+    .chrome-search-icon {
+      color: #5f6368;
+      margin-right: 8px;
+    }
+    
+    /* Enhanced browser styling */
+    .browser-tab {
+      transition: all 0.2s ease;
+    }
+    .browser-tab:hover:not(.active) {
+      background-color: #f3f4f6;
+    }
+    .browser-navigation-bar {
+      background-color: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .browser-address-bar {
+      background-color: white;
+      border: 1px solid #d1d5db;
+      transition: all 0.2s ease;
+    }
+    .browser-address-bar:focus-within {
+      border-color: #1864ff;
+      box-shadow: 0 0 0 3px rgba(24, 100, 255, 0.1);
+    }
+    .real-time-indicator {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <button id="menuToggle" class="md:hidden mr-4 p-2 rounded-full text-gray-700 hover:bg-gray-100 transition-colors">
+            <i data-lucide="menu" class="h-6 w-6"></i>
+          </button>
+          <div class="flex-shrink-0 flex items-center">
+            <img src="2.png" alt="Echoes Software Technologies" width="150" height="40">
+          </div>
+        </div>
+        <nav class="hidden md:flex space-x-2">
+          <a href="admin-dashboard.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="home" class="h-4 w-4 inline mr-2"></i>
+            Home
+          </a>
+        </nav>
+        <div class="flex items-center space-x-4">
+          <div class="flex items-center space-x-2">
+            <div class="w-3 h-3 bg-green-500 rounded-full real-time-indicator"></div>
+            <span class="text-sm text-gray-600">Real-time Connected</span>
+          </div>
+          <div class="hidden md:block text-sm text-gray-600">
+            Welcome, <span id="currentUserName" class="font-medium text-vivid-blue">Admin</span>
+          </div>
+          <button id="logoutButton" class="hidden md:flex items-center space-x-1 bg-red-600 text-white px-4 py-2 rounded-full font-medium hover:bg-red-700 transition-colors">
+            <i data-lucide="log-out" class="h-4 w-4"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-white border-r border-gray-200 min-h-screen fixed md:static md:translate-x-0 z-40 transform -translate-x-full md:-translate-x-0 transition-transform duration-300 ease-in-out">
+      <div class="p-4">
+        <div class="flex justify-between items-center mb-4">
+          <button id="closeSidebar" class="md:hidden p-2 rounded-full text-gray-700 hover:bg-gray-100">
+            <i data-lucide="x" class="h-5 w-5"></i>
+          </button>
+        </div>
+        <nav>
+          <a href="crm-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="users" class="h-5 w-5"></i>
+            <span>CRM Management</span>
+          </a>
+          <a href="attendance-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="calendar" class="h-5 w-5"></i>
+            <span>Attendance Management</span>
+          </a>
+          <a href="employee-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="user" class="h-5 w-5"></i>
+            <span>Employee Management</span>
+          </a>
+          <a href="password-manager.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="key" class="h-5 w-5"></i>
+            <span>Password Manager</span>
+          </a>
+          <a href="invoice-generator.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="file-text" class="h-5 w-5"></i>
+            <span>Invoice Generator</span>
+          </a>
+          <a href="browser-management.html" class="flex items-center space-x-3 px-4 py-3 bg-vivid-blue text-white rounded-full transition-colors">
+            <i data-lucide="globe" class="h-5 w-5"></i>
+            <span>Browser</span>
+          </a>
+        </nav>
+        
+        <div class="mt-auto pt-4 border-t border-gray-200">
+          <div class="p-4 bg-gray-50 rounded-full mb-4">
+            <div class="text-sm font-medium text-gray-900" id="sidebarUserName">Admin</div>
+            <div class="text-xs text-gray-600">Logged in as admin</div>
+          </div>
+          <button id="sidebarLogoutButton" class="w-full flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-full transition-colors">
+            <i data-lucide="log-out" class="h-5 w-5"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Overlay for mobile -->
+    <div id="sidebarOverlay" class="fixed inset-0 z-30 bg-black bg-opacity-50 hidden md:hidden"></div>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-center mb-8">
+          <h1 class="text-3xl font-bold text-gray-900">Browser Management</h1>
+          <div class="flex space-x-3">
+            <button id="newTabBtn" class="bg-vivid-blue text-white px-4 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors flex items-center">
+              <i data-lucide="plus" class="h-4 w-4 mr-2"></i>
+              New Tab
+            </button>
+            <button id="refreshAllBtn" class="bg-gray-600 text-white px-4 py-2 rounded-full font-medium hover:bg-gray-700 transition-colors flex items-center">
+              <i data-lucide="refresh-cw" class="h-4 w-4 mr-2"></i>
+              Refresh All
+            </button>
+          </div>
+        </div>
+
+        <!-- Chrome-like Browser Window -->
+        <div class="chrome-browser-window">
+          <!-- Chrome Tab Bar -->
+          <div class="chrome-tab-bar">
+            <div id="tabsContainer" class="flex flex-1">
+              <!-- Tabs will be dynamically added here -->
+            </div>
+            <button id="addTabBtn" class="ml-2 p-1 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full">
+              <i data-lucide="plus" class="h-5 w-5"></i>
+            </button>
+          </div>
+
+          <!-- Browser Content Area -->
+          <div id="browserContent" class="bg-white">
+            <!-- Browser frames will be dynamically loaded here -->
+          </div>
+        </div>
+        <!-- Real-time Activity Panel -->
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Real-time Browser Activity</h2>
+            <div id="activityLog" class="space-y-3 max-h-96 overflow-y-auto">
+              <!-- Activity logs will appear here -->
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Browser Statistics</h2>
+            <div class="space-y-4">
+              <div class="flex justify-between items-center p-3 bg-gray-50 rounded-full">
+                <span class="text-sm font-medium text-gray-700">Active Tabs</span>
+                <span id="activeTabsCount" class="text-lg font-bold text-vivid-blue">0</span>
+              </div>
+              <div class="flex justify-between items-center p-3 bg-gray-50 rounded-full">
+                <span class="text-sm font-medium text-gray-700">Total Visits</span>
+                <span id="totalVisitsCount" class="text-lg font-bold text-vivid-blue">0</span>
+              </div>
+              <div class="flex justify-between items-center p-3 bg-gray-50 rounded-full">
+                <span class="text-sm font-medium text-gray-700">Current URL</span>
+                <span id="currentUrl" class="text-sm text-gray-600 truncate max-w-32">None</span>
+              </div>
+              <div class="flex justify-between items-center p-3 bg-gray-50 rounded-full">
+                <span class="text-sm font-medium text-gray-700">Connection Status</span>
+                <span id="connectionStatus" class="text-sm font-medium text-green-600">Connected</span>
+              </div>
+            </div>
+            
+            <div class="mt-6">
+              <h3 class="font-medium text-gray-900 mb-3">Quick Actions</h3>
+              <div class="space-y-2">
+                <button id="clearHistoryBtn" class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-full">
+                  Clear Browser History
+                </button>
+                <button id="exportDataBtn" class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-full">
+                  Export Activity Data
+                </button>
+                <button id="resetBrowserBtn" class="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-full">
+                  Reset Browser Session
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- URL Input Modal -->
+  <div id="urlModal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-6 relative">
+        <button id="closeUrlModal" class="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-700">
+          <i data-lucide="x" class="h-5 w-5"></i>
+        </button>
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Navigate to URL</h3>
+        <div class="mb-4">
+          <input type="url" id="urlInput" placeholder="https://example.com" class="w-full px-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+        </div>
+        <div class="flex space-x-3">
+          <button id="navigateBtn" class="flex-1 bg-vivid-blue text-white py-2 px-4 rounded-full font-medium hover:bg-blue-700 transition-colors">
+            Navigate
+          </button>
+          <button id="cancelUrlBtn" class="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-full font-medium hover:bg-gray-300 transition-colors">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Browser Management System
+    class BrowserManager {
+      constructor() {
+        this.tabs = [];
+        this.currentTabId = null;
+        this.tabCounter = 0;
+        this.activityLog = [];
+        this.stats = {
+          activeTabs: 0,
+          totalVisits: 0
+        };
+        this.ws = null;
+        this.init();
+      }
+
+      init() {
+        this.setupEventListeners();
+        this.connectWebSocket();
+        this.addNewTab(); // Add initial tab
+        this.updateStats();
+        lucide.createIcons();
+      }
+
+      setupEventListeners() {
+        // Navigation buttons
+        document.getElementById('newTabBtn').addEventListener('click', () => this.addNewTab());
+        document.getElementById('addTabBtn').addEventListener('click', () => this.addNewTab());
+        document.getElementById('refreshAllBtn').addEventListener('click', () => this.refreshAllTabs());
+
+        // Modal events
+        document.getElementById('navigateBtn').addEventListener('click', () => this.navigateToUrl());
+        document.getElementById('cancelUrlBtn').addEventListener('click', () => this.closeUrlModal());
+        document.getElementById('closeUrlModal').addEventListener('click', () => this.closeUrlModal());
+
+        // Quick actions
+        document.getElementById('clearHistoryBtn').addEventListener('click', () => this.clearHistory());
+        document.getElementById('exportDataBtn').addEventListener('click', () => this.exportData());
+        document.getElementById('resetBrowserBtn').addEventListener('click', () => this.resetBrowser());
+
+        // URL input enter key
+        document.getElementById('urlInput').addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') this.navigateToUrl();
+        });
+
+        // Authentication check
+        this.checkAuth();
+      }
+
+      checkAuth() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn !== 'true') {
+          window.location.href = 'login.html';
+        }
+        
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+          document.getElementById('currentUserName').textContent = currentUser;
+          document.getElementById('sidebarUserName').textContent = currentUser;
+        }
+
+        // Logout functionality
+        document.getElementById('logoutButton').addEventListener('click', this.logout.bind(this));
+        document.getElementById('sidebarLogoutButton').addEventListener('click', this.logout.bind(this));
+      }
+
+      logout() {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentUser');
+        window.location.href = 'login.html';
+      }
+
+      connectWebSocket() {
+        // Simulate WebSocket connection for real-time updates
+        console.log('Connecting to real-time browser service...');
+        this.addActivityLog('Connected to real-time browser service', 'success');
+        
+        // Simulate periodic updates
+        setInterval(() => {
+          if (this.tabs.length > 0) {
+            this.simulateRealTimeUpdate();
+          }
+        }, 5000);
+      }
+
+      simulateRealTimeUpdate() {
+        const randomEvents = [
+          'Page loaded successfully',
+          'SSL certificate verified',
+          'Resources cached',
+          'JavaScript executed',
+          'DOM content loaded'
+        ];
+        
+        const randomEvent = randomEvents[Math.floor(Math.random() * randomEvents.length)];
+        this.addActivityLog(randomEvent, 'info');
+      }
+
+      addNewTab(url = 'https://www.google.com') {
+        this.tabCounter++;
+        const tabId = `tab-${this.tabCounter}`;
+        
+        const tab = {
+          id: tabId,
+          title: 'New Tab',
+          url: url,
+          favicon: '🌐',
+          createdAt: new Date()
+        };
+
+        this.tabs.push(tab);
+        this.createTabElement(tab);
+        this.loadTabContent(tab);
+        this.switchToTab(tabId);
+        this.stats.activeTabs = this.tabs.length;
+        this.stats.totalVisits++;
+        this.updateStats();
+        this.addActivityLog(`New tab created: ${tab.title}`, 'info');
+      }
+
+      createTabElement(tab) {
+        const tabsContainer = document.getElementById('tabsContainer');
+        const tabElement = document.createElement('div');
+        tabElement.className = 'chrome-tab';
+        tabElement.dataset.tabId = tab.id;
+        tabElement.innerHTML = `
+          <span>${tab.favicon || '🌐'}</span>
+          <span class="truncate">${tab.title}</span>
+          <button class="close-btn" onclick="browserManager.closeTab('${tab.id}')">×</button>
+        `;
+        
+        tabElement.addEventListener('click', (e) => {
+          if (!e.target.classList.contains('close-btn')) {
+            this.switchToTab(tab.id);
+          }
+        });
+        
+        tabsContainer.appendChild(tabElement);
+        setTimeout(() => lucide.createIcons(), 100);
+      }
+
+      loadTabContent(tab) {
+        const browserContent = document.getElementById('browserContent');
+        const frameId = `frame-${tab.id}`;
+        
+        // Create iframe container
+        const frameContainer = document.createElement('div');
+        frameContainer.id = frameId;
+        frameContainer.className = 'iframe-container hidden';
+        frameContainer.innerHTML = `
+          <div class="chrome-nav-bar">
+            <div class="chrome-nav-buttons">
+              <div class="chrome-nav-button chrome-back-button" onclick="browserManager.goBack('${tab.id}')">
+                <i data-lucide="arrow-left" class="h-4 w-4"></i>
+              </div>
+              <div class="chrome-nav-button chrome-forward-button" onclick="browserManager.goForward('${tab.id}')">
+                <i data-lucide="arrow-right" class="h-4 w-4"></i>
+              </div>
+              <div class="chrome-nav-button chrome-reload-button" onclick="browserManager.refreshTab('${tab.id}')">
+                <i data-lucide="refresh-cw" class="h-4 w-4"></i>
+              </div>
+            </div>
+            <div class="chrome-address-bar">
+              <i data-lucide="lock" class="chrome-search-icon h-4 w-4"></i>
+              <input type="text" value="${tab.url}" class="chrome-url-input" readonly>
+              <button class="p-1 hover:bg-gray-200 rounded-full" onclick="browserManager.openUrlModal('${tab.id}')">
+                <i data-lucide="edit-3" class="h-4 w-4 text-gray-500"></i>
+              </button>
+            </div>
+          </div>
+          <iframe src="${tab.url}" class="w-full h-full border-0" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads"></iframe>
+        `;
+        
+        browserContent.appendChild(frameContainer);
+        setTimeout(() => lucide.createIcons(), 100);
+      }
+
+      switchToTab(tabId) {
+        // Update tab UI
+        document.querySelectorAll('.chrome-tab').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        
+        const activeTab = document.querySelector(`[data-tab-id="${tabId}"]`);
+        if (activeTab) {
+          activeTab.classList.add('active');
+        }
+
+        // Show active frame
+        document.querySelectorAll('.iframe-container').forEach(frame => {
+          frame.classList.add('hidden');
+        });
+        
+        const activeFrame = document.getElementById(`frame-${tabId}`);
+        if (activeFrame) {
+          activeFrame.classList.remove('hidden');
+        }
+
+        this.currentTabId = tabId;
+        const tab = this.tabs.find(t => t.id === tabId);
+        if (tab) {
+          document.getElementById('currentUrl').textContent = tab.url;
+          this.addActivityLog(`Switched to tab: ${tab.title}`, 'info');
+        }
+      }
+
+      closeTab(tabId) {
+        // Remove from tabs array
+        this.tabs = this.tabs.filter(tab => tab.id !== tabId);
+        
+        // Remove tab element
+        const tabElement = document.querySelector(`[data-tab-id="${tabId}"]`);
+        if (tabElement) tabElement.remove();
+        
+        // Remove frame
+        const frameElement = document.getElementById(`frame-${tabId}`);
+        if (frameElement) frameElement.remove();
+        
+        // Switch to another tab if current was closed
+        if (this.currentTabId === tabId && this.tabs.length > 0) {
+          this.switchToTab(this.tabs[0].id);
+        } else if (this.tabs.length === 0) {
+          this.currentTabId = null;
+          document.getElementById('currentUrl').textContent = 'None';
+          this.addNewTab();
+        }
+        
+        this.stats.activeTabs = this.tabs.length;
+        this.updateStats();
+        this.addActivityLog(`Tab closed`, 'warning');
+      }
+
+      refreshTab(tabId) {
+        const frame = document.getElementById(`frame-${tabId}`);
+        if (frame) {
+          const iframe = frame.querySelector('iframe');
+          if (iframe) {
+            // Store the current URL before refreshing
+            const currentSrc = iframe.src;
+            
+            // Force reload by temporarily changing the src and restoring it
+            iframe.src = 'about:blank';
+            setTimeout(() => {
+              iframe.src = currentSrc;
+              this.addActivityLog(`Tab refreshed`, 'info');
+            }, 50);
+          }
+        }
+      }
+
+      refreshAllTabs() {
+        this.tabs.forEach(tab => {
+          this.refreshTab(tab.id);
+        });
+        this.addActivityLog(`All tabs refreshed`, 'info');
+      }
+
+      goBack(tabId) {
+        const frame = document.getElementById(`frame-${tabId}`);
+        if (frame) {
+          const iframe = frame.querySelector('iframe');
+          if (iframe) {
+            try {
+              iframe.contentWindow.history.back();
+              this.addActivityLog(`Navigated back`, 'info');
+            } catch (e) {
+              // Cross-origin restriction prevents history manipulation
+              this.addActivityLog(`Cannot navigate back: Cross-origin restriction`, 'warning');
+            }
+          }
+        }
+      }
+
+      goForward(tabId) {
+        const frame = document.getElementById(`frame-${tabId}`);
+        if (frame) {
+          const iframe = frame.querySelector('iframe');
+          if (iframe) {
+            try {
+              iframe.contentWindow.history.forward();
+              this.addActivityLog(`Navigated forward`, 'info');
+            } catch (e) {
+              // Cross-origin restriction prevents history manipulation
+              this.addActivityLog(`Cannot navigate forward: Cross-origin restriction`, 'warning');
+            }
+          }
+        }
+      }
+
+      openUrlModal(tabId) {
+        this.pendingTabId = tabId;
+        document.getElementById('urlModal').classList.remove('hidden');
+        document.getElementById('urlInput').focus();
+      }
+
+      closeUrlModal() {
+        document.getElementById('urlModal').classList.add('hidden');
+        document.getElementById('urlInput').value = '';
+        this.pendingTabId = null;
+      }
+
+      navigateToUrl() {
+        const urlInput = document.getElementById('urlInput');
+        const url = urlInput.value.trim();
+        if (!url) {
+          alert('Please enter a URL');
+          return;
+        }
+
+        // Validate URL
+        let validUrl = url;
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+          validUrl = 'https://' + url;
+        }
+        
+        try {
+          new URL(validUrl); // Validate URL format
+        } catch (e) {
+          alert('Please enter a valid URL');
+          return;
+        }
+
+        if (this.pendingTabId) {
+          const tab = this.tabs.find(t => t.id === this.pendingTabId);
+          if (tab) {
+            tab.url = validUrl;
+            tab.title = 'Loading...';
+            
+            // Update tab display
+            const tabElement = document.querySelector(`[data-tab-id="${this.pendingTabId}"]`);
+            if (tabElement) {
+              tabElement.querySelector('span.truncate').textContent = tab.title;
+            }
+            
+            // Update iframe
+            const frame = document.getElementById(`frame-${this.pendingTabId}`);
+            if (frame) {
+              const iframe = frame.querySelector('iframe');
+              iframe.src = validUrl;
+              
+              // Listen for load event to update title
+              iframe.onload = () => {
+                try {
+                  // Attempt to access title from iframe (will fail for cross-origin)
+                  tab.title = new URL(validUrl).hostname;
+                  
+                  // Update tab display
+                  const tabEl = document.querySelector(`[data-tab-id="${this.pendingTabId}"]`);
+                  if (tabEl) {
+                    tabEl.querySelector('span.truncate').textContent = tab.title;
+                    tabEl.querySelector('span:first-child').textContent = '🌐';
+                  }
+                  
+                  // Update address bar
+                  const addressBar = frame.querySelector('.chrome-url-input');
+                  if (addressBar) {
+                    addressBar.value = validUrl;
+                  }
+                  
+                  this.addActivityLog(`Navigated to: ${validUrl}`, 'success');
+                } catch (e) {
+                  // Cross-origin restriction - use hostname from URL
+                  tab.title = new URL(validUrl).hostname;
+                  
+                  // Update tab display
+                  const tabEl = document.querySelector(`[data-tab-id="${this.pendingTabId}"]`);
+                  if (tabEl) {
+                    tabEl.querySelector('span.truncate').textContent = tab.title;
+                    tabEl.querySelector('span:first-child').textContent = '🌐';
+                  }
+                  
+                  // Update address bar
+                  const addressBar = frame.querySelector('.chrome-url-input');
+                  if (addressBar) {
+                    addressBar.value = validUrl;
+                  }
+                  
+                  this.addActivityLog(`Navigated to: ${validUrl}`, 'success');
+                }
+              };
+              
+              // Handle iframe error
+              iframe.onerror = () => {
+                this.addActivityLog(`Failed to load: ${validUrl}`, 'error');
+                
+                // Show error in the tab
+                const tabEl = document.querySelector(`[data-tab-id="${this.pendingTabId}"]`);
+                if (tabEl) {
+                  tabEl.querySelector('span.truncate').textContent = 'Error Loading';
+                  tabEl.querySelector('span:first-child').textContent = '⚠️';
+                }
+              };
+            }
+            
+            // Update current URL display
+            if (this.currentTabId === this.pendingTabId) {
+              document.getElementById('currentUrl').textContent = validUrl;
+            }
+          }
+        }
+        
+        this.closeUrlModal();
+        this.stats.totalVisits++;
+        this.updateStats();
+      }
+
+      addActivityLog(message, type = 'info') {
+        const logEntry = {
+          id: Date.now(),
+          message: message,
+          type: type,
+          timestamp: new Date()
+        };
+        
+        this.activityLog.unshift(logEntry);
+        
+        // Keep only last 50 entries
+        if (this.activityLog.length > 50) {
+          this.activityLog.pop();
+        }
+        
+        this.renderActivityLog();
+      }
+
+      renderActivityLog() {
+        const logContainer = document.getElementById('activityLog');
+        logContainer.innerHTML = '';
+        
+        this.activityLog.forEach(entry => {
+          const logElement = document.createElement('div');
+          logElement.className = 'flex items-start space-x-3 p-3 rounded-lg';
+          
+          let bgColor = 'bg-gray-50';
+          let iconColor = 'text-gray-500';
+          let icon = 'info';
+          
+          switch(entry.type) {
+            case 'success':
+              bgColor = 'bg-green-50';
+              iconColor = 'text-green-500';
+              icon = 'check-circle';
+              break;
+            case 'warning':
+              bgColor = 'bg-yellow-50';
+              iconColor = 'text-yellow-500';
+              icon = 'alert-triangle';
+              break;
+            case 'error':
+              bgColor = 'bg-red-50';
+              iconColor = 'text-red-500';
+              icon = 'x-circle';
+              break;
+            default:
+              icon = 'info';
+          }
+          
+          logElement.className += ` ${bgColor}`;
+          logElement.innerHTML = `
+            <i data-lucide="${icon}" class="h-5 w-5 ${iconColor} flex-shrink-0 mt-0.5"></i>
+            <div class="flex-1">
+              <p class="text-sm text-gray-800">${entry.message}</p>
+              <p class="text-xs text-gray-500 mt-1">${entry.timestamp.toLocaleTimeString()}</p>
+            </div>
+          `;
+          
+          logContainer.appendChild(logElement);
+        });
+        
+        lucide.createIcons();
+      }
+
+      updateStats() {
+        document.getElementById('activeTabsCount').textContent = this.stats.activeTabs;
+        document.getElementById('totalVisitsCount').textContent = this.stats.totalVisits;
+      }
+
+      clearHistory() {
+        if (confirm('Are you sure you want to clear all browser history?')) {
+          this.activityLog = [];
+          this.renderActivityLog();
+          this.addActivityLog('Browser history cleared', 'warning');
+        }
+      }
+
+      exportData() {
+        const data = {
+          tabs: this.tabs,
+          activityLog: this.activityLog,
+          stats: this.stats,
+          exportedAt: new Date().toISOString()
+        };
+        
+        const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `browser-data-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        this.addActivityLog('Browser data exported', 'success');
+      }
+
+      resetBrowser() {
+        if (confirm('Are you sure you want to reset the browser session? All tabs will be closed.')) {
+          // Close all tabs except one
+          while (this.tabs.length > 1) {
+            this.closeTab(this.tabs[this.tabs.length - 1].id);
+          }
+          
+          // Reset the remaining tab
+          if (this.tabs.length > 0) {
+            const firstTab = this.tabs[0];
+            firstTab.url = 'https://www.google.com';
+            firstTab.title = 'New Tab';
+            firstTab.favicon = '🌐';
+            
+            const frame = document.getElementById(`frame-${firstTab.id}`);
+            if (frame) {
+              const iframe = frame.querySelector('iframe');
+              iframe.src = firstTab.url;
+            }
+            
+            const tabElement = document.querySelector(`[data-tab-id="${firstTab.id}"]`);
+            if (tabElement) {
+              tabElement.querySelector('span:first-child').textContent = firstTab.favicon;
+              tabElement.querySelector('span.truncate').textContent = firstTab.title;
+            }
+          }
+          
+          this.stats.totalVisits = 0;
+          this.updateStats();
+          this.addActivityLog('Browser session reset', 'warning');
+        }
+      }
+    }
+
+    // Initialize browser manager when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      window.browserManager = new BrowserManager();
+      
+      // Mobile sidebar functionality
+      const menuToggle = document.getElementById('menuToggle');
+      const closeSidebar = document.getElementById('closeSidebar');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      
+      menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('-translate-x-full');
+        sidebarOverlay.classList.toggle('hidden');
+      });
+      
+      closeSidebar.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      sidebarOverlay.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Handle window resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768) {
+          sidebar.classList.remove('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
