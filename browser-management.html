@@ -295,13 +295,7 @@
       border-color: #1864ff;
       box-shadow: 0 0 0 3px rgba(24, 100, 255, 0.1);
     }
-    .real-time-indicator {
-      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
+
   </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -324,10 +318,6 @@
           </a>
         </nav>
         <div class="flex items-center space-x-4">
-          <div class="flex items-center space-x-2">
-            <div class="w-3 h-3 bg-green-500 rounded-full real-time-indicator"></div>
-            <span class="text-sm text-gray-600">Real-time Connected</span>
-          </div>
           <div class="hidden md:block text-sm text-gray-600">
             Welcome, <span id="currentUserName" class="font-medium text-vivid-blue">Admin</span>
           </div>
@@ -452,10 +442,7 @@
                 <span class="text-xs md:text-sm font-medium text-gray-700">Current URL</span>
                 <span id="currentUrl" class="text-xs md:text-sm text-gray-600 truncate max-w-24 md:max-w-32">None</span>
               </div>
-              <div class="flex justify-between items-center p-2 md:p-3 bg-gray-50 rounded-full">
-                <span class="text-xs md:text-sm font-medium text-gray-700">Connection Status</span>
-                <span id="connectionStatus" class="text-xs md:text-sm font-medium text-green-600">Connected</span>
-              </div>
+
             </div>
             
             <div class="mt-4 md:mt-6">
@@ -514,13 +501,12 @@
           activeTabs: 0,
           totalVisits: 0
         };
-        this.ws = null;
+
         this.init();
       }
 
       init() {
         this.setupEventListeners();
-        this.connectWebSocket();
         this.addNewTab(); // Add initial tab
         this.updateStats();
         lucide.createIcons();
@@ -572,32 +558,6 @@
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('currentUser');
         window.location.href = 'login.html';
-      }
-
-      connectWebSocket() {
-        // Simulate WebSocket connection for real-time updates
-        console.log('Connecting to real-time browser service...');
-        this.addActivityLog('Connected to real-time browser service', 'success');
-        
-        // Simulate periodic updates
-        setInterval(() => {
-          if (this.tabs.length > 0) {
-            this.simulateRealTimeUpdate();
-          }
-        }, 5000);
-      }
-
-      simulateRealTimeUpdate() {
-        const randomEvents = [
-          'Page loaded successfully',
-          'SSL certificate verified',
-          'Resources cached',
-          'JavaScript executed',
-          'DOM content loaded'
-        ];
-        
-        const randomEvent = randomEvents[Math.floor(Math.random() * randomEvents.length)];
-        this.addActivityLog(randomEvent, 'info');
       }
 
       addNewTab(url = 'https://www.google.com') {
