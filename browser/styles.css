@@ -329,198 +329,35 @@ body {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    body {
+        overflow: hidden;
+    }
+    
     .browser-container {
         border-radius: 0;
         height: 100vh;
+        width: 100vw;
         border: none;
+        box-shadow: none;
     }
     
     /* Navigation Bar Adjustments */
     .navigation-bar {
-        padding: 6px 8px;
-        height: 44px;
-        gap: 6px;
+        padding: 8px 6px;
+        height: 50px;
+        gap: 8px;
+        flex-wrap: wrap;
     }
     
     .nav-buttons, .extra-controls {
-        gap: 4px;
+        gap: 6px;
     }
     
     .nav-btn {
-        width: 36px;
-        height: 36px;
-    }
-    
-    .address-bar-container {
-        min-width: 120px;
-        margin: 0 4px;
-    }
-    
-    .address-bar {
-        padding: 8px 35px 8px 35px;
-        font-size: 16px; /* Prevents zoom on iOS */
-    }
-    
-    .address-bar-icon {
-        left: 10px;
-    }
-    
-    .search-btn {
-        right: 10px;
-    }
-    
-    /* Tab Bar Adjustments */
-    .tab-bar {
+        width: 40px;
         height: 40px;
-        padding: 6px 8px 0 8px;
-    }
-    
-    .tab {
-        min-width: 60px;
-        max-width: 100px;
-        padding: 4px 8px;
-        height: 24px;
-        font-size: 12px;
-    }
-    
-    .tab-title {
-        font-size: 11px;
-    }
-    
-    .new-tab-btn {
-        width: 20px;
-        height: 20px;
-        font-size: 14px;
-    }
-    
-    /* Title Bar Adjustments */
-    .browser-title-bar {
-        height: 28px;
-        padding: 2px 8px;
-    }
-    
-    .app-title {
-        font-size: 11px;
-    }
-    
-    .window-controls {
-        gap: 4px;
-    }
-    
-    .control-btn {
-        width: 10px;
-        height: 10px;
-    }
-    
-    /* Status Bar Adjustments */
-    .status-bar {
-        height: 20px;
-        padding: 2px 6px;
-        font-size: 10px;
-    }
-    
-    /* Bookmark Sidebar Adjustments */
-    .bookmark-sidebar {
-        width: 100vw;
-        max-width: 320px;
-    }
-    
-    .bookmark-header {
-        padding: 14px 16px;
-    }
-    
-    .bookmark-header h3 {
-        font-size: 14px;
-    }
-    
-    .add-bookmark-section {
-        padding: 12px;
-    }
-    
-    .bookmark-item {
-        padding: 10px 0;
-    }
-    
-    .bookmark-btn {
-        padding: 4px 8px;
-        font-size: 11px;
-        min-width: 50px;
-    }
-    
-    /* History Panel Adjustments */
-    .history-panel {
-        width: 100vw;
-        max-width: 320px;
-    }
-    
-    .history-header {
-        padding: 14px 16px;
-    }
-    
-    .history-header h3 {
-        font-size: 14px;
-    }
-    
-    .history-item {
-        padding: 6px 0;
-    }
-    
-    .history-url {
-        font-size: 12px;
-    }
-    
-    .history-time {
-        font-size: 10px;
-    }
-    
-    /* Search Suggestions Adjustments */
-    .suggestions-container {
-        max-width: 90vw;
-        max-height: 200px;
-    }
-    
-    .suggestion-item {
-        padding: 10px 12px;
-        font-size: 14px;
-    }
-    
-    .suggestion-item small {
-        font-size: 11px;
-    }
-}
-
-/* Extra small devices (phones, 480px and down) - Google Chrome-like design */
-@media (max-width: 480px) {
-    /* Minimalist top bar like Chrome mobile */
-    .browser-title-bar {
-        display: none; /* Hide title bar on mobile like Chrome */
-    }
-    
-    .navigation-bar {
-        padding: 8px 12px;
-        height: 48px;
-        background-color: #f8f9fa;
-        border-bottom: 1px solid #e0e0e0;
-    }
-    
-    .nav-buttons {
-        gap: 12px;
-    }
-    
-    .nav-btn {
-        width: 36px;
-        height: 36px;
-        background: none;
-        border: none;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background-color 0.2s;
-    }
-    
-    .nav-btn:hover {
-        background-color: #e8eaed;
+        min-width: 40px;
+        min-height: 40px;
     }
     
     .nav-btn svg {
@@ -529,151 +366,299 @@ body {
     }
     
     .address-bar-container {
+        min-width: 100px;
+        margin: 0 4px;
         flex: 1;
-        margin: 0 12px;
-        position: relative;
+        order: 3;
+        width: 100%;
+        margin-top: 6px;
     }
     
     .address-bar {
-        width: 100%;
         padding: 12px 40px 12px 40px;
-        font-size: 16px;
-        border: 1px solid #dadce0;
-        border-radius: 20px;
-        background-color: #fff;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        font-size: 16px; /* Prevents zoom on iOS */
+        height: 44px;
     }
     
-    .address-bar:focus {
-        outline: none;
-        border-color: #1864ff;
-        box-shadow: 0 1px 3px rgba(24, 100, 255, 0.3);
+    .address-bar-icon {
+        left: 12px;
+        width: 20px;
+        height: 20px;
     }
     
     .search-btn {
         right: 12px;
-        background: none;
-        border: none;
-        padding: 8px;
-        border-radius: 50%;
+        width: 20px;
+        height: 20px;
     }
     
-    .search-btn:hover {
-        background-color: #e8eaed;
+    /* Tab Bar Adjustments */
+    .tab-bar {
+        height: 44px;
+        padding: 6px 6px 0 6px;
     }
     
-    .search-btn svg {
+    .tab {
+        min-width: 80px;
+        max-width: 120px;
+        padding: 6px 10px;
+        height: 32px;
+        font-size: 13px;
+        margin-right: 3px;
+    }
+    
+    .tab-title {
+        font-size: 12px;
+        margin-right: 6px;
+    }
+    
+    .tab-close-btn {
         width: 18px;
         height: 18px;
+        font-size: 18px;
+        min-width: 18px;
+        min-height: 18px;
     }
     
-    /* Hide tabs on mobile - show current page info instead */
-    .tab-bar {
-        display: none;
+    .new-tab-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 20px;
+        min-width: 32px;
+        min-height: 32px;
     }
     
-    /* Status bar becomes page info bar */
+    /* Title Bar Adjustments */
+    .browser-title-bar {
+        height: 32px;
+        padding: 4px 8px;
+    }
+    
+    .app-title {
+        font-size: 12px;
+        margin-left: 6px;
+    }
+    
+    .window-controls {
+        gap: 5px;
+    }
+    
+    .control-btn {
+        width: 12px;
+        height: 12px;
+    }
+    
+    /* Status Bar Adjustments */
     .status-bar {
         height: 24px;
-        padding: 4px 12px;
-        background-color: #f1f3f4;
+        padding: 4px 8px;
         font-size: 11px;
-        justify-content: center;
-        border-top: 1px solid #e0e0e0;
-    }
-    
-    .page-info {
-        text-align: center;
-        flex: 1;
     }
     
     .security-indicator {
-        position: absolute;
-        right: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 10px;
-        padding: 2px 6px;
-        border-radius: 10px;
+        font-size: 11px;
     }
     
-    /* Full-screen content area */
-    .browser-content {
-        height: calc(100vh - 120px); /* Adjust for nav bar and status bar */
+    .security-indicator svg {
+        width: 14px;
+        height: 14px;
+    }
+    
+    /* Bookmark Sidebar Adjustments */
+    .bookmark-sidebar {
+        width: 100vw;
+        max-width: 100vw;
+    }
+    
+    .bookmark-header {
+        padding: 16px 16px;
+    }
+    
+    .bookmark-header h3 {
+        font-size: 16px;
+    }
+    
+    .add-bookmark-section {
+        padding: 14px;
+    }
+    
+    .bookmark-item {
+        padding: 12px 0;
+    }
+    
+    .bookmark-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+        min-width: 60px;
+        min-height: 36px;
+    }
+    
+    /* History Panel Adjustments */
+    .history-panel {
+        width: 100vw;
+        max-width: 100vw;
+    }
+    
+    .history-header {
+        padding: 16px 16px;
+    }
+    
+    .history-header h3 {
+        font-size: 16px;
+    }
+    
+    .history-item {
+        padding: 8px 0;
+    }
+    
+    .history-url {
+        font-size: 14px;
+    }
+    
+    .history-time {
+        font-size: 11px;
+    }
+    
+    /* Search Suggestions Adjustments */
+    .suggestions-container {
+        max-width: 95vw;
+        max-height: 250px;
+        left: 2.5vw !important;
+        width: 95vw !important;
+    }
+    
+    .suggestion-item {
+        padding: 12px 14px;
+        font-size: 15px;
+    }
+    
+    .suggestion-item small {
+        font-size: 12px;
+    }
+}
+
+/* Extra small devices (phones, 480px and down) */
+@media (max-width: 480px) {
+    .navigation-bar {
+        padding: 6px 4px;
+        height: 56px;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .nav-buttons {
+        order: 1;
+    }
+    
+    .extra-controls {
+        order: 2;
+        margin-left: auto;
+    }
+    
+    .nav-btn {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    .nav-btn svg {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .address-bar-container {
+        order: 3;
+        width: 100%;
+        margin: 8px 0 0 0;
+    }
+    
+    .address-bar {
+        padding: 14px 44px 14px 44px;
+        font-size: 16px;
+        height: 48px;
+    }
+    
+    .address-bar-icon {
+        left: 14px;
+        width: 22px;
+        height: 22px;
+    }
+    
+    .search-btn {
+        right: 14px;
+        width: 22px;
+        height: 22px;
+    }
+    
+    .tab-bar {
+        height: 40px;
+        padding: 4px 4px 0 4px;
+    }
+    
+    .tab {
+        min-width: 70px;
+        max-width: 100px;
+        padding: 5px 8px;
+        height: 32px;
+        font-size: 12px;
+        margin-right: 2px;
+    }
+    
+    .tab-title {
+        font-size: 11px;
+        margin-right: 5px;
+    }
+    
+    .tab-close-btn {
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+        min-width: 20px;
+        min-height: 20px;
+    }
+    
+    .new-tab-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 24px;
+        min-width: 36px;
+        min-height: 36px;
+    }
+    
+    .status-bar {
+        height: 22px;
+        font-size: 10px;
+        padding: 3px 6px;
+    }
+    
+    .security-indicator {
+        font-size: 10px;
+    }
+    
+    .security-indicator svg {
+        width: 13px;
+        height: 13px;
     }
     
     .bookmark-sidebar, .history-panel {
         width: 100vw;
         max-width: 100vw;
-        top: 0;
-        height: 100vh;
     }
     
     .bookmark-header, .history-header {
-        padding: 16px 16px;
-        background-color: #f8f9fa;
-        border-bottom: 1px solid #e0e0e0;
+        padding: 14px 14px;
     }
     
     .bookmark-list, .history-list {
-        padding: 16px;
+        padding: 14px;
     }
     
-    /* Bottom navigation for mobile */
-    .mobile-bottom-nav {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 56px;
-        background-color: #fff;
-        border-top: 1px solid #e0e0e0;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        padding: 0 16px;
-        z-index: 100;
-        display: none;
-    }
-    
-    .mobile-nav-btn {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: none;
-        border: none;
-        padding: 8px;
-        border-radius: 8px;
-        min-width: 60px;
-        transition: background-color 0.2s;
-    }
-    
-    .mobile-nav-btn:hover {
-        background-color: #f1f3f4;
-    }
-    
-    .mobile-nav-btn.active {
-        color: #1864ff;
-    }
-    
-    .mobile-nav-btn svg {
-        width: 24px;
-        height: 24px;
-        margin-bottom: 4px;
-    }
-    
-    .mobile-nav-btn span {
-        font-size: 10px;
-        font-weight: 500;
-    }
-    
-    .mobile-view .mobile-bottom-nav {
-        display: flex;
-    }
-    
-    .mobile-view .browser-content {
-        height: calc(100vh - 176px); /* Account for bottom nav */
+    .bookmark-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+        min-width: 70px;
+        min-height: 40px;
     }
 }
 
@@ -709,7 +694,7 @@ input:focus-visible {
 
 /* Touch-specific styles for mobile */
 @media (hover: none) and (pointer: coarse) {
-    .nav-btn, .tab, .tab-close-btn, .new-tab-btn, .bookmark-btn {
+    .nav-btn, .tab, .tab-close-btn, .new-tab-btn, .bookmark-btn, .control-btn {
         min-height: 44px;
         min-width: 44px;
         /* Larger touch targets for better mobile usability */
@@ -718,20 +703,31 @@ input:focus-visible {
     .nav-btn {
         width: 44px;
         height: 44px;
+        min-width: 44px;
+        min-height: 44px;
     }
     
     .tab-close-btn {
-        width: 24px;
-        height: 24px;
-        min-width: 24px;
-        min-height: 24px;
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        min-height: 28px;
+        font-size: 22px;
     }
     
     .new-tab-btn {
-        width: 32px;
-        height: 32px;
-        min-width: 32px;
-        min-height: 32px;
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+        font-size: 26px;
+    }
+    
+    .control-btn {
+        width: 14px;
+        height: 14px;
+        min-width: 14px;
+        min-height: 14px;
     }
     
     .touch-active {
@@ -742,7 +738,8 @@ input:focus-visible {
     
     .address-bar {
         font-size: 16px; /* Prevents zoom on iOS */
-        padding: 12px 40px 12px 40px;
+        padding: 14px 44px 14px 44px;
+        height: 50px;
     }
     
     .mobile-view .navigation-bar {
@@ -751,6 +748,16 @@ input:focus-visible {
     
     .mobile-view .tab-bar {
         padding: 6px 6px 0 6px;
+    }
+    
+    /* Ensure proper stacking on mobile */
+    .browser-container {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .suggestions-container {
+        z-index: 1002;
     }
 }
 
