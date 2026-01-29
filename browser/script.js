@@ -1,4 +1,4 @@
-// Echoes Explorer Browser - Full Browser Implementation
+// Echoes Browser - Full Browser Implementation
 
 class EchoesBrowser {
     constructor() {
@@ -732,7 +732,54 @@ window.addEventListener('resize', function() {
     if (browser && document.getElementById('suggestions-container')?.style.display === 'block') {
         browser.showSuggestions();
     }
+    
+    // Update address bar focus on orientation change for mobile
+    if (window.innerWidth <= 768 && document.activeElement === browser.addressBar) {
+        setTimeout(() => {
+            if (document.activeElement === browser.addressBar) {
+                window.scrollTo(0, 0);
+            }
+        }, 100);
+    }
 });
+
+// Add mobile-specific touch gestures
+let touchStartX = 0;
+let touchStartY = 0;
+
+// Detect swipe gestures for mobile navigation
+document.addEventListener('touchstart', function(event) {
+    touchStartX = event.changedTouches[0].screenX;
+    touchStartY = event.changedTouches[0].screenY;
+}, { passive: true });
+
+document.addEventListener('touchend', function(event) {
+    if (!touchStartX || !touchStartY) return;
+    
+    const touchEndX = event.changedTouches[0].screenX;
+    const touchEndY = event.changedTouches[0].screenY;
+    
+    const diffX = touchEndX - touchStartX;
+    const diffY = touchEndY - touchStartY;
+    
+    // Only consider horizontal swipes if they're more significant than vertical
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+        if (diffX > 0) {
+            // Swipe right - go back
+            if (browser && typeof browser.goBack === 'function') {
+                browser.goBack();
+            }
+        } else {
+            // Swipe left - go forward
+            if (browser && typeof browser.goForward === 'function') {
+                browser.goForward();
+            }
+        }
+    }
+    
+    touchStartX = 0;
+    touchStartY = 0;
+}, { passive: true });
 
 // Add touch event handlers for mobile devices
 document.addEventListener('touchstart', function(e) {
