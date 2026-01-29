@@ -20,6 +20,9 @@
           },
           fontFamily: {
             sans: ['Poppins', 'sans-serif']
+          },
+          screens: {
+            'xs': '475px'
           }
         }
       }
@@ -58,6 +61,114 @@
     
     .iframe-container::-webkit-scrollbar-thumb:hover {
       background: #a8a8a8;
+    }
+    
+    /* Mobile responsive styles */
+    @media (max-width: 768px) {
+      .iframe-container {
+        height: 400px;
+      }
+      
+      .chrome-tab {
+        min-width: 100px;
+        padding: 4px 12px;
+        font-size: 12px;
+      }
+      
+      .chrome-nav-bar {
+        flex-direction: column;
+        gap: 8px;
+        padding: 8px;
+      }
+      
+      .chrome-nav-buttons {
+        align-self: flex-start;
+      }
+      
+      .chrome-address-bar {
+        width: 100%;
+      }
+      
+      .chrome-browser-window {
+        margin: 0;
+        border-radius: 0;
+      }
+      
+      .chrome-tab-bar {
+        padding: 6px 8px;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      
+      /* Hide scrollbar for tab bar on mobile */
+      .chrome-tab-bar::-webkit-scrollbar {
+        display: none;
+      }
+      
+      .chrome-tab-bar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .iframe-container {
+        height: 300px;
+      }
+      
+      .chrome-tab {
+        min-width: 80px;
+        padding: 3px 8px;
+        font-size: 11px;
+        min-height: 32px; /* Minimum touch target size */
+      }
+      
+      .chrome-nav-button {
+        width: 20px;
+        height: 20px;
+        min-width: 32px;
+        min-height: 32px;
+      }
+      
+      .chrome-address-bar {
+        padding: 4px 8px;
+        min-height: 36px;
+      }
+      
+      .chrome-url-input {
+        font-size: 12px;
+      }
+      
+      /* Mobile-specific enhancements */
+      .close-btn {
+        min-width: 32px;
+        min-height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+      }
+      
+      #addTabBtn {
+        min-width: 36px;
+        min-height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .browser-button {
+        min-width: 40px;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      #newTabBtn, #refreshAllBtn {
+        min-width: 44px;
+        min-height: 44px;
+      }
     }
     
     /* Google Chrome-like browser styling */
@@ -282,18 +393,20 @@
     <div id="sidebarOverlay" class="fixed inset-0 z-30 bg-black bg-opacity-50 hidden md:hidden"></div>
 
     <!-- Main Content -->
-    <main class="flex-1 p-8">
+    <main class="flex-1 p-4 md:p-8">
       <div class="max-w-7xl mx-auto">
-        <div class="flex justify-between items-center mb-8">
-          <h1 class="text-3xl font-bold text-gray-900">Browser Management</h1>
-          <div class="flex space-x-3">
-            <button id="newTabBtn" class="bg-vivid-blue text-white px-4 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors flex items-center">
-              <i data-lucide="plus" class="h-4 w-4 mr-2"></i>
-              New Tab
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+          <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Browser Management</h1>
+          <div class="flex space-x-2 sm:space-x-3">
+            <button id="newTabBtn" class="browser-button bg-vivid-blue text-white px-3 py-2 sm:px-4 sm:py-2 rounded-full font-medium hover:bg-blue-700 transition-colors flex items-center text-sm sm:text-base">
+              <i data-lucide="plus" class="h-4 w-4 mr-1 sm:mr-2"></i>
+              <span class="hidden xs:inline">New Tab</span>
+              <span class="xs:hidden">Tab</span>
             </button>
-            <button id="refreshAllBtn" class="bg-gray-600 text-white px-4 py-2 rounded-full font-medium hover:bg-gray-700 transition-colors flex items-center">
-              <i data-lucide="refresh-cw" class="h-4 w-4 mr-2"></i>
-              Refresh All
+            <button id="refreshAllBtn" class="browser-button bg-gray-600 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-full font-medium hover:bg-gray-700 transition-colors flex items-center text-sm sm:text-base">
+              <i data-lucide="refresh-cw" class="h-4 w-4 mr-1 sm:mr-2"></i>
+              <span class="hidden xs:inline">Refresh All</span>
+              <span class="xs:hidden">Refresh</span>
             </button>
           </div>
         </div>
@@ -316,45 +429,45 @@
           </div>
         </div>
         <!-- Real-time Activity Panel -->
-        <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 class="text-xl font-semibold text-gray-900 mb-4">Real-time Browser Activity</h2>
-            <div id="activityLog" class="space-y-3 max-h-96 overflow-y-auto">
+        <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+          <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-6">
+            <h2 class="text-lg md:text-xl font-semibold text-gray-900 mb-4">Real-time Browser Activity</h2>
+            <div id="activityLog" class="space-y-2 md:space-y-3 max-h-64 md:max-h-96 overflow-y-auto">
               <!-- Activity logs will appear here -->
             </div>
           </div>
           
-          <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 class="text-xl font-semibold text-gray-900 mb-4">Browser Statistics</h2>
-            <div class="space-y-4">
-              <div class="flex justify-between items-center p-3 bg-gray-50 rounded-full">
-                <span class="text-sm font-medium text-gray-700">Active Tabs</span>
-                <span id="activeTabsCount" class="text-lg font-bold text-vivid-blue">0</span>
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-6">
+            <h2 class="text-lg md:text-xl font-semibold text-gray-900 mb-4">Browser Statistics</h2>
+            <div class="space-y-3 md:space-y-4">
+              <div class="flex justify-between items-center p-2 md:p-3 bg-gray-50 rounded-full">
+                <span class="text-xs md:text-sm font-medium text-gray-700">Active Tabs</span>
+                <span id="activeTabsCount" class="text-base md:text-lg font-bold text-vivid-blue">0</span>
               </div>
-              <div class="flex justify-between items-center p-3 bg-gray-50 rounded-full">
-                <span class="text-sm font-medium text-gray-700">Total Visits</span>
-                <span id="totalVisitsCount" class="text-lg font-bold text-vivid-blue">0</span>
+              <div class="flex justify-between items-center p-2 md:p-3 bg-gray-50 rounded-full">
+                <span class="text-xs md:text-sm font-medium text-gray-700">Total Visits</span>
+                <span id="totalVisitsCount" class="text-base md:text-lg font-bold text-vivid-blue">0</span>
               </div>
-              <div class="flex justify-between items-center p-3 bg-gray-50 rounded-full">
-                <span class="text-sm font-medium text-gray-700">Current URL</span>
-                <span id="currentUrl" class="text-sm text-gray-600 truncate max-w-32">None</span>
+              <div class="flex justify-between items-center p-2 md:p-3 bg-gray-50 rounded-full">
+                <span class="text-xs md:text-sm font-medium text-gray-700">Current URL</span>
+                <span id="currentUrl" class="text-xs md:text-sm text-gray-600 truncate max-w-24 md:max-w-32">None</span>
               </div>
-              <div class="flex justify-between items-center p-3 bg-gray-50 rounded-full">
-                <span class="text-sm font-medium text-gray-700">Connection Status</span>
-                <span id="connectionStatus" class="text-sm font-medium text-green-600">Connected</span>
+              <div class="flex justify-between items-center p-2 md:p-3 bg-gray-50 rounded-full">
+                <span class="text-xs md:text-sm font-medium text-gray-700">Connection Status</span>
+                <span id="connectionStatus" class="text-xs md:text-sm font-medium text-green-600">Connected</span>
               </div>
             </div>
             
-            <div class="mt-6">
-              <h3 class="font-medium text-gray-900 mb-3">Quick Actions</h3>
-              <div class="space-y-2">
-                <button id="clearHistoryBtn" class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-full">
+            <div class="mt-4 md:mt-6">
+              <h3 class="font-medium text-gray-900 mb-2 md:mb-3 text-sm md:text-base">Quick Actions</h3>
+              <div class="space-y-1 md:space-y-2">
+                <button id="clearHistoryBtn" class="w-full text-left px-2 py-1 md:px-3 md:py-2 text-xs md:text-sm text-gray-700 hover:bg-gray-100 rounded-full">
                   Clear Browser History
                 </button>
-                <button id="exportDataBtn" class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-full">
+                <button id="exportDataBtn" class="w-full text-left px-2 py-1 md:px-3 md:py-2 text-xs md:text-sm text-gray-700 hover:bg-gray-100 rounded-full">
                   Export Activity Data
                 </button>
-                <button id="resetBrowserBtn" class="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-full">
+                <button id="resetBrowserBtn" class="w-full text-left px-2 py-1 md:px-3 md:py-2 text-xs md:text-sm text-red-600 hover:bg-red-50 rounded-full">
                   Reset Browser Session
                 </button>
               </div>
@@ -368,20 +481,20 @@
   <!-- URL Input Modal -->
   <div id="urlModal" class="fixed inset-0 z-50 hidden">
     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-    <div class="flex items-center justify-center min-h-screen p-4">
-      <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-6 relative">
-        <button id="closeUrlModal" class="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-700">
-          <i data-lucide="x" class="h-5 w-5"></i>
+    <div class="flex items-center justify-center min-h-screen p-2 sm:p-4">
+      <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-4 sm:p-6 relative">
+        <button id="closeUrlModal" class="absolute top-3 right-3 sm:top-4 sm:right-4 p-1 sm:p-2 text-gray-500 hover:text-gray-700">
+          <i data-lucide="x" class="h-4 w-4 sm:h-5 sm:w-5"></i>
         </button>
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Navigate to URL</h3>
-        <div class="mb-4">
-          <input type="url" id="urlInput" placeholder="https://example.com" class="w-full px-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+        <h3 class="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Navigate to URL</h3>
+        <div class="mb-3 sm:mb-4">
+          <input type="url" id="urlInput" placeholder="https://example.com" class="w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-transparent text-sm sm:text-base">
         </div>
-        <div class="flex space-x-3">
-          <button id="navigateBtn" class="flex-1 bg-vivid-blue text-white py-2 px-4 rounded-full font-medium hover:bg-blue-700 transition-colors">
+        <div class="flex space-x-2 sm:space-x-3">
+          <button id="navigateBtn" class="flex-1 bg-vivid-blue text-white py-2 px-3 sm:py-2 sm:px-4 rounded-full font-medium hover:bg-blue-700 transition-colors text-sm sm:text-base">
             Navigate
           </button>
-          <button id="cancelUrlBtn" class="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-full font-medium hover:bg-gray-300 transition-colors">
+          <button id="cancelUrlBtn" class="flex-1 bg-gray-200 text-gray-800 py-2 px-3 sm:py-2 sm:px-4 rounded-full font-medium hover:bg-gray-300 transition-colors text-sm sm:text-base">
             Cancel
           </button>
         </div>
@@ -495,7 +608,7 @@
           id: tabId,
           title: 'New Tab',
           url: url,
-          favicon: '🌐',
+          favicon: '',
           createdAt: new Date()
         };
 
@@ -515,9 +628,8 @@
         tabElement.className = 'chrome-tab';
         tabElement.dataset.tabId = tab.id;
         tabElement.innerHTML = `
-          <span>${tab.favicon || '🌐'}</span>
+          <span>${tab.favicon || ''}</span>
           <span class="truncate">${tab.title}</span>
-          <button class="close-btn" onclick="browserManager.closeTab('${tab.id}')">×</button>
         `;
         
         tabElement.addEventListener('click', (e) => {
