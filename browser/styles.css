@@ -180,7 +180,7 @@ body {
 .navigation-bar {
     display: flex;
     align-items: center;
-    padding: 8px 10px;
+    padding: 6px 10px;
     gap: 8px;
     background-color: #f1f3f4;
     border-bottom: 1px solid #dadce0;
@@ -230,9 +230,9 @@ body {
 
 .address-bar {
     width: 100%;
-    padding: 10px 40px 10px 40px;
+    padding: 8px 36px 8px 36px;
     border: 1px solid #dfe1e5;
-    border-radius: 24px;
+    border-radius: 20px;
     font-size: 14px;
     outline: none;
     transition: all 0.2s ease;
@@ -240,6 +240,8 @@ body {
     color: #202124;
     box-shadow: 0 1px 6px rgba(32, 33, 36, 0.1);
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 36px;
+    box-sizing: border-box;
 }
 
 .address-bar:focus {
@@ -343,8 +345,8 @@ body {
     
     /* Navigation Bar Adjustments */
     .navigation-bar {
-        padding: 8px 6px;
-        height: 50px;
+        padding: 6px 6px;
+        height: 56px;
         gap: 8px;
         flex-wrap: wrap;
     }
@@ -375,21 +377,22 @@ body {
     }
     
     .address-bar {
-        padding: 12px 40px 12px 40px;
+        padding: 10px 36px 10px 36px;
         font-size: 16px; /* Prevents zoom on iOS */
-        height: 44px;
+        height: 40px;
+        border-radius: 20px;
     }
     
     .address-bar-icon {
         left: 12px;
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
     }
     
     .search-btn {
         right: 12px;
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
     }
     
     /* Tab Bar Adjustments */
@@ -541,7 +544,7 @@ body {
 @media (max-width: 480px) {
     .navigation-bar {
         padding: 6px 4px;
-        height: 56px;
+        height: 60px;
         flex-direction: row;
         flex-wrap: wrap;
     }
@@ -574,21 +577,22 @@ body {
     }
     
     .address-bar {
-        padding: 14px 44px 14px 44px;
+        padding: 10px 38px 10px 38px;
         font-size: 16px;
-        height: 48px;
+        height: 40px;
+        border-radius: 20px;
     }
     
     .address-bar-icon {
-        left: 14px;
-        width: 22px;
-        height: 22px;
+        left: 12px;
+        width: 18px;
+        height: 18px;
     }
     
     .search-btn {
-        right: 14px;
-        width: 22px;
-        height: 22px;
+        right: 12px;
+        width: 18px;
+        height: 18px;
     }
     
     .tab-bar {
