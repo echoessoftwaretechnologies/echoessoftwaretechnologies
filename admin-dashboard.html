@@ -81,6 +81,14 @@
             <i data-lucide="user" class="h-5 w-5"></i>
             <span>Employee Management</span>
           </a>
+          <a href="branch-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="building" class="h-5 w-5"></i>
+            <span>Branch Management</span>
+          </a>
+          <a href="tieups-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="handshake" class="h-5 w-5"></i>
+            <span>Tie-ups Management</span>
+          </a>
           <a href="password-manager.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
             <i data-lucide="key" class="h-5 w-5"></i>
             <span>Password Manager</span>
@@ -151,6 +159,26 @@
             <p class="text-gray-600">Manage employee profiles, permissions, and performance metrics.</p>
           </a>
           
+          <a href="branch-management.html" class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+            <div class="flex items-center mb-4">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="building" class="h-6 w-6 text-vivid-blue"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900">Branch Management</h3>
+            </div>
+            <p class="text-gray-600">Manage multiple branches, locations, and regional operations.</p>
+          </a>
+          
+          <a href="tieups-management.html" class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+            <div class="flex items-center mb-4">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="handshake" class="h-6 w-6 text-vivid-blue"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900">Tie-ups Management</h3>
+            </div>
+            <p class="text-gray-600">Manage business partnerships, collaborations, and alliance programs.</p>
+          </a>
+          
           <a href="invoice-generator.html" class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
             <div class="flex items-center mb-4">
               <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
@@ -201,6 +229,27 @@
               <div class="text-center p-4 bg-gray-50 rounded-full">
                 <div class="text-2xl font-bold text-vivid-blue">24</div>
                 <div class="text-sm text-gray-600">Pending Tasks</div>
+              </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-gray-200">
+              <h3 class="text-lg font-medium text-gray-900 mb-4">Organization Overview</h3>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="text-center p-4 bg-blue-50 rounded-full">
+                  <div class="text-2xl font-bold text-vivid-blue" id="dashboardTotalBranches">0</div>
+                  <div class="text-sm text-gray-600">Branches</div>
+                </div>
+                <div class="text-center p-4 bg-green-50 rounded-full">
+                  <div class="text-2xl font-bold text-green-600" id="dashboardActiveTieups">0</div>
+                  <div class="text-sm text-gray-600">Active Tie-ups</div>
+                </div>
+                <div class="text-center p-4 bg-yellow-50 rounded-full">
+                  <div class="text-2xl font-bold text-yellow-600" id="dashboardExpiringSoon">0</div>
+                  <div class="text-sm text-gray-600">Expiring Soon</div>
+                </div>
+                <div class="text-center p-4 bg-purple-50 rounded-full">
+                  <div class="text-2xl font-bold text-purple-600" id="dashboardTotalRevenue">₹0</div>
+                  <div class="text-sm text-gray-600">Revenue</div>
+                </div>
               </div>
             </div>
           </div>
@@ -349,6 +398,9 @@
       
       // Load dashboard meetings
       loadDashboardMeetings();
+      
+      // Load organization overview data
+      loadOrganizationOverview();
     });
   </script>
   
@@ -472,6 +524,33 @@
       }).join('');
       
       lucide.createIcons();
+    }
+    
+    // Load organization overview data
+    function loadOrganizationOverview() {
+      // Load branches data
+      const branches = JSON.parse(localStorage.getItem('branches') || '[]');
+      const totalBranches = branches.length;
+      
+      // Load tieups data
+      const tieups = JSON.parse(localStorage.getItem('tieups') || '[]');
+      const activeTieups = tieups.filter(tieup => tieup.status === 'active').length;
+      const totalRevenue = tieups.reduce((sum, tieup) => sum + (tieup.actualRevenue || 0), 0);
+      
+      // Count expiring soon tieups
+      const today = new Date();
+      const expiringSoon = tieups.filter(tieup => {
+        if (tieup.status !== 'active') return false;
+        const endDate = new Date(tieup.endDate);
+        const daysUntilExpiry = (endDate - today) / (1000 * 60 * 60 * 24);
+        return daysUntilExpiry <= 30;
+      }).length;
+      
+      // Update dashboard elements
+      document.getElementById('dashboardTotalBranches').textContent = totalBranches;
+      document.getElementById('dashboardActiveTieups').textContent = activeTieups;
+      document.getElementById('dashboardExpiringSoon').textContent = expiringSoon;
+      document.getElementById('dashboardTotalRevenue').textContent = `₹${totalRevenue.toLocaleString('en-IN')}`;
     }
     
     // Initialize charts
