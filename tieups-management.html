@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tie-ups Management - Echoes Software Technologies</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'vivid-blue': '#1864ff'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <button id="menuToggle" class="md:hidden mr-4 p-2 rounded-full text-gray-700 hover:bg-gray-100 transition-colors">
+            <i data-lucide="menu" class="h-6 w-6"></i>
+          </button>
+          <div class="flex-shrink-0 flex items-center">
+            <img src="2.png" alt="Echoes Software Technologies" width="150" height="40">
+          </div>
+        </div>
+        <nav class="hidden md:flex space-x-2">
+          <a href="admin-dashboard.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="home" class="h-4 w-4 inline mr-2"></i>
+            Home
+          </a>
+          <a href="tieups-management.html" class="px-4 py-2 text-sm font-medium bg-vivid-blue text-white rounded-full transition-colors">
+            <i data-lucide="handshake" class="h-4 w-4 inline mr-2"></i>
+            Tie-ups Management
+          </a>
+        </nav>
+        <div class="flex items-center space-x-4">
+          <div class="hidden md:block text-sm text-gray-600">
+            Welcome, <span id="currentUserName" class="font-medium text-vivid-blue">Admin</span>
+          </div>
+          <button id="logoutButton" class="hidden md:flex items-center space-x-1 bg-red-600 text-white px-4 py-2 rounded-full font-medium hover:bg-red-700 transition-colors">
+            <i data-lucide="log-out" class="h-4 w-4"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-white border-r border-gray-200 min-h-screen fixed md:static md:translate-x-0 z-40 transform -translate-x-full md:-translate-x-0 transition-transform duration-300 ease-in-out">
+      <div class="p-4">
+        <div class="flex justify-between items-center mb-4">
+          <button id="closeSidebar" class="md:hidden p-2 rounded-full text-gray-700 hover:bg-gray-100">
+            <i data-lucide="x" class="h-5 w-5"></i>
+          </button>
+        </div>
+        <nav>
+          <a href="crm-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="users" class="h-5 w-5"></i>
+            <span>CRM Management</span>
+          </a>
+          <a href="attendance-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="calendar" class="h-5 w-5"></i>
+            <span>Attendance Management</span>
+          </a>
+          <a href="employee-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="user" class="h-5 w-5"></i>
+            <span>Employee Management</span>
+          </a>
+          <a href="branch-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="building" class="h-5 w-5"></i>
+            <span>Branch Management</span>
+          </a>
+          <a href="tieups-management.html" class="flex items-center space-x-3 px-4 py-3 text-vivid-blue bg-blue-50 rounded-full transition-colors">
+            <i data-lucide="handshake" class="h-5 w-5"></i>
+            <span>Tie-ups Management</span>
+          </a>
+          <a href="password-manager.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="key" class="h-5 w-5"></i>
+            <span>Password Manager</span>
+          </a>
+          <a href="invoice-generator.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="file-text" class="h-5 w-5"></i>
+            <span>Invoice Generator</span>
+          </a>
+          <a href="browser-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="globe" class="h-5 w-5"></i>
+            <span>Browser</span>
+          </a>
+          <a href="meeting-arrangement.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="video" class="h-5 w-5"></i>
+            <span>Meeting Arrangement</span>
+          </a>
+        </nav>
+        
+        <div class="mt-auto pt-4 border-t border-gray-200">
+          <div class="p-4 bg-gray-50 rounded-full mb-4">
+            <div class="text-sm font-medium text-gray-900" id="sidebarUserName">Admin</div>
+            <div class="text-xs text-gray-600">Logged in as admin</div>
+          </div>
+          <button id="sidebarLogoutButton" class="w-full flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-full transition-colors">
+            <i data-lucide="log-out" class="h-5 w-5"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Overlay for mobile -->
+    <div id="sidebarOverlay" class="fixed inset-0 z-30 bg-black bg-opacity-50 hidden md:hidden"></div>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-center mb-8">
+          <h1 class="text-3xl font-bold text-gray-900">Tie-ups Management</h1>
+          <button id="addTieupBtn" class="bg-vivid-blue text-white px-4 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors flex items-center">
+            <i data-lucide="plus" class="h-4 w-4 mr-2"></i>
+            Add New Tie-up
+          </button>
+        </div>
+
+        <!-- Tie-ups Statistics -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                <i data-lucide="handshake" class="h-6 w-6 text-vivid-blue"></i>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-gray-900" id="totalTieups">0</div>
+                <div class="text-sm text-gray-600">Total Tie-ups</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                <i data-lucide="trending-up" class="h-6 w-6 text-green-600"></i>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-gray-900" id="activeTieups">0</div>
+                <div class="text-sm text-gray-600">Active Tie-ups</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                <i data-lucide="dollar-sign" class="h-6 w-6 text-yellow-600"></i>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-gray-900" id="revenueGenerated">₹0</div>
+                <div class="text-sm text-gray-600">Revenue Generated</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                <i data-lucide="calendar" class="h-6 w-6 text-purple-600"></i>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-gray-900" id="expiringSoon">0</div>
+                <div class="text-sm text-gray-600">Expiring Soon</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tie-ups List -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+          <div class="p-6 border-b border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-900">Tie-ups List</h2>
+            <div class="mt-4 flex flex-col sm:flex-row gap-4">
+              <div class="relative flex-1">
+                <i data-lucide="search" class="h-4 w-4 absolute left-3 top-3 text-gray-400"></i>
+                <input type="text" id="searchTieups" placeholder="Search tie-ups..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+              </div>
+              <select id="filterStatus" class="px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                <option value="">All Status</option>
+                <option value="active">Active</option>
+                <option value="pending">Pending</option>
+                <option value="expired">Expired</option>
+                <option value="terminated">Terminated</option>
+              </select>
+              <select id="filterType" class="px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                <option value="">All Types</option>
+                <option value="technology">Technology</option>
+                <option value="marketing">Marketing</option>
+                <option value="distribution">Distribution</option>
+                <option value="strategic">Strategic</option>
+                <option value="financial">Financial</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Company</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Start Date</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">End Date</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Revenue</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200" id="tieupsTableBody">
+                <!-- Tie-ups will be populated by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add/Edit Tie-up Modal -->
+  <div id="tieupModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" id="modalBackdrop"></div>
+      <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
+        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+          <div class="sm:flex sm:items-start">
+            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+              <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modalTitle">
+                Add New Tie-up
+              </h3>
+              <form id="tieupForm" class="space-y-4">
+                <input type="hidden" id="tieupId">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
+                    <input type="text" id="companyName" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Contact Person</label>
+                    <input type="text" id="contactPerson" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" id="companyEmail" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                    <input type="tel" id="companyPhone" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Tie-up Type</label>
+                    <select id="tieupType" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                      <option value="">Select Type</option>
+                      <option value="technology">Technology Partnership</option>
+                      <option value="marketing">Marketing Alliance</option>
+                      <option value="distribution">Distribution Agreement</option>
+                      <option value="strategic">Strategic Partnership</option>
+                      <option value="financial">Financial Partnership</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                    <select id="tieupStatus" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                      <option value="pending">Pending</option>
+                      <option value="active">Active</option>
+                      <option value="expired">Expired</option>
+                      <option value="terminated">Terminated</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                    <input type="date" id="startDate" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+                    <input type="date" id="endDate" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Expected Revenue (₹)</label>
+                    <input type="number" id="expectedRevenue" min="0" step="1000" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Actual Revenue (₹)</label>
+                    <input type="number" id="actualRevenue" min="0" step="1000" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                  <textarea id="tieupDescription" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent"></textarea>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Benefits</label>
+                  <textarea id="tieupBenefits" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent"></textarea>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+          <button type="button" id="saveTieupBtn" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-vivid-blue text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-vivid-blue sm:ml-3 sm:w-auto sm:text-sm">
+            Save Tie-up
+          </button>
+          <button type="button" id="cancelTieupBtn" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-vivid-blue sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Check authentication status
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if user is logged in
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      
+      // If not logged in, redirect to login page
+      if (isLoggedIn !== 'true') {
+        window.location.href = 'login.html';
+      }
+      
+      // Initialize logout functionality
+      document.getElementById('logoutButton').addEventListener('click', function() {
+        // Clear login state
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentUser');
+        
+        // Redirect to login page
+        window.location.href = 'login.html';
+      });
+      
+      // Display current user's name in header and sidebar
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        document.getElementById('currentUserName').textContent = currentUser;
+        document.getElementById('sidebarUserName').textContent = currentUser;
+      }
+      
+      // Initialize sidebar logout functionality
+      const sidebarLogoutButton = document.getElementById('sidebarLogoutButton');
+      if (sidebarLogoutButton) {
+        sidebarLogoutButton.addEventListener('click', function() {
+          // Clear login state
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('currentUser');
+          
+          // Redirect to login page
+          window.location.href = 'login.html';
+        });
+      }
+      
+      // Initialize icons
+      lucide.createIcons();
+      
+      // Initialize tieups management
+      initializeTieupsManagement();
+    });
+
+    // Mobile sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById('menuToggle');
+      const closeSidebar = document.getElementById('closeSidebar');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      
+      // Toggle sidebar on menu button click
+      menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('-translate-x-full');
+        sidebarOverlay.classList.toggle('hidden');
+      });
+      
+      // Close sidebar on close button click
+      closeSidebar.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Close sidebar when clicking on overlay
+      sidebarOverlay.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth < 768 && 
+            !sidebar.contains(event.target) && 
+            !menuToggle.contains(event.target) &&
+            sidebar.classList.contains('translate-x-0')) {
+          sidebar.classList.add('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        }
+      });
+      
+      // Update sidebar position on window resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768) {
+          sidebar.classList.remove('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        } else {
+          sidebar.classList.add('-translate-x-full');
+        }
+      });
+    });
+
+    // Tieups Management Functions
+    function initializeTieupsManagement() {
+      loadTieups();
+      setupEventListeners();
+    }
+
+    function setupEventListeners() {
+      // Add tieup button
+      document.getElementById('addTieupBtn').addEventListener('click', function() {
+        openTieupModal();
+      });
+
+      // Save tieup button
+      document.getElementById('saveTieupBtn').addEventListener('click', function() {
+        saveTieup();
+      });
+
+      // Cancel tieup button
+      document.getElementById('cancelTieupBtn').addEventListener('click', function() {
+        closeTieupModal();
+      });
+
+      // Modal backdrop
+      document.getElementById('modalBackdrop').addEventListener('click', function() {
+        closeTieupModal();
+      });
+
+      // Search tieups
+      document.getElementById('searchTieups').addEventListener('input', function() {
+        filterTieups();
+      });
+
+      // Filter tieups by status
+      document.getElementById('filterStatus').addEventListener('change', function() {
+        filterTieups();
+      });
+
+      // Filter tieups by type
+      document.getElementById('filterType').addEventListener('change', function() {
+        filterTieups();
+      });
+    }
+
+    function loadTieups() {
+      // Load tieups from localStorage or use sample data
+      let tieups = JSON.parse(localStorage.getItem('tieups') || '[]');
+      
+      // If no tieups exist, create sample data
+      if (tieups.length === 0) {
+        tieups = [
+          {
+            id: 1,
+            companyName: 'Tech Solutions Inc.',
+            contactPerson: 'John Davis',
+            email: 'john.davis@techsolutions.com',
+            phone: '+91 98765 43220',
+            type: 'technology',
+            status: 'active',
+            startDate: '2024-01-15',
+            endDate: '2025-01-15',
+            expectedRevenue: 500000,
+            actualRevenue: 350000,
+            description: 'Technology partnership for software development tools',
+            benefits: 'Access to advanced development tools and shared resources'
+          },
+          {
+            id: 2,
+            companyName: 'Marketing Pro Ltd.',
+            contactPerson: 'Sarah Wilson',
+            email: 'sarah.wilson@marketingpro.com',
+            phone: '+91 98765 43221',
+            type: 'marketing',
+            status: 'active',
+            startDate: '2024-03-01',
+            endDate: '2024-12-31',
+            expectedRevenue: 300000,
+            actualRevenue: 280000,
+            description: 'Joint marketing campaigns and brand promotion',
+            benefits: 'Expanded market reach and shared marketing costs'
+          },
+          {
+            id: 3,
+            companyName: 'Global Distributors',
+            contactPerson: 'Michael Brown',
+            email: 'michael.brown@globaldist.com',
+            phone: '+91 98765 43222',
+            type: 'distribution',
+            status: 'pending',
+            startDate: '2024-06-01',
+            endDate: '2025-05-31',
+            expectedRevenue: 750000,
+            actualRevenue: 0,
+            description: 'Distribution agreement for software products',
+            benefits: 'Nationwide distribution network and logistics support'
+          },
+          {
+            id: 4,
+            companyName: 'Finance Partners Co.',
+            contactPerson: 'Emma Thompson',
+            email: 'emma.thompson@financepartners.com',
+            phone: '+91 98765 43223',
+            type: 'financial',
+            status: 'active',
+            startDate: '2023-09-01',
+            endDate: '2024-08-31',
+            expectedRevenue: 1000000,
+            actualRevenue: 950000,
+            description: 'Financial investment and funding partnership',
+            benefits: 'Capital investment and financial advisory services'
+          }
+        ];
+        localStorage.setItem('tieups', JSON.stringify(tieups));
+      }
+
+      renderTieups(tieups);
+      updateStatistics(tieups);
+    }
+
+    function renderTieups(tieups) {
+      const tableBody = document.getElementById('tieupsTableBody');
+      
+      if (tieups.length === 0) {
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="7" class="px-6 py-12 text-center text-gray-500">
+              <i data-lucide="handshake" class="h-12 w-12 mx-auto mb-4 text-gray-300"></i>
+              <p class="text-lg">No tie-ups found</p>
+              <p class="text-sm mt-2">Add your first tie-up to get started</p>
+              <button id="addFirstTieupBtn" class="mt-4 bg-vivid-blue text-white px-4 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors">
+                Add Tie-up
+              </button>
+            </td>
+          </tr>
+        `;
+        lucide.createIcons();
+        document.getElementById('addFirstTieupBtn').addEventListener('click', function() {
+          openTieupModal();
+        });
+        return;
+      }
+
+      tableBody.innerHTML = tieups.map(tieup => {
+        const startDate = new Date(tieup.startDate);
+        const endDate = new Date(tieup.endDate);
+        const today = new Date();
+        const isExpiringSoon = (endDate - today) / (1000 * 60 * 60 * 24) <= 30 && tieup.status === 'active';
+        
+        return `
+          <tr class="hover:bg-gray-50 ${isExpiringSoon ? 'bg-yellow-50' : ''}">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <i data-lucide="handshake" class="h-5 w-5 text-vivid-blue"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-900">${tieup.companyName}</div>
+                  <div class="text-sm text-gray-500">${tieup.contactPerson}</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                ${tieup.type.charAt(0).toUpperCase() + tieup.type.slice(1)}
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                ${tieup.status === 'active' ? 'bg-green-100 text-green-800' : 
+                  tieup.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 
+                  tieup.status === 'expired' ? 'bg-red-100 text-red-800' : 
+                  'bg-gray-100 text-gray-800'}">
+                ${tieup.status.charAt(0).toUpperCase() + tieup.status.slice(1)}
+              </span>
+              ${isExpiringSoon ? '<span class="ml-2 text-xs text-yellow-600">⚠️ Expiring soon</span>' : ''}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              ${startDate.toLocaleDateString('en-IN')}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              ${endDate.toLocaleDateString('en-IN')}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              <div>
+                <div>Expected: ₹${tieup.expectedRevenue?.toLocaleString('en-IN') || '0'}</div>
+                <div class="text-gray-500">Actual: ₹${tieup.actualRevenue?.toLocaleString('en-IN') || '0'}</div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+              <button onclick="editTieup(${tieup.id})" class="text-vivid-blue hover:text-blue-700 mr-3">
+                <i data-lucide="edit" class="h-4 w-4"></i>
+              </button>
+              <button onclick="deleteTieup(${tieup.id})" class="text-red-600 hover:text-red-900">
+                <i data-lucide="trash-2" class="h-4 w-4"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+      
+      lucide.createIcons();
+    }
+
+    function updateStatistics(tieups) {
+      const totalTieups = tieups.length;
+      const activeTieups = tieups.filter(tieup => tieup.status === 'active').length;
+      const revenueGenerated = tieups.reduce((sum, tieup) => sum + (tieup.actualRevenue || 0), 0);
+      
+      // Count expiring soon tieups
+      const today = new Date();
+      const expiringSoon = tieups.filter(tieup => {
+        if (tieup.status !== 'active') return false;
+        const endDate = new Date(tieup.endDate);
+        const daysUntilExpiry = (endDate - today) / (1000 * 60 * 60 * 24);
+        return daysUntilExpiry <= 30;
+      }).length;
+      
+      document.getElementById('totalTieups').textContent = totalTieups;
+      document.getElementById('activeTieups').textContent = activeTieups;
+      document.getElementById('revenueGenerated').textContent = `₹${revenueGenerated.toLocaleString('en-IN')}`;
+      document.getElementById('expiringSoon').textContent = expiringSoon;
+    }
+
+    function filterTieups() {
+      const searchTerm = document.getElementById('searchTieups').value.toLowerCase();
+      const statusFilter = document.getElementById('filterStatus').value;
+      const typeFilter = document.getElementById('filterType').value;
+      
+      let tieups = JSON.parse(localStorage.getItem('tieups') || '[]');
+      
+      // Apply search filter
+      if (searchTerm) {
+        tieups = tieups.filter(tieup => 
+          tieup.companyName.toLowerCase().includes(searchTerm) ||
+          tieup.contactPerson.toLowerCase().includes(searchTerm) ||
+          tieup.description.toLowerCase().includes(searchTerm)
+        );
+      }
+      
+      // Apply status filter
+      if (statusFilter) {
+        tieups = tieups.filter(tieup => tieup.status === statusFilter);
+      }
+      
+      // Apply type filter
+      if (typeFilter) {
+        tieups = tieups.filter(tieup => tieup.type === typeFilter);
+      }
+      
+      renderTieups(tieups);
+    }
+
+    function openTieupModal(tieupId = null) {
+      const modal = document.getElementById('tieupModal');
+      const title = document.getElementById('modalTitle');
+      const form = document.getElementById('tieupForm');
+      
+      if (tieupId) {
+        // Edit existing tieup
+        title.textContent = 'Edit Tie-up';
+        const tieups = JSON.parse(localStorage.getItem('tieups') || '[]');
+        const tieup = tieups.find(t => t.id === tieupId);
+        
+        if (tieup) {
+          document.getElementById('tieupId').value = tieup.id;
+          document.getElementById('companyName').value = tieup.companyName;
+          document.getElementById('contactPerson').value = tieup.contactPerson;
+          document.getElementById('companyEmail').value = tieup.email;
+          document.getElementById('companyPhone').value = tieup.phone;
+          document.getElementById('tieupType').value = tieup.type;
+          document.getElementById('tieupStatus').value = tieup.status;
+          document.getElementById('startDate').value = tieup.startDate;
+          document.getElementById('endDate').value = tieup.endDate;
+          document.getElementById('expectedRevenue').value = tieup.expectedRevenue || '';
+          document.getElementById('actualRevenue').value = tieup.actualRevenue || '';
+          document.getElementById('tieupDescription').value = tieup.description || '';
+          document.getElementById('tieupBenefits').value = tieup.benefits || '';
+        }
+      } else {
+        // Add new tieup
+        title.textContent = 'Add New Tie-up';
+        form.reset();
+        document.getElementById('tieupId').value = '';
+      }
+      
+      modal.classList.remove('hidden');
+    }
+
+    function closeTieupModal() {
+      document.getElementById('tieupModal').classList.add('hidden');
+    }
+
+    function saveTieup() {
+      const form = document.getElementById('tieupForm');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      
+      const tieupId = document.getElementById('tieupId').value;
+      const tieupData = {
+        companyName: document.getElementById('companyName').value,
+        contactPerson: document.getElementById('contactPerson').value,
+        email: document.getElementById('companyEmail').value,
+        phone: document.getElementById('companyPhone').value,
+        type: document.getElementById('tieupType').value,
+        status: document.getElementById('tieupStatus').value,
+        startDate: document.getElementById('startDate').value,
+        endDate: document.getElementById('endDate').value,
+        expectedRevenue: parseFloat(document.getElementById('expectedRevenue').value) || 0,
+        actualRevenue: parseFloat(document.getElementById('actualRevenue').value) || 0,
+        description: document.getElementById('tieupDescription').value,
+        benefits: document.getElementById('tieupBenefits').value
+      };
+      
+      let tieups = JSON.parse(localStorage.getItem('tieups') || '[]');
+      
+      if (tieupId) {
+        // Update existing tieup
+        const index = tieups.findIndex(t => t.id === parseInt(tieupId));
+        if (index !== -1) {
+          tieups[index] = { ...tieups[index], ...tieupData };
+        }
+      } else {
+        // Add new tieup
+        tieupData.id = Date.now(); // Simple ID generation
+        tieups.push(tieupData);
+      }
+      
+      localStorage.setItem('tieups', JSON.stringify(tieups));
+      closeTieupModal();
+      loadTieups();
+    }
+
+    function editTieup(tieupId) {
+      openTieupModal(tieupId);
+    }
+
+    function deleteTieup(tieupId) {
+      if (confirm('Are you sure you want to delete this tie-up?')) {
+        let tieups = JSON.parse(localStorage.getItem('tieups') || '[]');
+        tieups = tieups.filter(tieup => tieup.id !== tieupId);
+        localStorage.setItem('tieups', JSON.stringify(tieups));
+        loadTieups();
+      }
+    }
+  </script>
+</body>
+</html>
