@@ -18,7 +18,6 @@ import EmployeeManagement from './pages/admin/EmployeeManagement';
 import TieUpManagement from './pages/admin/TieUpManagement';
 import BranchManagement from './pages/admin/BranchManagement';
 import AccountManagement from './pages/admin/AccountManagement';
-import MeetingArrangement from './pages/admin/MeetingArrangement';
 import InvoiceGenerator from './pages/tools/InvoiceGenerator';
 
 const App: React.FC = () => {
@@ -48,7 +47,6 @@ const App: React.FC = () => {
                 <Route path="/admin/tie-up-management" element={<TieUpManagement />} />
                 <Route path="/admin/branch-management" element={<BranchManagement />} />
                 <Route path="/admin/account-management" element={<AccountManagement />} />
-                <Route path="/admin/meeting-arrangement" element={<MeetingArrangement />} />
                 <Route path="/admin/invoice-generator" element={<InvoiceGenerator />} />
             </Routes>
         </>
