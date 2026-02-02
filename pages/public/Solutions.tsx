@@ -24,332 +24,344 @@ const Solutions: React.FC = () => {
     };
 
     return (
-        <div className="bg-white text-gray-900" style={{ fontFamily: "'Poppins', sans-serif" }}>
-            <header className="bg-white bg-opacity-80 backdrop-blur-md border-b border-gray-200/50 sticky top-0 z-50 rounded-b-2xl shadow-lg">
+        <div className="bg-white text-gray-900 selection:bg-brand-blue-100 selection:text-brand-blue-900" style={{ fontFamily: "'Outfit', sans-serif" }}>
+            <header className="fixed top-0 w-full z-[100] transition-all duration-500 bg-white/80 backdrop-blur-2xl border-b border-navy-100/50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-16">
+                    <div className="flex justify-between items-center h-20">
                         <div className="flex items-center">
-                            <div className="flex-shrink-0">
-                                <img src="/assets/2.png" alt="Echoes Software Technologies" width="150" height="40" />
+                            <div className="flex-shrink-0 hover:opacity-80 transition-opacity">
+                                <img src="/assets/2.png" alt="Echoes Software Technologies" width="160" height="45" />
                             </div>
                         </div>
-                        <nav className="hidden md:flex space-x-8">
-                            <Link to="/" className="text-gray-600 hover:text-brand-blue transition-colors font-medium">Home</Link>
-                            <span className="text-brand-blue font-medium">Solutions</span>
-                            <Link to="/services" className="text-gray-600 hover:text-brand-blue transition-colors font-medium">Services</Link>
-                            <Link to="/about" className="text-gray-600 hover:text-brand-blue transition-colors font-medium">About</Link>
-                            <Link to="/contact" className="text-gray-600 hover:text-brand-blue transition-colors font-medium">Contact</Link>
+                        <nav className="hidden md:flex items-center gap-12">
+                            {['Home', 'Solutions', 'Services', 'About', 'Contact'].map((item) => (
+                                <Link
+                                    key={item}
+                                    to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
+                                    className={`text-sm font-black uppercase tracking-[0.2em] transition-all relative group nav-blip ${item === 'Solutions' ? 'text-brand-blue-600 active' : 'text-navy-900 hover:text-brand-blue-600'}`}
+                                >
+                                    {item}
+                                </Link>
+                            ))}
                         </nav>
-                        <div className="flex items-center space-x-4">
+                        <div className="flex items-center gap-6">
                             <button
                                 onClick={handleGetStarted}
-                                className="get-started-btn bg-brand-blue text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors hidden md:block inline-block"
+                                className="hidden md:flex premium-gradient text-white px-8 py-3 rounded-full text-xs font-black uppercase tracking-widest shadow-xl shadow-brand-blue-500/20 hover:scale-105 active:scale-95 transition-all"
                             >
                                 Login
                             </button>
-                            <button className="md:hidden p-2" onClick={toggleMobileMenu}>
-                                <i data-lucide={isMobileMenuOpen ? "x" : "menu"} className="w-6 h-6"></i>
+                            <button className="md:hidden w-12 h-12 flex items-center justify-center rounded-2xl bg-navy-50 dark:bg-navy-900 text-navy-900 dark:text-white active:scale-90 transition-transform" onClick={toggleMobileMenu}>
+                                <i data-lucide="menu" className="w-7 h-7"></i>
                             </button>
                         </div>
-                    </div>
-                    {/* Mobile menu */}
-                    <div id="mobile-menu" className={`${isMobileMenuOpen ? '' : 'hidden'} md:hidden bg-white bg-opacity-90 backdrop-blur-md py-4 border-t border-gray-200/50 rounded-b-lg`}>
-                        <nav className="flex flex-col space-y-3 px-4">
-                            <Link to="/" className="text-gray-600 hover:text-brand-blue transition-colors font-medium py-2">Home</Link>
-                            <span className="text-brand-blue font-medium py-2">Solutions</span>
-                            <Link to="/services" className="text-gray-600 hover:text-brand-blue transition-colors font-medium py-2">Services</Link>
-                            <Link to="/about" className="text-gray-600 hover:text-brand-blue transition-colors font-medium py-2">About</Link>
-                            <Link to="/contact" className="text-gray-600 hover:text-brand-blue transition-colors font-medium py-2">Contact</Link>
-                            <button
-                                onClick={handleGetStarted}
-                                className="get-started-btn bg-brand-blue text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition-colors w-full mt-2 inline-block text-center"
-                            >
-                                Login
-                            </button>
-                        </nav>
                     </div>
                 </div>
             </header>
 
+            {/* Premium Mobile Menu Overlay */}
+            {isMobileMenuOpen && (
+                <div className="fixed inset-0 z-[200] md:hidden">
+                    <div className="absolute inset-0 bg-navy-950/40 backdrop-blur-sm animate-fade-in" onClick={toggleMobileMenu} />
+                    <div className="absolute top-0 right-0 w-3/4 h-full bg-white shadow-2xl animate-slide-in-right flex flex-col">
+                        <div className="p-8 flex justify-between items-center border-b border-navy-50">
+                            <img src="/assets/2.png" alt="Echoes Logo" className="h-8 w-auto" />
+                            <button onClick={toggleMobileMenu} className="w-12 h-12 flex items-center justify-center rounded-2xl bg-navy-50 text-navy-900 active:rotate-90 transition-transform duration-300">
+                                <i data-lucide="x" className="w-6 h-6"></i>
+                            </button>
+                        </div>
+                        <nav className="flex-1 px-8 py-12 flex flex-col gap-10">
+                            {['Home', 'Solutions', 'Services', 'About', 'Contact'].map((item, i) => (
+                                <Link
+                                    key={item}
+                                    to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
+                                    onClick={toggleMobileMenu}
+                                    className={`text-3xl font-black uppercase tracking-tighter transition-all ${item === 'Solutions' ? 'text-brand-blue-600 pl-4 border-l-4 border-brand-blue-600' : 'text-navy-950 hover:text-brand-blue-600'}`}
+                                    style={{ animationDelay: `${i * 100}ms` }}
+                                >
+                                    {item}
+                                </Link>
+                            ))}
+                        </nav>
+                        <div className="p-8 border-t border-navy-50 space-y-8">
+                            <button onClick={handleGetStarted} className="w-full premium-gradient text-white py-5 rounded-3xl font-black uppercase tracking-widest">Login</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <main>
-                <section className="bg-[#1864ff] py-20 lg:py-32">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-16">
-                            <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight mb-6">Our Software Solutions</h1>
-                            <p className="text-xl text-white max-w-3xl mx-auto">Comprehensive software solutions designed to transform your business operations, enhance productivity, and drive measurable ROI.</p>
+                <section className="mesh-gradient relative overflow-hidden pt-24 pb-20 lg:pt-40 lg:pb-32">
+                    <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+                        <div className="absolute top-[-15%] left-[-10%] w-[50%] h-[50%] bg-brand-blue-100/40 rounded-full blur-[140px] animate-float-slow"></div>
+                        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-brand-blue-200/20 rounded-full blur-[140px] animate-float-slow" style={{ animationDelay: '-5s' }}></div>
+                    </div>
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <div className="text-center mb-16 animate-slide-up">
+                            <div className="inline-flex items-center space-x-3 px-5 py-2.5 bg-white/60 backdrop-blur-md text-brand-blue-700 rounded-full text-sm font-bold tracking-wider border border-white shadow-sm mb-10">
+                                <span className="uppercase tracking-[0.2em]">INNOVATION AT SCALE</span>
+                            </div>
+                            <h1 className="text-6xl lg:text-8xl font-extrabold text-navy-950 leading-[1] tracking-tight text-balance mb-10">
+                                Our Software <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-blue-600 via-brand-blue-500 to-brand-blue-800 animate-shimmer" style={{ backgroundSize: '200% auto' }}>Solutions</span>
+                            </h1>
+                            <p className="text-2xl text-navy-600 max-w-3xl mx-auto leading-relaxed font-light">
+                                Comprehensive enterprise-grade software ecosystems designed to automate precision, scale intelligence, and dominate market competition.
+                            </p>
                         </div>
                     </div>
                 </section>
 
-                <section className="bg-gray-50 py-20">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-16">
-                            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Enterprise-Grade Software Capabilities</h2>
-                            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Our comprehensive suite of software solutions is designed to meet the most demanding enterprise requirements with unmatched performance and reliability.</p>
-                        </div>
-                        <div className="grid md:grid-cols-3 gap-8">
-                            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                                <div className="mb-6">
-                                    <img src="/assets/cloud.png" alt="Cloud infrastructure" width="400" height="225" className="w-full rounded-xl object-cover" loading="lazy" />
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Scalable Cloud Architecture</h3>
-                                <p className="text-gray-600 mb-6">Built on enterprise-grade cloud infrastructure that scales seamlessly from startup to Fortune 500, ensuring optimal performance at any size.</p>
-                                <ul className="space-y-2 text-sm text-gray-600">
-                                    <li className="flex items-center">
-                                        <svg className="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span>Auto-scaling capabilities</span>
-                                    </li>
-                                    <li className="flex items-center">
-                                        <svg className="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span>99.99% uptime guarantee</span>
-                                    </li>
-                                    <li className="flex items-center">
-                                        <svg className="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span>Global CDN distribution</span>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                                <div className="mb-6">
-                                    <img src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/features/features-2-f878106d63814a39b552c4aa5d947d65.png" alt="Enterprise security" width="400" height="225" className="w-full rounded-xl object-cover" loading="lazy" />
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Advanced Security Framework</h3>
-                                <p className="text-gray-600 mb-6">Military-grade security protocols and compliance standards that protect your most sensitive data and ensure regulatory compliance.</p>
-                                <ul className="space-y-2 text-sm text-gray-600">
-                                    <li className="flex items-center">
-                                        <svg className="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span>End-to-end encryption</span>
-                                    </li>
-                                    <li className="flex items-center">
-                                        <svg className="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span>SOC 2 Type II certified</span>
-                                    </li>
-                                    <li className="flex items-center">
-                                        <svg className="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span>Multi-factor authentication</span>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                                <div className="mb-6">
-                                    <img src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/features/features-3-b518b003c15d49658f6f86d799a0c684.png" alt="Analytics and insights" width="400" height="225" className="w-full rounded-xl object-cover" loading="lazy" />
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Intelligent Analytics</h3>
-                                <p className="text-gray-600 mb-6">AI-powered analytics and real-time insights that transform raw data into actionable business intelligence for strategic decision-making.</p>
-                                <ul className="space-y-2 text-sm text-gray-600">
-                                    <li className="flex items-center">
-                                        <svg className="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span>Real-time dashboards</span>
-                                    </li>
-                                    <li className="flex items-center">
-                                        <svg className="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span>Predictive modeling</span>
-                                    </li>
-                                    <li className="flex items-center">
-                                        <svg className="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span>Custom reporting</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                <section className="bg-navy-50/50 py-32 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-40">
+                        <div className="absolute top-[10%] left-[-5%] w-[40%] h-[40%] bg-brand-blue-100 rounded-full blur-[120px]"></div>
+                        <div className="absolute bottom-[10%] right-[-5%] w-[40%] h-[40%] bg-brand-blue-50 rounded-full blur-[120px]"></div>
                     </div>
-                </section>
 
-                <section className="py-24 bg-white">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-16">
-                            <h2 className="text-4xl font-bold text-gray-900 mb-4">Comprehensive Software Solutions</h2>
-                            <p className="text-xl text-gray-600 max-w-3xl mx-auto">From custom development to enterprise consulting, we deliver innovative technology solutions that drive business growth and digital transformation.</p>
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <div className="text-center mb-24 space-y-6 animate-slide-up">
+                            <h2 className="text-brand-blue-600 font-black tracking-[0.3em] text-sm uppercase">ENTERPRISE ARCHITECTURE</h2>
+                            <h3 className="text-5xl lg:text-6xl font-extrabold text-navy-950 tracking-tight">Ecosystem Capabilities</h3>
+                            <p className="text-2xl text-navy-600 max-w-2xl mx-auto font-light leading-relaxed">
+                                Our comprehensive suite of software solutions is engineered to exceed global enterprise requirements for scale, security, and intelligence.
+                            </p>
                         </div>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-                            <div className="bg-gray-50 rounded-2xl p-8">
-                                <img src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/services/services-1-da0ae4e712a64822bff4dcdce96bd59b.png" alt="Custom Software Development" width="1200" height="900" className="w-full rounded-2xl object-cover shadow-sm mb-6" loading="lazy" />
-                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Custom Software Development</h3>
-                                <p className="text-gray-600 mb-6">Tailored solutions built from the ground up to meet your unique business requirements. Our expert developers create scalable, secure, and high-performance applications.</p>
-                                <ul className="space-y-3 text-gray-600">
-                                    <li className="flex items-center">
-                                        <svg className="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span>Web & Mobile Applications</span>
-                                    </li>
-                                    <li className="flex items-center">
-                                        <svg className="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span>Enterprise Software Solutions</span>
-                                    </li>
-                                    <li className="flex items-center">
-                                        <svg className="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span>API Development & Integration</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="bg-gray-50 rounded-2xl p-8">
-                                <img src="/assets/COMPANY_OFFICE.jpeg" alt="Technology Consulting" width="1200" height="900" className="w-full rounded-2xl object-cover shadow-sm mb-6" loading="lazy" />
-                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Technology Consulting</h3>
-                                <p className="text-gray-600 mb-6">Strategic guidance to optimize your technology stack and accelerate digital transformation. Our consultants bring deep industry expertise to every engagement.</p>
-                                <ul className="space-y-3 text-gray-600">
-                                    <li className="flex items-center">
-                                        <svg className="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span>Digital Strategy & Planning</span>
-                                    </li>
-                                    <li className="flex items-center">
-                                        <svg className="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span>Architecture & Design</span>
-                                    </li>
-                                    <li className="flex items-center">
-                                        <svg className="w-5 h-5 text-blue-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span>Technology Audits</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            <div className="text-center p-6 bg-white border border-gray-200 rounded-xl hover:shadow-lg transition-shadow">
-                                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-semibold text-gray-900 mb-2">24/7 Support</h3>
-                                <p className="text-gray-600">Round-the-clock technical support and maintenance to ensure your systems run smoothly.</p>
-                            </div>
-                            <div className="text-center p-6 bg-white border border-gray-200 rounded-xl hover:shadow-lg transition-shadow">
-                                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-semibold text-gray-900 mb-2">Security First</h3>
-                                <p className="text-gray-600">Enterprise-grade security measures and compliance standards built into every solution.</p>
-                            </div>
-                            <div className="text-center p-6 bg-white border border-gray-200 rounded-xl hover:shadow-lg transition-shadow">
-                                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-semibold text-gray-900 mb-2">Rapid Deployment</h3>
-                                <p className="text-gray-600">Agile development methodologies for faster time-to-market and iterative improvements.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
-                <section className="bg-gradient-to-br from-blue-50 to-white py-24">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
-                            <div className="grid lg:grid-cols-2 gap-0">
-                                <div className="p-12 lg:p-16 flex flex-col justify-center">
-                                    <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Ready to Transform Your Business?</h2>
-                                    <p className="text-xl text-gray-600 mb-8 leading-relaxed">Join hundreds of companies that trust Echoes Software Technologies to deliver innovative solutions. Schedule a consultation today and discover how we can accelerate your digital transformation.</p>
-                                    <div className="flex flex-col sm:flex-row gap-4">
-                                        <a href="https://forms.gle/K3LySpfU6YYvQKGj9" target="_blank" className="inline-block bg-[#1864ff] hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center">Schedule Consultation</a>
-                                        <a href="https://forms.gle/JNS54uLpgQXWP8NZ9" target="_blank" className="inline-block border-2 border-[#1864ff] text-[#1864ff] hover:bg-[#1864ff] hover:text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 text-center">Request Demo</a>
+                        <div className="grid md:grid-cols-3 gap-10">
+                            {[
+                                {
+                                    title: "Scalable Cloud Architecture",
+                                    desc: "Built on enterprise-grade cloud infrastructure that scales seamlessly from startup to Fortune 500.",
+                                    icon: "cloud",
+                                    features: ["Auto-scaling capabilities", "99.99% uptime guarantee", "Global CDN distribution"]
+                                },
+                                {
+                                    title: "Advanced Security Framework",
+                                    desc: "Military-grade security protocols and compliance standards that protect your most sensitive data assets.",
+                                    icon: "shield",
+                                    features: ["End-to-end encryption", "SOC 2 Type II compliant", "Multi-factor authentication"]
+                                },
+                                {
+                                    title: "Intelligent Analytics",
+                                    desc: "AI-powered analytics and real-time insights that transform raw data into actionable business intelligence.",
+                                    icon: "bar-chart-3",
+                                    features: ["Real-time dashboards", "Predictive modeling", "Enterprise data lake"]
+                                }
+                            ].map((sol, i) => (
+                                <div key={i} className="group bg-white p-12 rounded-[3.5rem] border border-navy-100 shadow-glass hover:shadow-premium transition-all duration-500 hover-lift relative overflow-hidden">
+                                    <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-blue-500 to-brand-blue-700 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                    <div className="w-20 h-20 bg-brand-blue-50 rounded-2xl flex items-center justify-center mb-10 group-hover:bg-brand-blue-600 transition-all duration-500 shadow-sm">
+                                        <i data-lucide={sol.icon} className="w-10 h-10 text-brand-blue-600 group-hover:text-white transition-colors"></i>
                                     </div>
-                                    <div className="mt-8 flex items-center gap-6 text-sm text-gray-500">
-                                        <div className="flex items-center gap-2">
-                                            <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                            </svg>
-                                            <span>Free consultation</span>
+                                    <h3 className="text-2xl font-black text-navy-950 mb-6 uppercase tracking-tight group-hover:text-brand-blue-600 transition-colors">{sol.title}</h3>
+                                    <p className="text-lg text-navy-600 leading-relaxed mb-8 font-light">{sol.desc}</p>
+                                    <ul className="space-y-4">
+                                        {sol.features.map((feat, idx) => (
+                                            <li key={idx} className="flex items-center gap-3 text-sm font-bold text-navy-700 uppercase tracking-widest">
+                                                <div className="w-1.5 h-1.5 rounded-full bg-brand-blue-500"></div>
+                                                {feat}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                <section className="py-40 bg-white relative overflow-hidden">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <div className="text-center mb-32 space-y-6">
+                            <h2 className="text-brand-blue-600 font-black tracking-[0.2em] text-sm uppercase">STRATEGIC DELIVERY</h2>
+                            <h3 className="text-5xl lg:text-7xl font-extrabold text-navy-950 tracking-tight leading-[1.1]">Comprehensive Ecosystems</h3>
+                            <p className="text-2xl text-navy-600 max-w-3xl mx-auto font-light leading-relaxed">
+                                We specialize in the end-to-end engineering of sophisticated digital platforms that define industry standards.
+                            </p>
+                        </div>
+
+                        <div className="space-y-40">
+                            {[
+                                {
+                                    title: "Custom Software Engineering",
+                                    desc: "Bespoke digital foundations engineered with military precision. We build high-performance, resilient ecosystems tailored to unique enterprise architecture.",
+                                    image: "assets/Custom Software Engineering.png",
+                                    points: ["Next-Gen Web & Mobile Platforms", "Mission-Critical Enterprise Systems", "High-Throughput API Orchestration"],
+                                    reverse: false
+                                },
+                                {
+                                    title: "Technology Strategy & Consulting",
+                                    desc: "Navigate the complexity of digital evolution with elite technical advisory. We optimize your technology stack to maximize speed, security, and market impact.",
+                                    image: "assets/Technology Strategy & Consulting.png",
+                                    points: ["Global Digital Roadmap Planning", "Architectural Integrity Audits", "Scalability & Performance Strategy"],
+                                    reverse: true
+                                }
+                            ].map((item, i) => (
+                                <div key={i} className={`flex flex-col ${item.reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-20 items-center`}>
+                                    <div className="w-full lg:w-1/2 relative group">
+                                        <div className="absolute -inset-4 bg-brand-blue-500/10 rounded-[4rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                        <div className="relative overflow-hidden rounded-[3.5rem] shadow-2xl border border-navy-100">
+                                            <img src={item.image} alt={item.title} className="w-full h-[600px] object-cover hover:scale-105 transition-transform duration-1000" />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-navy-950/40 to-transparent"></div>
                                         </div>
-                                        <div className="flex items-center gap-2">
-                                            <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                            </svg>
-                                            <span>No commitment required</span>
+                                    </div>
+                                    <div className="w-full lg:w-1/2 space-y-10">
+                                        <h4 className="text-4xl lg:text-5xl font-black text-navy-950 tracking-tight leading-tight">{item.title}</h4>
+                                        <p className="text-xl text-navy-600 font-light leading-relaxed">{item.desc}</p>
+                                        <div className="grid gap-6">
+                                            {item.points.map((point, idx) => (
+                                                <div key={idx} className="flex items-center gap-6 p-6 rounded-3xl bg-navy-50/50 border border-navy-100 group hover:bg-brand-blue-600 transition-all duration-500 hover:-translate-y-1">
+                                                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm group-hover:bg-brand-blue-500">
+                                                        <i data-lucide="check" className="w-6 h-6 text-brand-blue-600 group-hover:text-white"></i>
+                                                    </div>
+                                                    <span className="text-lg font-bold text-navy-800 uppercase tracking-widest text-xs group-hover:text-white transition-colors">{point}</span>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
-                                <div className="relative bg-gradient-to-br from-[#1864ff] to-blue-700 p-12 lg:p-16 flex items-center justify-center">
-                                    <img src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/cta/cta-main-3784e0b0ce6e4eadaafd560623263cce.png" alt="Professional software development team collaboration" width="800" height="600" className="w-full rounded-2xl object-cover shadow-2xl" loading="lazy" />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
+                            ))}
+                        </div>
+
+                        <div className="grid md:grid-cols-3 gap-10 mt-40">
+                            {[
+                                { title: "Elite 24/7 Support", desc: "Constant vigil over your digital assets with round-the-clock technical excellence.", icon: "headphones" },
+                                { title: "Defense-First Security", desc: "Military-grade protocols integrated into every layer of your application ecosystem.", icon: "shield-check" },
+                                { title: "Ultra-Rapid Deployment", desc: "Agile methodologies optimized for sub-millisecond market response and iterative dominance.", icon: "zap" }
+                            ].map((card, i) => (
+                                <div key={i} className="bg-navy-50/50 p-10 rounded-[3rem] border border-navy-100 text-center space-y-6 hover:bg-white hover:shadow-premium transition-all duration-500 hover-lift group">
+                                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto shadow-sm group-hover:bg-brand-blue-600 transition-colors">
+                                        <i data-lucide={card.icon} className="w-8 h-8 text-brand-blue-600 group-hover:text-white transition-colors"></i>
+                                    </div>
+                                    <h5 className="text-xl font-black text-navy-950 uppercase tracking-tight group-hover:text-brand-blue-600 transition-colors">{card.title}</h5>
+                                    <p className="text-navy-600 font-light leading-relaxed">{card.desc}</p>
                                 </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Ready to Transform Section */}
+                <section className="bg-navy-950 py-40 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none">
+                        <div className="absolute top-[-10%] right-[10%] w-[50%] h-[50%] bg-brand-blue-500 rounded-full blur-[180px] animate-float-slow"></div>
+                        <div className="absolute bottom-[-10%] left-[10%] w-[50%] h-[50%] bg-brand-blue-300 rounded-full blur-[180px] animate-float-slow" style={{ animationDelay: '-3s' }}></div>
+                    </div>
+
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <div className="glass-dark p-16 lg:p-32 rounded-[4rem] border border-white/10 text-center space-y-16 shadow-2xl">
+                            <div className="max-w-4xl mx-auto space-y-8">
+                                <h2 className="text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tighter text-balance">
+                                    Ready to <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-blue-400 to-brand-blue-200">Scale Your Vision?</span>
+                                </h2>
+                                <p className="text-2xl text-navy-200 leading-relaxed font-light">
+                                    Join the elite circle of enterprises powered by Echoes Software Technologies. <br className="hidden lg:block" />
+                                    Let's build the future of your digital ecosystem today.
+                                </p>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
+                                <a href="https://forms.gle/K3LySpfU6YYvQKGj9" target="_blank" rel="noopener noreferrer"
+                                    className="w-full sm:w-auto premium-gradient text-white font-black px-12 py-6 rounded-full transition-all duration-500 transform hover:scale-105 hover:shadow-premium shadow-2xl shadow-brand-blue-900/40 text-center text-xl uppercase tracking-widest">
+                                    Schedule Consultation
+                                </a>
+                                <a href="https://forms.gle/JNS54uLpgQXWP8NZ9" target="_blank" rel="noopener noreferrer"
+                                    className="w-full sm:w-auto glass-dark hover:bg-white/10 text-white font-black px-12 py-6 rounded-full transition-all duration-500 border border-white/20 text-center text-xl uppercase tracking-widest">
+                                    Request Ecosystem Demo
+                                </a>
                             </div>
                         </div>
                     </div>
                 </section>
             </main>
 
-            <footer className="bg-[#1864ff] text-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                        <div className="col-span-1 md:col-span-2">
-                            <div className="mb-4">
-                                <img src="/assets/3.png" alt="Echoes Software Technologies" className="h-10" />
+            <footer className="bg-navy-950 text-white relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-[6px] bg-gradient-to-r from-brand-blue-600 via-brand-blue-400 to-brand-blue-800"></div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-20">
+                        <div className="col-span-1 md:col-span-2 space-y-10">
+                            <div>
+                                <img src="/assets/3.png" alt="Echoes Software Technologies" className="h-12 mb-8" />
+                                <p className="text-navy-300 mb-10 max-w-md text-xl font-light leading-relaxed">
+                                    Precision-engineered software solutions for the global enterprise. Defining the future of digital ecosystems.
+                                </p>
                             </div>
-                            <p className="text-blue-100 mb-4 max-w-md">Delivering premium enterprise software solutions that transform businesses through technology and innovation.</p>
-                            <div className="flex space-x-4">
-                                <a href="https://www.linkedin.com/company/echoes-software-solutions/posts/?feedView=all" className="text-blue-100 hover:text-white transition-colors">
-                                    <i data-lucide="linkedin" className="w-5 h-5"></i>
-                                </a>
-                                <a href="https://wa.me/+918148549511" className="text-blue-100 hover:text-white transition-colors">
-                                    <i data-lucide="message-circle" className="w-5 h-5"></i>
-                                </a>
-                                <a href="https://www.instagram.com/echoes_software_technologies/" className="text-blue-100 hover:text-white transition-colors">
-                                    <i data-lucide="instagram" className="w-5 h-5"></i>
-                                </a>
+                            <div className="flex space-x-6">
+                                {[
+                                    { icon: "linkedin", href: "https://www.linkedin.com/company/echoes-software-solutions/posts/?feedView=all" },
+                                    { icon: "message-circle", href: "https://wa.me/918148549511" },
+                                    { icon: "instagram", href: "https://www.instagram.com/echoes_software_technologies/" }
+                                ].map((social, i) => (
+                                    <a key={i} href={social.href} target="_blank" rel="noopener noreferrer"
+                                        className="w-14 h-14 rounded-2xl glass-dark flex items-center justify-center text-white hover:bg-brand-blue-600 transition-all duration-500 hover:-translate-y-2 border border-white/10 shadow-lg">
+                                        <i data-lucide={social.icon} className="w-6 h-6"></i>
+                                    </a>
+                                ))}
                             </div>
                         </div>
                         <div>
-                            <h3 className="text-lg font-semibold mb-4">Solutions</h3>
-                            <ul className="space-y-2">
-                                <li><Link to="/solutions" className="text-blue-100 hover:text-white transition-colors">Enterprise Software</Link></li>
-                                <li><Link to="/solutions" className="text-blue-100 hover:text-white transition-colors">Cloud Solutions</Link></li>
-                                <li><Link to="/solutions" className="text-blue-100 hover:text-white transition-colors">Custom Development</Link></li>
-                                <li><Link to="/solutions" className="text-blue-100 hover:text-white transition-colors">Integration Services</Link></li>
+                            <h3 className="text-sm font-black mb-10 text-white uppercase tracking-[0.3em] border-l-4 border-brand-blue-500 pl-4">Solutions</h3>
+                            <ul className="space-y-6">
+                                {["Enterprise Software", "Cloud Solutions", "Custom Development", "Integration Services"].map((item, i) => (
+                                    <li key={i}>
+                                        <Link to="/solutions" className="text-navy-400 hover:text-white transition-all flex items-center group text-lg font-light">
+                                            <i data-lucide="arrow-right" className="w-5 h-5 mr-3 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all"></i>
+                                            {item}
+                                        </Link>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                         <div>
-                            <h3 className="text-lg font-semibold mb-4">Company</h3>
-                            <ul className="space-y-2">
-                                <li><Link to="/about" className="text-blue-100 hover:text-white transition-colors">About Us</Link></li>
-                                <li><a href="#" className="text-blue-100 hover:text-white transition-colors">Careers</a></li>
-                                <li><a href="#" className="text-blue-100 hover:text-white transition-colors">News</a></li>
-                                <li><Link to="/contact" className="text-blue-100 hover:text-white transition-colors">Contact</Link></li>
+                            <h3 className="text-sm font-black mb-10 text-white uppercase tracking-[0.3em] border-l-4 border-brand-blue-500 pl-4">Company</h3>
+                            <ul className="space-y-6">
+                                {["About Us", "Careers", "News", "Contact"].map((item, i) => (
+                                    <li key={i}>
+                                        <Link to={item === "Contact" ? "/contact" : item === "About Us" ? "/about" : "#"}
+                                            className="text-navy-400 hover:text-white transition-all flex items-center group text-lg font-light">
+                                            <i data-lucide="arrow-right" className="w-5 h-5 mr-3 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all"></i>
+                                            {item}
+                                        </Link>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                     </div>
-                    <div className="border-t border-blue-400 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                        <p className="text-blue-100 text-sm">© 2026 Echoes Software Technologies. All rights reserved.</p>
-                        <div className="flex space-x-6 mt-4 md:mt-0">
-                            <Link to="/privacy-policy" className="text-blue-100 hover:text-white transition-colors text-sm">Privacy Policy</Link>
-                            <Link to="/terms-of-service" className="text-blue-100 hover:text-white transition-colors text-sm">Terms of Service</Link>
-                            <a href="#" className="text-blue-100 hover:text-white transition-colors text-sm">Security</a>
+                    <div className="border-t border-white/5 mt-32 pt-12 flex flex-col md:flex-row justify-between items-center gap-8">
+                        <p className="text-navy-500 text-sm font-bold uppercase tracking-widest">© 2026 Echoes Software Technologies. Precision Built.</p>
+                        <div className="flex space-x-12">
+                            {["Privacy Policy", "Terms of Service", "Security"].map((item, i) => (
+                                <Link key={i} to={item === "Security" ? "#" : `/${item.toLowerCase().replace(/ /g, '-')}`}
+                                    className="text-navy-500 hover:text-white transition-colors text-sm font-bold uppercase tracking-[0.2em]">
+                                    {item}
+                                </Link>
+                            ))}
                         </div>
                     </div>
                 </div>
             </footer>
+
+            {/* Mobile Menu */}
+            {isMobileMenuOpen && (
+                <div className="md:hidden fixed inset-0 z-50 bg-navy-950/95 backdrop-blur-xl animate-fade-in">
+                    <div className="flex justify-end p-6">
+                        <button onClick={toggleMobileMenu} className="text-white hover:text-brand-blue-400 transition-colors">
+                            <i data-lucide="x" className="w-8 h-8"></i>
+                        </button>
+                    </div>
+                    <nav className="flex flex-col items-center justify-center space-y-12 h-3/4">
+                        <Link to="/" className="text-3xl font-black text-white hover:text-brand-blue-400 uppercase tracking-widest" onClick={toggleMobileMenu}>Home</Link>
+                        <Link to="/solutions" className="text-3xl font-black text-brand-blue-400 uppercase tracking-widest" onClick={toggleMobileMenu}>Solutions</Link>
+                        <Link to="/services" className="text-3xl font-black text-white hover:text-brand-blue-400 uppercase tracking-widest" onClick={toggleMobileMenu}>Services</Link>
+                        <Link to="/about" className="text-3xl font-black text-white hover:text-brand-blue-400 uppercase tracking-widest" onClick={toggleMobileMenu}>About</Link>
+                        <Link to="/contact" className="text-3xl font-black text-white hover:text-brand-blue-400 uppercase tracking-widest" onClick={toggleMobileMenu}>Contact</Link>
+                        <button
+                            onClick={handleGetStarted}
+                            className="premium-gradient text-white px-12 py-5 rounded-full font-black uppercase tracking-widest text-xl shadow-2xl"
+                        >
+                            Login
+                        </button>
+                    </nav>
+                </div>
+            )}
         </div>
     );
 };

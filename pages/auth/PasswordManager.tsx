@@ -1,49 +1,39 @@
 import React, { useState, useEffect } from 'react';
+import {
+    Key, Shield, AlertTriangle, RefreshCw, Search, Plus,
+    Eye, Edit3, Trash2, X, ExternalLink, ShieldCheck,
+    Clock, Lock, Globe, User
+} from 'lucide-react';
+import AdminLayout from '../../components/admin/AdminLayout';
 
-declare global {
-    interface Window {
-        lucide: any;
-    }
+interface Password {
+    id: number;
+    service: string;
+    url: string;
+    username: string;
+    category: 'Work' | 'Social' | 'Personal' | 'Finance';
+    strength: number;
+    lastUpdated: string;
 }
 
 const PasswordManager: React.FC = () => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [categoryFilter, setCategoryFilter] = useState('all');
-    const [currentUser, setCurrentUser] = useState('Admin');
 
-    useEffect(() => {
-        const isLoggedIn = localStorage.getItem('isLoggedIn');
-        if (isLoggedIn !== 'true') {
-            window.location.href = '/pages/auth/login.html';
-        }
-
-        const user = localStorage.getItem('currentUser');
-        if (user) {
-            setCurrentUser(user);
-        }
-
-        if (window.lucide) {
-            window.lucide.createIcons();
-        }
-    }, [isSidebarOpen, isModalOpen]);
-
-    const handleLogout = () => {
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('currentUser');
-        window.location.href = '/index.html';
-    };
-
-    const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-    const toggleModal = () => setIsModalOpen(!isModalOpen);
-
-    const passwords = [
+    const passwords: Password[] = [
         { id: 1, service: 'Google', url: 'google.com', username: 'user@example.com', category: 'Work', strength: 90, lastUpdated: '2023-11-15' },
         { id: 2, service: 'Facebook', url: 'facebook.com', username: 'user@example.com', category: 'Social', strength: 60, lastUpdated: '2023-10-22' },
         { id: 3, service: 'GitHub', url: 'github.com', username: 'developer', category: 'Work', strength: 95, lastUpdated: '2023-11-10' },
         { id: 4, service: 'Amazon', url: 'amazon.com', username: 'user@example.com', category: 'Personal', strength: 40, lastUpdated: '2023-09-15' },
     ];
+
+    useEffect(() => {
+        setIsLoaded(true);
+    }, []);
+
+    const toggleModal = () => setIsModalOpen(!isModalOpen);
 
     const filteredPasswords = passwords.filter(pw => {
         const matchesSearch = pw.service.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -52,275 +42,216 @@ const PasswordManager: React.FC = () => {
         return matchesSearch && matchesCategory;
     });
 
+    const getStrengthColor = (strength: number) => {
+        if (strength > 80) return 'text-emerald-400';
+        if (strength > 50) return 'text-amber-400';
+        return 'text-red-400';
+    };
+
+    const getStrengthBg = (strength: number) => {
+        if (strength > 80) return 'bg-emerald-500';
+        if (strength > 50) return 'bg-amber-500';
+        return 'bg-red-500';
+    };
+
     return (
-        <div className="bg-gray-50 min-h-screen" style={{ fontFamily: "'Poppins', sans-serif" }}>
-            {/* Header */}
-            <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-16">
-                        <div className="flex items-center">
-                            <button onClick={toggleSidebar} className="md:hidden mr-4 p-2 rounded-full text-gray-700 hover:bg-gray-100 transition-colors">
-                                <i data-lucide="menu" className="h-6 w-6"></i>
-                            </button>
-                            <div className="flex-shrink-0 flex items-center">
-                                <img src="../../assets/2.png" alt="Echoes Software Technologies" width="150" height="40" />
+        <AdminLayout title="Vault Access" subtitle="Security & Credential Core">
+            <div className={`space-y-12 transition-all duration-1000 transform ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+
+                {/* Stats Tier */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {[
+                        { label: 'Total Vault', val: '24', icon: Key, delta: 'Synced', color: 'brand-blue' },
+                        { label: 'Fortified', val: '18', icon: ShieldCheck, delta: '75%', color: 'emerald' },
+                        { label: 'Vulnerabilities', val: '4', icon: AlertTriangle, delta: 'Critical', color: 'red' },
+                        { label: 'Rotation Req.', val: '2', icon: RefreshCw, delta: 'Active', color: 'indigo' },
+                    ].map((stat, i) => {
+                        const Icon = stat.icon;
+                        return (
+                            <div key={i} className="bg-white dark:bg-white/[0.03] backdrop-blur-2xl border border-navy-200 dark:border-white/10 p-6 rounded-[2rem] group hover:bg-navy-50 dark:hover:bg-white/[0.05] hover:border-brand-blue-500/30 dark:hover:border-white/20 transition-all duration-500 active:scale-[0.98] shadow-sm">
+                                <div className="flex justify-between items-start mb-4">
+                                    <div className="w-12 h-12 bg-navy-50 dark:bg-white/5 rounded-2xl flex items-center justify-center border border-navy-200 dark:border-white/10 group-hover:scale-110 transition-transform duration-500">
+                                        <Icon className="w-6 h-6 text-brand-blue-600 dark:text-brand-blue-400" />
+                                    </div>
+                                    <div className="text-[10px] font-black px-2 py-1 rounded-lg bg-brand-blue-50 dark:bg-white/5 border border-brand-blue-100 dark:border-white/10 text-brand-blue-600 dark:text-brand-blue-300 uppercase">{stat.delta}</div>
+                                </div>
+                                <div className="text-3xl font-black mb-1 text-navy-950 dark:text-white">{stat.val}</div>
+                                <div className="text-xs font-bold text-navy-500 dark:text-navy-400 uppercase tracking-widest">{stat.label}</div>
                             </div>
+                        );
+                    })}
+                </div>
+
+                {/* Main Content Area */}
+                <div className="bg-white dark:bg-white/[0.02] border border-navy-200 dark:border-white/5 rounded-[2.5rem] overflow-hidden shadow-xl shadow-navy-200/20 dark:shadow-navy-950/50">
+                    <div className="p-8 border-b border-navy-100 dark:border-white/5 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                        <div>
+                            <h2 className="text-xl font-black uppercase tracking-widest text-navy-950 dark:text-white">Credential Matrix</h2>
+                            <p className="text-xs font-bold text-navy-500 uppercase tracking-widest mt-1">Encrypted Access Records</p>
                         </div>
-                        <nav className="hidden md:flex space-x-2">
-                            <a href="/pages/admin/admin-dashboard.html" className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-brand-blue hover:bg-gray-50 rounded-full transition-colors">
-                                <i data-lucide="home" className="h-4 w-4 inline mr-2" /> Home
-                            </a>
-                            <a href="/pages/admin/admin-dashboard.html" className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-brand-blue hover:bg-gray-50 rounded-full transition-colors">
-                                <i data-lucide="grid" className="h-4 w-4 inline mr-2" /> Dashboard
-                            </a>
-                            <a href="/pages/auth/password-manager.html" className="px-4 py-2 text-sm font-medium bg-brand-blue text-white rounded-full transition-colors">
-                                <i data-lucide="key" className="h-4 w-4 inline mr-2" /> Password Manager
-                            </a>
-                        </nav>
-                        <div className="flex items-center space-x-4">
-                            <div className="hidden md:block text-sm text-gray-600">
-                                Welcome, <span className="font-medium text-brand-blue">{currentUser}</span>
+                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full lg:w-auto">
+                            <div className="relative flex-1 sm:w-80">
+                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-400 dark:text-navy-600" />
+                                <input
+                                    type="text"
+                                    placeholder="Search service or identity..."
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    className="w-full bg-navy-50 dark:bg-white/5 border border-navy-200 dark:border-white/10 rounded-2xl pl-11 pr-4 py-3 text-sm text-navy-950 dark:text-white placeholder:text-navy-400 dark:placeholder:text-navy-600 focus:outline-none focus:ring-1 focus:ring-brand-blue-500 transition-all"
+                                />
                             </div>
-                            <button onClick={handleLogout} className="hidden md:flex items-center space-x-1 bg-red-600 text-white px-4 py-2 rounded-full font-medium hover:bg-red-700 transition-colors">
-                                <i data-lucide="log-out" className="h-4 w-4" /> <span>Logout</span>
+                            <select
+                                value={categoryFilter}
+                                onChange={(e) => setCategoryFilter(e.target.value)}
+                                className="bg-navy-50 dark:bg-white/5 border border-navy-200 dark:border-white/10 rounded-2xl px-4 py-3 text-sm text-navy-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-blue-500 transition-all cursor-pointer"
+                            >
+                                <option value="all">All Categories</option>
+                                <option value="work">Work Domain</option>
+                                <option value="personal">Personal Space</option>
+                                <option value="social">Social Networks</option>
+                                <option value="finance">Financial Hub</option>
+                            </select>
+                            <button
+                                onClick={toggleModal}
+                                className="bg-brand-blue-600 hover:bg-brand-blue-700 text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all shadow-lg shadow-brand-blue-900/20 active:scale-95"
+                            >
+                                <Plus className="w-4 h-4" /> Secure Entry
                             </button>
                         </div>
+                    </div>
+
+                    <div className="overflow-x-auto">
+                        <table className="w-full border-collapse">
+                            <thead>
+                                <tr className="bg-navy-50/50 dark:bg-white/[0.02]">
+                                    <th className="px-8 py-5 text-left text-[10px] font-black text-navy-500 uppercase tracking-[0.2em] border-b border-navy-100 dark:border-white/5">Service Nexus</th>
+                                    <th className="px-8 py-5 text-left text-[10px] font-black text-navy-500 uppercase tracking-[0.2em] border-b border-navy-100 dark:border-white/5">Identity</th>
+                                    <th className="px-8 py-5 text-left text-[10px] font-black text-navy-500 uppercase tracking-[0.2em] border-b border-navy-100 dark:border-white/5">Classification</th>
+                                    <th className="px-8 py-5 text-left text-[10px] font-black text-navy-500 uppercase tracking-[0.2em] border-b border-navy-100 dark:border-white/5">Integrity</th>
+                                    <th className="px-8 py-5 text-right text-[10px] font-black text-navy-500 uppercase tracking-[0.2em] border-b border-navy-100 dark:border-white/5">Operations</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-navy-100 dark:divide-white/5">
+                                {filteredPasswords.map(pw => (
+                                    <tr key={pw.id} className="group hover:bg-navy-50 dark:hover:bg-white/[0.02] transition-colors cursor-default">
+                                        <td className="px-8 py-6">
+                                            <div className="flex items-center gap-4">
+                                                <div className="w-12 h-12 rounded-2xl bg-navy-100 dark:bg-navy-800 border border-navy-200 dark:border-white/10 flex items-center justify-center font-black text-brand-blue-600 dark:text-brand-blue-400 group-hover:border-brand-blue-500/50 transition-all shadow-inner">
+                                                    {pw.service.substring(0, 2).toUpperCase()}
+                                                </div>
+                                                <div>
+                                                    <div className="text-sm font-black text-navy-950 dark:text-white">{pw.service}</div>
+                                                    <div className="text-[10px] font-bold text-navy-500 uppercase tracking-widest mt-0.5">{pw.url}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td className="px-8 py-6">
+                                            <div className="text-xs font-black text-navy-600 dark:text-navy-300 group-hover:text-brand-blue-600 dark:group-hover:text-white transition-colors uppercase tracking-tight">{pw.username}</div>
+                                        </td>
+                                        <td className="px-8 py-6">
+                                            <span className={`px-3 py-1 rounded-lg border border-navy-200 dark:border-white/10 bg-navy-50 dark:bg-white/5 text-[10px] font-black uppercase tracking-widest text-navy-500 dark:text-navy-300`}>
+                                                {pw.category}
+                                            </span>
+                                        </td>
+                                        <td className="px-8 py-6">
+                                            <div className="space-y-2 max-w-[120px]">
+                                                <div className="h-1 w-full bg-navy-100 dark:bg-white/5 rounded-full overflow-hidden">
+                                                    <div className={`h-full ${getStrengthBg(pw.strength)}`} style={{ width: `${pw.strength}%` }}></div>
+                                                </div>
+                                                <div className={`text-[10px] font-black uppercase tracking-widest ${getStrengthColor(pw.strength)}`}>
+                                                    {pw.strength > 80 ? 'Fortified' : pw.strength > 50 ? 'Intermediate' : 'Vulnerable'}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td className="px-8 py-6 text-right">
+                                            <div className="flex items-center justify-end gap-2">
+                                                <button className="w-9 h-9 rounded-xl bg-white dark:bg-white/5 border border-navy-200 dark:border-white/5 flex items-center justify-center text-navy-500 dark:text-navy-400 hover:text-white hover:bg-brand-blue-600 transition-all shadow-sm">
+                                                    <Lock className="w-4 h-4" />
+                                                </button>
+                                                <button className="w-9 h-9 rounded-xl bg-white dark:bg-white/5 border border-navy-200 dark:border-white/5 flex items-center justify-center text-navy-500 dark:text-navy-400 hover:text-white hover:bg-brand-blue-600 transition-all shadow-sm">
+                                                    <Edit3 className="w-4 h-4" />
+                                                </button>
+                                                <button className="w-9 h-9 rounded-xl bg-white dark:bg-white/5 border border-navy-200 dark:border-white/5 flex items-center justify-center text-navy-500 dark:text-navy-400 hover:text-white hover:bg-red-600 transition-all shadow-sm">
+                                                    <Trash2 className="w-4 h-4" />
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </header>
-
-            <div className="flex">
-                {/* Sidebar */}
-                <aside className={`w-64 bg-white border-r border-gray-200 min-h-screen fixed md:static transition-transform duration-300 ease-in-out z-40 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
-                    <div className="p-4 flex flex-col h-full">
-                        <div className="flex justify-between items-center mb-4 md:hidden">
-                            <button onClick={toggleSidebar} className="p-2 rounded-full text-gray-700 hover:bg-gray-100">
-                                <i data-lucide="x" className="h-5 w-5" />
-                            </button>
-                        </div>
-                        <nav className="flex-1">
-                            <a href="/pages/admin/crm-management.html" className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
-                                <i data-lucide="users" className="h-5 w-5" /> <span>CRM Management</span>
-                            </a>
-                            <a href="/pages/admin/attendance-management.html" className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
-                                <i data-lucide="calendar" className="h-5 w-5" /> <span>Attendance Management</span>
-                            </a>
-                            <a href="/pages/admin/employee-management.html" className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
-                                <i data-lucide="user" className="h-5 w-5" /> <span>Employee Management</span>
-                            </a>
-                            <a href="/pages/auth/password-manager.html" className="flex items-center space-x-3 px-4 py-3 bg-blue-50 text-brand-blue rounded-full">
-                                <i data-lucide="key" className="h-5 w-5" /> <span>Password Manager</span>
-                            </a>
-                        </nav>
-                        <div className="pt-4 border-t border-gray-200">
-                            <div className="p-4 bg-gray-50 rounded-2xl mb-4">
-                                <div className="text-sm font-medium text-gray-900">{currentUser}</div>
-                                <div className="text-xs text-gray-600">Logged in as admin</div>
-                            </div>
-                            <button onClick={handleLogout} className="w-full flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-full transition-colors">
-                                <i data-lucide="log-out" className="h-5 w-5" /> <span>Logout</span>
-                            </button>
-                        </div>
-                    </div>
-                </aside>
-
-                {/* Overlay for mobile */}
-                {isSidebarOpen && <div onClick={toggleSidebar} className="fixed inset-0 z-30 bg-black bg-opacity-50 md:hidden"></div>}
-
-                {/* Main Content */}
-                <main className="flex-1 p-8">
-                    <div className="max-w-7xl mx-auto">
-                        <div className="flex justify-between items-center mb-8">
-                            <h1 className="text-3xl font-bold text-gray-900">Password Manager</h1>
-                            <button onClick={toggleModal} className="bg-brand-blue text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors">
-                                Add New Password
-                            </button>
-                        </div>
-
-                        {/* Cards Overview */}
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                                <div className="flex items-center">
-                                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                                        <i data-lucide="key" className="h-6 w-6 text-brand-blue" />
-                                    </div>
-                                    <div>
-                                        <p className="text-2xl font-bold text-gray-900">24</p>
-                                        <p className="text-sm text-gray-600">Total Passwords</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                                <div className="flex items-center">
-                                    <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
-                                        <i data-lucide="shield-check" className="h-6 w-6 text-green-600" />
-                                    </div>
-                                    <div>
-                                        <p className="text-2xl font-bold text-gray-900">18</p>
-                                        <p className="text-sm text-gray-600">Secure Passwords</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                                <div className="flex items-center">
-                                    <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-3">
-                                        <i data-lucide="alert-triangle" className="h-6 w-6 text-yellow-600" />
-                                    </div>
-                                    <div>
-                                        <p className="text-2xl font-bold text-gray-900">4</p>
-                                        <p className="text-sm text-gray-600">Weak Passwords</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                                <div className="flex items-center">
-                                    <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
-                                        <i data-lucide="refresh-cw" className="h-6 w-6 text-purple-600" />
-                                    </div>
-                                    <div>
-                                        <p className="text-2xl font-bold text-gray-900">2</p>
-                                        <p className="text-sm text-gray-600">Expiring Soon</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Stored Passwords Table */}
-                        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                            <div className="p-6 border-b border-gray-200 flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
-                                <h2 className="text-xl font-semibold text-gray-900">Stored Passwords</h2>
-                                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 w-full md:w-auto">
-                                    <div className="relative">
-                                        <input
-                                            type="text"
-                                            placeholder="Search passwords..."
-                                            value={searchTerm}
-                                            onChange={(e) => setSearchTerm(e.target.value)}
-                                            className="w-full md:w-64 px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-brand-blue focus:border-brand-blue"
-                                        />
-                                        <i data-lucide="search" className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />
-                                    </div>
-                                    <select
-                                        value={categoryFilter}
-                                        onChange={(e) => setCategoryFilter(e.target.value)}
-                                        className="w-full md:w-auto px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-brand-blue focus:border-brand-blue"
-                                    >
-                                        <option value="all">All Categories</option>
-                                        <option value="work">Work</option>
-                                        <option value="personal">Personal</option>
-                                        <option value="social">Social</option>
-                                        <option value="finance">Finance</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="overflow-x-auto">
-                                <table className="min-w-full divide-y divide-gray-200">
-                                    <thead className="bg-gray-50">
-                                        <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Strength</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Updated</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="bg-white divide-y divide-gray-200">
-                                        {filteredPasswords.map(pw => (
-                                            <tr key={pw.id}>
-                                                <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="flex items-center">
-                                                        <div className="flex-shrink-0 h-10 w-10 bg-brand-blue rounded-full flex items-center justify-center text-white font-bold">
-                                                            {pw.service.substring(0, 2).toUpperCase()}
-                                                        </div>
-                                                        <div className="ml-4">
-                                                            <div className="text-sm font-medium text-gray-900">{pw.service}</div>
-                                                            <div className="text-sm text-gray-500">{pw.url}</div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="text-sm text-gray-900">{pw.username}</div>
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap">
-                                                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${pw.category === 'Work' ? 'bg-blue-100 text-blue-800' :
-                                                            pw.category === 'Social' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                                                        }`}>
-                                                        {pw.category}
-                                                    </span>
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="flex items-center">
-                                                        <div className="w-full bg-gray-200 rounded-full h-2 mr-2 min-w-[50px]">
-                                                            <div className={`h-2 rounded-full ${pw.strength > 80 ? 'bg-green-600' : pw.strength > 50 ? 'bg-yellow-500' : 'bg-red-500'}`} style={{ width: `${pw.strength}%` }}></div>
-                                                        </div>
-                                                        <span className={`text-sm ${pw.strength > 80 ? 'text-green-600' : pw.strength > 50 ? 'text-yellow-600' : 'text-red-600'}`}>
-                                                            {pw.strength > 80 ? 'Strong' : pw.strength > 50 ? 'Medium' : 'Weak'}
-                                                        </span>
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{pw.lastUpdated}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                                    <button onClick={() => alert('View logic')} className="text-brand-blue hover:text-blue-700 mr-3">View</button>
-                                                    <button onClick={() => alert('Edit logic')} className="text-gray-600 hover:text-gray-900">Edit</button>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </main>
             </div>
 
-            {/* Add Password Modal */}
+            {/* Secure Entry Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-                    <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
-                        <div className="p-6">
-                            <div className="flex justify-between items-center mb-4">
-                                <h3 className="text-lg font-semibold text-gray-900">Add New Password</h3>
-                                <button onClick={toggleModal} className="text-gray-400 hover:text-gray-600">
-                                    <i data-lucide="x" className="h-6 w-6" />
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 sm:p-12">
+                    <div
+                        className="absolute inset-0 bg-navy-950/40 dark:bg-navy-950/80 backdrop-blur-md dark:backdrop-blur-xl animate-fade-in"
+                        onClick={toggleModal}
+                    />
+                    <div className="bg-white dark:bg-navy-900 border border-navy-200 dark:border-white/10 w-full max-w-xl rounded-[2.5rem] shadow-2xl relative z-10 overflow-hidden animate-slide-up">
+                        <div className="p-8 sm:p-10">
+                            <div className="flex justify-between items-center mb-10">
+                                <div>
+                                    <h3 className="text-2xl font-black text-navy-950 dark:text-white">Commit Entry.</h3>
+                                    <p className="text-xs font-bold text-navy-500 uppercase tracking-widest mt-1">Encrypted Record Provisioning</p>
+                                </div>
+                                <button onClick={toggleModal} className="w-12 h-12 rounded-2xl bg-navy-50 dark:bg-white/5 border border-navy-200 dark:border-white/5 flex items-center justify-center text-navy-500 dark:text-navy-400 hover:text-brand-blue-600 dark:hover:text-white transition-all">
+                                    <X className="w-6 h-6" />
                                 </button>
                             </div>
-                            <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert('Saved!'); toggleModal(); }}>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Service Name</label>
-                                    <input type="text" required className="w-full px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-brand-blue" />
+
+                            <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); toggleModal(); }}>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="block text-[10px] font-black text-navy-500 uppercase tracking-widest mb-2 px-1">Service Origin</label>
+                                        <input required className="w-full bg-navy-50 dark:bg-white/5 border border-navy-200 dark:border-white/10 rounded-2xl px-4 py-3.5 text-sm text-navy-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-blue-500 transition-all placeholder:text-navy-300 dark:placeholder:text-navy-700" placeholder="Nexus entity" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-[10px] font-black text-navy-500 uppercase tracking-widest mb-2 px-1">Domain Link</label>
+                                        <input className="w-full bg-navy-50 dark:bg-white/5 border border-navy-200 dark:border-white/10 rounded-2xl px-4 py-3.5 text-sm text-navy-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-blue-500 transition-all placeholder:text-navy-300 dark:placeholder:text-navy-700" placeholder="service.domain" />
+                                    </div>
                                 </div>
+
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Username/Email</label>
-                                    <input type="text" required className="w-full px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-brand-blue" />
+                                    <label className="block text-[10px] font-black text-navy-500 uppercase tracking-widest mb-2 px-1">Identity Code</label>
+                                    <input required className="w-full bg-navy-50 dark:bg-white/5 border border-navy-200 dark:border-white/10 rounded-2xl px-4 py-3.5 text-sm text-navy-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-blue-500 transition-all placeholder:text-navy-300 dark:placeholder:text-navy-700" placeholder="user@access.sys" />
                                 </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="block text-[10px] font-black text-navy-500 uppercase tracking-widest mb-2 px-1">Classification Pool</label>
+                                        <select className="w-full bg-navy-50 dark:bg-white/5 border border-navy-200 dark:border-white/10 rounded-2xl px-4 py-3.5 text-sm text-navy-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-blue-500 transition-all cursor-pointer">
+                                            <option value="work">Work Domain</option>
+                                            <option value="personal">Personal Space</option>
+                                            <option value="social">Social Networks</option>
+                                            <option value="finance">Financial Hub</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label className="block text-[10px] font-black text-navy-500 uppercase tracking-widest mb-2 px-1">Access Key</label>
+                                        <input type="password" required className="w-full bg-navy-50 dark:bg-white/5 border border-navy-200 dark:border-white/10 rounded-2xl px-4 py-3.5 text-sm text-navy-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-blue-500 transition-all placeholder:text-navy-300 dark:placeholder:text-navy-700" placeholder="********" />
+                                    </div>
+                                </div>
+
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                                    <input type="password" required className="w-full px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-brand-blue" />
+                                    <label className="block text-[10px] font-black text-navy-500 uppercase tracking-widest mb-2 px-1">Secure Annotations</label>
+                                    <textarea rows={3} className="w-full bg-navy-50 dark:bg-white/5 border border-navy-200 dark:border-white/10 rounded-[1.5rem] px-4 py-3.5 text-sm text-navy-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-brand-blue-500 transition-all placeholder:text-navy-300 dark:placeholder:text-navy-700" placeholder="Optional meta data..." />
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                                    <select className="w-full px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-brand-blue">
-                                        <option value="work">Work</option>
-                                        <option value="personal">Personal</option>
-                                        <option value="social">Social</option>
-                                        <option value="finance">Finance</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Notes (Optional)</label>
-                                    <textarea rows={3} className="w-full px-4 py-2 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-brand-blue" />
-                                </div>
-                                <div className="flex justify-end space-x-3 pt-4">
-                                    <button type="button" onClick={toggleModal} className="px-6 py-2 text-gray-700 border border-gray-300 rounded-full hover:bg-gray-50">Cancel</button>
-                                    <button type="submit" className="px-6 py-2 bg-brand-blue text-white rounded-full hover:bg-blue-700">Save Password</button>
+
+                                <div className="pt-6">
+                                    <button type="submit" className="w-full bg-brand-blue-600 hover:bg-brand-blue-700 text-white py-5 rounded-2xl font-black text-sm uppercase tracking-[0.2em] transition-all shadow-xl shadow-brand-blue-900/40 active:scale-95">
+                                        COMMIT TO VAULT
+                                    </button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             )}
-        </div>
+        </AdminLayout>
     );
 };
 

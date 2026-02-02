@@ -27,401 +27,412 @@ const About: React.FC = () => {
     };
 
     return (
-        <div className="bg-white text-gray-900" style={{ fontFamily: "'Poppins', sans-serif" }}>
-            <header className="bg-white bg-opacity-80 backdrop-blur-md border-b border-gray-200/50 sticky top-0 z-50 rounded-b-2xl shadow-lg">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-16">
-                        <div className="flex items-center">
-                            <div className="flex-shrink-0">
-                                <img src="/assets/2.png" alt="Echoes Software Technologies" width="150" height="40" />
-                            </div>
-                        </div>
-                        <nav className="hidden md:flex space-x-8">
-                            <Link to="/" className="text-gray-600 hover:text-brand-blue transition-colors font-medium">Home</Link>
-                            <Link to="/solutions" className="text-gray-600 hover:text-brand-blue transition-colors font-medium">Solutions</Link>
-                            <Link to="/services" className="text-gray-600 hover:text-brand-blue transition-colors font-medium">Services</Link>
-                            <span className="text-brand-blue font-medium">About</span>
-                            <Link to="/contact" className="text-gray-600 hover:text-brand-blue transition-colors font-medium">Contact</Link>
-                        </nav>
-                        <div className="flex items-center space-x-4">
-                            <button
-                                onClick={handleGetStarted}
-                                className="get-started-btn bg-brand-blue text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors hidden md:block inline-block"
+        <div className="bg-white min-h-screen selection:bg-brand-blue-100 selection:text-brand-blue-900" style={{ fontFamily: "'Outfit', sans-serif" }}>
+            {/* Navigation */}
+            <header className="fixed top-0 w-full z-[100] transition-all duration-500 bg-white/80 backdrop-blur-2xl border-b border-navy-100/50">
+                <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+                    <Link to="/" className="hover:opacity-80 transition-opacity">
+                        <img src="/assets/2.png" alt="Echoes Logo" className="h-10 w-auto" />
+                    </Link>
+
+                    <nav className="hidden md:flex items-center gap-12">
+                        {['Home', 'Solutions', 'Services', 'About', 'Contact'].map((item) => (
+                            <Link
+                                key={item}
+                                to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
+                                className={`text-sm font-black uppercase tracking-[0.2em] transition-all relative group nav-blip ${item === 'About' ? 'text-brand-blue-600 active' : 'text-navy-900 hover:text-brand-blue-600'}`}
                             >
-                                Login
-                            </button>
-                            <button className="md:hidden p-2" onClick={toggleMobileMenu}>
-                                <i data-lucide={isMobileMenuOpen ? "x" : "menu"} className="w-6 h-6"></i>
-                            </button>
-                        </div>
-                    </div>
-                    {/* Mobile menu */}
-                    <div id="mobile-menu" className={`${isMobileMenuOpen ? '' : 'hidden'} md:hidden bg-white bg-opacity-90 backdrop-blur-md py-4 border-t border-gray-200/50 rounded-b-lg`}>
-                        <nav className="flex flex-col space-y-3 px-4">
-                            <Link to="/" className="text-gray-600 hover:text-brand-blue transition-colors font-medium py-2">Home</Link>
-                            <Link to="/solutions" className="text-gray-600 hover:text-brand-blue transition-colors font-medium py-2">Solutions</Link>
-                            <Link to="/services" className="text-gray-600 hover:text-brand-blue transition-colors font-medium py-2">Services</Link>
-                            <span className="text-brand-blue font-medium py-2">About</span>
-                            <Link to="/contact" className="text-gray-600 hover:text-brand-blue transition-colors font-medium py-2">Contact</Link>
-                            <button
-                                onClick={handleGetStarted}
-                                className="get-started-btn bg-brand-blue text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition-colors w-full mt-2 inline-block text-center"
-                            >
-                                Login
-                            </button>
-                        </nav>
+                                {item}
+                            </Link>
+                        ))}
+                    </nav>
+
+                    <div className="flex items-center gap-6">
+                        <button
+                            onClick={handleGetStarted}
+                            className="hidden md:flex premium-gradient text-white px-8 py-3 rounded-full text-xs font-black uppercase tracking-widest shadow-xl shadow-brand-blue-500/20 hover:scale-105 active:scale-95 transition-all"
+                        >
+                            Login
+                        </button>
+                        <button onClick={toggleMobileMenu} className="md:hidden w-12 h-12 flex items-center justify-center rounded-2xl bg-navy-50 dark:bg-navy-900 text-navy-900 dark:text-white active:scale-90 transition-transform">
+                            <i data-lucide="menu" className="w-6 h-6"></i>
+                        </button>
                     </div>
                 </div>
             </header>
 
-            <main>
-                <section className="bg-[#1864ff] py-20 lg:py-32">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-16">
-                            <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight mb-6">About Echoes Software Technologies</h1>
-                            <p className="text-xl text-white max-w-3xl mx-auto">We are a leading software company delivering premium enterprise solutions that transform businesses through technology and innovation.</p>
+            {/* Premium Mobile Menu Overlay */}
+            {isMobileMenuOpen && (
+                <div className="fixed inset-0 z-[200] md:hidden">
+                    <div className="absolute inset-0 bg-navy-950/40 backdrop-blur-sm animate-fade-in" onClick={toggleMobileMenu} />
+                    <div className="absolute top-0 right-0 w-3/4 h-full bg-white shadow-2xl animate-slide-in-right flex flex-col">
+                        <div className="p-8 flex justify-between items-center border-b border-navy-50">
+                            <img src="/assets/2.png" alt="Echoes Logo" className="h-8 w-auto" />
+                            <button onClick={toggleMobileMenu} className="w-12 h-12 flex items-center justify-center rounded-2xl bg-navy-50 text-navy-900 active:rotate-90 transition-transform duration-300">
+                                <i data-lucide="x" className="w-6 h-6"></i>
+                            </button>
                         </div>
+                        <nav className="flex-1 px-8 py-12 flex flex-col gap-10">
+                            {['Home', 'Solutions', 'Services', 'About', 'Contact'].map((item, i) => (
+                                <Link
+                                    key={item}
+                                    to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
+                                    onClick={toggleMobileMenu}
+                                    className={`text-3xl font-black uppercase tracking-tighter transition-all ${item === 'About' ? 'text-brand-blue-600 pl-4 border-l-4 border-brand-blue-600' : 'text-navy-950 hover:text-brand-blue-600'}`}
+                                    style={{ animationDelay: `${i * 100}ms` }}
+                                >
+                                    {item}
+                                </Link>
+                            ))}
+                        </nav>
+                        <div className="p-8 border-t border-navy-50 space-y-8">
+                            <button onClick={handleGetStarted} className="w-full premium-gradient text-white py-5 rounded-3xl font-black uppercase tracking-widest">Login</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            <main className="pt-24">
+                {/* Hero Section */}
+                <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-navy-950">
+                    <div className="absolute inset-0">
+                        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-brand-blue-600/30 rounded-full blur-[150px] animate-float-slow"></div>
+                        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-brand-blue-400/20 rounded-full blur-[150px] animate-float-slow" style={{ animationDelay: '-3s' }}></div>
+                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                    </div>
+
+                    <div className="max-w-7xl mx-auto px-6 relative z-10 text-center space-y-10">
+                        <div className="inline-block px-8 py-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-md animate-fade-in-down">
+                            <span className="text-brand-blue-400 font-black tracking-[0.3em] text-xs uppercase">OUR STORY</span>
+                        </div>
+                        <h1 className="text-6xl lg:text-8xl font-black text-white leading-[1.1] tracking-tighter animate-slide-up">
+                            Defining the <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-blue-400 to-brand-blue-100">Future of Tech</span>
+                        </h1>
+                        <p className="text-2xl text-navy-200 max-w-3xl mx-auto font-light leading-relaxed animate-fade-in delay-500">
+                            We are Echoes Software Technologies. A collective of elite engineers and visionaries building enterprise-grade legacies.
+                        </p>
+                    </div>
+
+                    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+                        <i data-lucide="chevron-down" className="w-8 h-8 text-white/30"></i>
                     </div>
                 </section>
 
-                <section className="py-20 bg-gray-50">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="grid lg:grid-cols-2 gap-16 items-center">
-                            <div>
-                                <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
-                                <p className="text-lg text-gray-600 mb-6">At Echoes Software Technologies, our mission is to empower businesses with innovative software solutions that drive growth, efficiency, and competitive advantage. We believe in the transformative power of technology to solve complex business challenges.</p>
-                                <p className="text-lg text-gray-600 mb-6">We partner with industry leaders to deliver innovative software solutions that not only meet current needs but also anticipate future requirements, ensuring our clients stay ahead in an ever-evolving digital landscape.</p>
-                                <div className="flex items-center space-x-4 mt-8">
-                                    <div className="flex items-center space-x-2">
-                                        <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span className="text-gray-700">ISO 27001 Certified</span>
+                {/* Mission Section */}
+                <section className="py-40 bg-white relative overflow-hidden">
+                    <div className="max-w-7xl mx-auto px-6 relative z-10">
+                        <div className="grid lg:grid-cols-2 gap-24 items-center">
+                            <div className="space-y-12">
+                                <div className="space-y-6">
+                                    <h2 className="text-brand-blue-600 font-black tracking-[0.3em] text-sm uppercase">OUR MISSION</h2>
+                                    <h3 className="text-5xl lg:text-7xl font-extrabold text-navy-950 tracking-tight leading-[1.1]">Engineering <span className="text-brand-blue-600">Enterprise Excellence</span></h3>
+                                </div>
+                                <div className="space-y-8">
+                                    <p className="text-2xl text-navy-600 font-light leading-relaxed">
+                                        Echoes Software Technologies exists at the intersection of complex problem solving and sophisticated engineering. Our mission is to architect digital foundations that empower global enterprises to define their industry standards.
+                                    </p>
+                                    <div className="grid sm:grid-cols-2 gap-8">
+                                        <div className="p-8 rounded-3xl bg-navy-50/50 border border-navy-100 space-y-4">
+                                            <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
+                                                <i data-lucide="shield-check" className="w-6 h-6 text-brand-blue-600"></i>
+                                            </div>
+                                            <h4 className="text-sm font-black text-navy-950 uppercase tracking-widest">ISO 27001 Certified</h4>
+                                        </div>
+                                        <div className="p-8 rounded-3xl bg-navy-50/50 border border-navy-100 space-y-4">
+                                            <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
+                                                <i data-lucide="clock" className="w-6 h-6 text-brand-blue-600"></i>
+                                            </div>
+                                            <h4 className="text-sm font-black text-navy-950 uppercase tracking-widest">24/7 Global Support</h4>
+                                        </div>
                                     </div>
-                                    <div className="flex items-center space-x-2">
-                                        <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                        </svg>
-                                        <span className="text-gray-700">24/7 Enterprise Support</span>
+                                </div>
+                            </div>
+                            <div className="relative group">
+                                <div className="absolute -inset-4 bg-brand-blue-500/10 rounded-[4rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                <div className="relative overflow-hidden rounded-[3.5rem] shadow-2xl border border-navy-100 aspect-square">
+                                    <img src="/assets/our_mission.avif" alt="Our mission" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950/40 to-transparent"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Values Section */}
+                <section className="py-40 bg-navy-50/50 relative overflow-hidden">
+                    <div className="max-w-7xl mx-auto px-6 relative z-10">
+                        <div className="text-center mb-32 space-y-6">
+                            <h2 className="text-brand-blue-600 font-black tracking-[0.3em] text-sm uppercase">CORE PHILOSOPHY</h2>
+                            <h3 className="text-5xl lg:text-7xl font-extrabold text-navy-950 tracking-tight leading-[1.1]">The Echoes Standard</h3>
+                        </div>
+
+                        <div className="grid md:grid-cols-3 gap-10">
+                            {[
+                                { title: "Excellence", desc: "We don't meet standards; we define them. Every line of code is an exercise in technical perfection.", icon: "award" },
+                                { title: "Innovation", desc: "Iterating on the impossible. We leverage sub-millisecond market response and elite AI orchestration.", icon: "cpu" },
+                                { title: "Integrity", desc: "Absolute transparency. We operate with defense-first security protocols and radical honesty.", icon: "file-check" }
+                            ].map((val, i) => (
+                                <div key={i} className="group bg-white p-12 rounded-[3.5rem] border border-navy-100 shadow-glass hover:shadow-premium transition-all duration-500 hover-lift relative overflow-hidden">
+                                    <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-blue-500 to-brand-blue-700 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                    <div className="w-20 h-20 bg-brand-blue-50 rounded-2xl flex items-center justify-center mb-10 group-hover:bg-brand-blue-600 transition-all duration-500">
+                                        <i data-lucide={val.icon} className="w-10 h-10 text-brand-blue-600 group-hover:text-white"></i>
                                     </div>
+                                    <h3 className="text-3xl font-black text-navy-950 mb-6 uppercase tracking-tight group-hover:text-brand-blue-600 transition-colors">{val.title}</h3>
+                                    <p className="text-xl text-navy-600 leading-relaxed font-light">{val.desc}</p>
                                 </div>
-                            </div>
-                            <div className="relative">
-                                <img src="/assets/our_mission.avif" alt="Our mission" width="800" height="600" className="w-full rounded-2xl object-cover shadow-xl" loading="lazy" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent rounded-2xl"></div>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </section>
 
-                <section className="py-20 bg-white">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-16">
-                            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Our Values</h2>
-                            <p className="text-xl text-gray-600 max-w-3xl mx-auto">We are guided by core principles that shape our culture, drive our decisions, and define our approach to every project and partnership.</p>
+                {/* Why Choose Us */}
+                <section className="py-40 bg-white relative overflow-hidden">
+                    <div className="max-w-7xl mx-auto px-6 relative z-10">
+                        <div className="flex flex-col lg:flex-row justify-between items-end mb-32 gap-10">
+                            <div className="max-w-2xl space-y-6">
+                                <h2 className="text-brand-blue-600 font-black tracking-[0.3em] text-sm uppercase text-left">STRATEGIC ADVANTAGE</h2>
+                                <h3 className="text-5xl lg:text-7xl font-extrabold text-navy-950 tracking-tight leading-[1.1] text-left">Why Global Leaders <span className="text-brand-blue-600">Choose Us</span></h3>
+                            </div>
+                            <p className="text-2xl text-navy-600 max-w-xl font-light leading-relaxed text-left lg:text-right">
+                                From startup acceleration to Fortune 500 digital evolution, we provide the elite technical edge.
+                            </p>
                         </div>
-                        <div className="grid md:grid-cols-3 gap-8">
-                            <div className="bg-gray-50 rounded-2xl p-8 text-center">
-                                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                                    <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                                    </svg>
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Excellence</h3>
-                                <p className="text-gray-600">We are committed to delivering the highest quality solutions and services, setting the standard for excellence in everything we do.</p>
-                            </div>
-                            <div className="bg-gray-50 rounded-2xl p-8 text-center">
-                                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                                    <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                    </svg>
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Innovation</h3>
-                                <p className="text-gray-600">We embrace innovative technologies and creative approaches to solve complex problems and drive meaningful change.</p>
-                            </div>
-                            <div className="bg-gray-50 rounded-2xl p-8 text-center">
-                                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                                    <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                    </svg>
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Integrity</h3>
-                                <p className="text-gray-600">We conduct business with the highest level of honesty, transparency, and ethical standards in all our interactions.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
-                <section className="py-20 bg-gray-50">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-16">
-                            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Why Choose Echoes Software Technologies</h2>
-                            <p className="text-xl text-gray-600 max-w-3xl mx-auto">We stand out in the industry with our unique approach to software development and client partnerships.</p>
-                        </div>
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            <div className="bg-white p-8 rounded-2xl shadow-lg">
-                                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-3">Proven Track Record</h3>
-                                <p className="text-gray-600">With over 150+ enterprise clients and a 99.9% uptime guarantee, we deliver reliable solutions that drive measurable results.</p>
-                            </div>
-                            <div className="bg-white p-8 rounded-2xl shadow-lg">
-                                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-3">Innovation-Driven</h3>
-                                <p className="text-gray-600">We leverage innovative technologies including AI and machine learning to build future-ready solutions for our clients.</p>
-                            </div>
-                            <div className="bg-white p-8 rounded-2xl shadow-lg">
-                                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-3">Client-Centric Approach</h3>
-                                <p className="text-gray-600">Our solutions are tailored to meet your specific business needs, with dedicated support throughout the entire process.</p>
-                            </div>
-                            <div className="bg-white p-8 rounded-2xl shadow-lg">
-                                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-3">Security First</h3>
-                                <p className="text-gray-600">ISO 27001 certified with SOC 2 compliance, ensuring your data is protected with the highest security standards.</p>
-                            </div>
-                            <div className="bg-white p-8 rounded-2xl shadow-lg">
-                                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4 4 0 003 15z"></path>
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-3">Scalable Solutions</h3>
-                                <p className="text-gray-600">Our solutions grow with your business, from startup to enterprise, ensuring long-term value and adaptability.</p>
-                            </div>
-                            <div className="bg-white p-8 rounded-2xl shadow-lg">
-                                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-3">24/7 Support</h3>
-                                <p className="text-gray-600">Round-the-clock support ensures your systems run smoothly with minimal downtime and maximum efficiency.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section className="py-24 bg-gradient-to-br from-blue-50 to-white">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-16">
-                            <h2 className="text-4xl font-bold text-gray-900 mb-4">Meet Our Founder</h2>
-                            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Learn about the visionary behind Echoes Software Technologies</p>
-                        </div>
-
-                        <div className="flex flex-col md:flex-row items-center justify-center gap-12 max-w-5xl mx-auto bg-white rounded-3xl shadow-xl p-8 md:p-12">
-                            <div className="flex-shrink-0">
-                                <img src="/assets/ukaasha_founder.png" alt="Mohamed Ukaasha, Founder" width="400" height="400" className="w-64 h-64 rounded-full object-cover border-8 border-blue-100" loading="lazy" />
-                            </div>
-
-                            <div className="text-center md:text-left">
-                                <h3 className="text-3xl font-bold text-gray-900 mb-2">Mohamed Ukaasha</h3>
-                                <div className="text-blue-600 font-bold text-xl mb-4">Founder</div>
-                                <p className="text-gray-600 text-lg mb-6">Visionary founder with 15+ years of experience in the software industry and a passion for innovation.</p>
-
-                                <div className="space-y-3 text-gray-600">
-                                    <p className="mb-4">Mohamed Ukaasha founded Echoes Software Technologies with a vision to transform businesses through innovative software solutions. His expertise in enterprise software development and commitment to excellence has driven the company's success.</p>
-                                    <p>With a deep understanding of technology trends and business needs, Mohamed leads the company's strategic direction while maintaining focus on delivering value to clients worldwide.</p>
-                                </div>
-
-                                <div className="mt-6">
-                                    <a href="#" className="inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-6 py-3 rounded-lg transition-colors duration-300">View Portfolio</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section className="py-24 bg-white">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="text-center mb-16">
-                            <h2 className="text-4xl font-bold text-gray-900 mb-4">Executive Leadership</h2>
-                            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Key executives who drive our strategic vision and operational excellence.</p>
-                        </div>
-                        <div className="grid md:grid-cols-3 gap-12">
-                            <div className="text-center">
-                                <img src="/assets/thalha_scc.png" alt="Thalha, Senior Content Creator" width="400" height="400" className="w-48 h-48 rounded-full object-cover mx-auto mb-6" loading="lazy" />
-                                <h3 className="text-2xl font-bold text-gray-900">Thalha</h3>
-                                <div className="text-blue-600 font-medium mb-2">Senior Content Creator</div>
-                                <p className="text-gray-600">Creative storyteller with expertise in technical content and brand communication.</p>
-                            </div>
-                            <div className="text-center">
-                                <img src="/assets/mufeez_gd.png" alt="Mohammed Mufeez, Graphic Designer" width="400" height="400" className="w-48 h-48 rounded-full object-cover mx-auto mb-6" loading="lazy" />
-                                <h3 className="text-2xl font-bold text-gray-900">Mohammed Mufeez</h3>
-                                <div className="text-blue-600 font-medium mb-2">Graphic Designer</div>
-                                <p className="text-gray-600">Award-winning designer specializing in UI/UX and visual brand identity.</p>
-                            </div>
-                            <div className="text-center">
-                                <div className="w-48 h-48 rounded-full object-cover mx-auto mb-6 flex items-center justify-center bg-gray-100">
-                                    <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                    </svg>
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900">Coming Soon</h3>
-                                <div className="text-gray-500 font-medium mb-2">Executive Position</div>
-                                <p className="text-gray-600">We're always looking for talented executives to join our leadership team.</p>
-                            </div>
-                        </div>
-
-                        <div className="grid md:grid-cols-3 gap-12 mt-12">
-                            <div className="text-center">
-                                <img src="/assets/jamal_aid.png" alt="Jamal Abdul, AI Director" width="400" height="400" className="w-48 h-48 rounded-full object-cover mx-auto mb-6" loading="lazy" />
-                                <h3 className="text-2xl font-bold text-gray-900">Jamal Abdul</h3>
-                                <div className="text-blue-600 font-medium mb-2">AI Director</div>
-                                <p className="text-gray-600">AI and machine learning expert leading our innovation in artificial intelligence solutions.</p>
-                            </div>
-                            <div className="text-center">
-                                <img src="/assets/abdul_raafih_hr.png" alt="Abdul Raafih, HR Manager" width="400" height="400" className="w-48 h-48 rounded-full object-cover mx-auto mb-6" loading="lazy" />
-                                <h3 className="text-2xl font-bold text-gray-900">Abdul Raafih</h3>
-                                <div className="text-blue-600 font-medium mb-2">HR Manager</div>
-                                <p className="text-gray-600">Talent management specialist focused on building and maintaining our exceptional team culture.</p>
-                            </div>
-                            <div className="text-center">
-                                <div className="w-48 h-48 rounded-full object-cover mx-auto mb-6 flex items-center justify-center bg-gray-100">
-                                    <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                    </svg>
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900">Coming Soon</h3>
-                                <div className="text-gray-500 font-medium mb-2">Open Position</div>
-                                <p className="text-gray-600">We're always looking for talented individuals to join our team.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section className="bg-gradient-to-br from-blue-50 to-white py-24">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
-                            <div className="grid lg:grid-cols-2 gap-0">
-                                <div className="p-12 lg:p-16 flex flex-col justify-center">
-                                    <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Ready to Transform Your Business?</h2>
-                                    <p className="text-xl text-gray-600 mb-8 leading-relaxed">Join hundreds of companies that trust Echoes Software Technologies to deliver innovative solutions. Schedule a consultation today and discover how we can accelerate your digital transformation.</p>
-                                    <div className="flex flex-col sm:flex-row gap-4">
-                                        <a href="https://forms.gle/K3LySpfU6YYvQKGj9" target="_blank" className="inline-block bg-[#1864ff] hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center">Schedule Consultation</a>
-                                        <a href="https://forms.gle/JNS54uLpgQXWP8NZ9" target="_blank" className="inline-block border-2 border-[#1864ff] text-[#1864ff] hover:bg-[#1864ff] hover:text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 text-center">Request Demo</a>
+                            {[
+                                { title: "Proven Delivery", desc: "Over 150+ successful enterprise deployments with optimized sub-millisecond performance.", icon: "check-circle" },
+                                { title: "AI-First Vision", desc: "Deep integration of machine learning and neural networks into core business logic.", icon: "brain" },
+                                { title: "Client Focused", desc: "Dedicated architecture teams that function as a seamless extension of your organization.", icon: "users" },
+                                { title: "Security First", desc: "Defense-grade security protocols (SOC 2, ISO 27001) integrated from Day 0.", icon: "lock" },
+                                { title: "Hyper-Scalable", desc: "Architecture designed to scale from 10 to 10M concurrent users without friction.", icon: "trending-up" },
+                                { title: "24/7 Vigilance", desc: "Constant monitoring and elite technical assistance across every global timezone.", icon: "activity" }
+                            ].map((item, i) => (
+                                <div key={i} className="p-10 rounded-[3rem] bg-navy-50/30 border border-navy-100 hover:bg-white hover:shadow-premium transition-all duration-500 hover-lift group">
+                                    <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:bg-brand-blue-600 transition-colors">
+                                        <i data-lucide={item.icon} className="w-7 h-7 text-brand-blue-600 group-hover:text-white transition-colors"></i>
                                     </div>
-                                    <div className="mt-8 flex items-center gap-6 text-sm text-gray-500">
-                                        <div className="flex items-center gap-2">
-                                            <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                            </svg>
-                                            <span>Free consultation</span>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                                            </svg>
-                                            <span>No commitment required</span>
-                                        </div>
+                                    <h4 className="text-xl font-black text-navy-950 uppercase tracking-tight mb-4 group-hover:text-brand-blue-600 transition-colors">{item.title}</h4>
+                                    <p className="text-navy-600 font-light leading-relaxed">{item.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Founder Section */}
+                <section className="py-40 bg-navy-50/50 relative overflow-hidden">
+                    <div className="max-w-7xl mx-auto px-6 relative z-10">
+                        <div className="grid lg:grid-cols-2 gap-24 items-center">
+                            <div className="relative group">
+                                <div className="absolute -inset-10 bg-brand-blue-500/10 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
+                                <div className="relative aspect-square rounded-[4rem] overflow-hidden border-8 border-white shadow-premium">
+                                    <img src="/assets/ukaasha_founder.png" alt="Mohamed Ukaasha, Founder" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 group-hover:scale-105" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-transparent to-transparent"></div>
+                                    <div className="absolute bottom-12 left-12">
+                                        <h3 className="text-4xl font-black text-white uppercase tracking-tighter">Mohamed Ukaasha</h3>
+                                        <p className="text-brand-blue-400 font-extrabold tracking-widest text-sm uppercase">CHIEF EXECUTIVE VISIONARY</p>
                                     </div>
                                 </div>
-                                <div className="relative bg-gradient-to-br from-[#1864ff] to-blue-700 p-12 lg:p-16 flex items-center justify-center">
-                                    <img src="https://cdn.ailandingpage.ai/ai-landingpage/user-generate/078759a6-f815-4a17-a2de-7d7442a22df0/078759a6-f815-4a17-a2de-7d7442a22df0/cta/cta-main-3784e0b0ce6e4eadaafd560623263cce.png" alt="Professional software development team collaboration" width="800" height="600" className="w-full rounded-2xl object-cover shadow-2xl" loading="lazy" />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
+                            </div>
+
+                            <div className="space-y-10">
+                                <div className="space-y-6">
+                                    <h2 className="text-brand-blue-600 font-black tracking-[0.3em] text-sm uppercase">THE VISIONARY</h2>
+                                    <h3 className="text-5xl lg:text-7xl font-extrabold text-navy-950 tracking-tight leading-[1.1]">Architecting the <span className="text-brand-blue-600">Next Decades</span></h3>
+                                </div>
+                                <p className="text-2xl text-navy-600 font-light leading-relaxed">
+                                    With over 15 years of deep tech leadership, Mohamed Ukaasha founded Echoes with a singular focus: to eliminate the friction between enterprise ambition and technical execution.
+                                </p>
+                                <div className="p-10 rounded-[3rem] bg-white border border-navy-100 shadow-glass space-y-6">
+                                    <p className="text-navy-600 italic">"Our goal isn't just to build software. We're building the digital legacies that will govern how industries operate for the next fifty years."</p>
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-px bg-brand-blue-600"></div>
+                                        <span className="text-sm font-black text-navy-950 uppercase tracking-widest">M. Ukaasha, Founder</span>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Leadership Section */}
+                <section className="py-40 bg-white relative overflow-hidden">
+                    <div className="max-w-7xl mx-auto px-6 relative z-10">
+                        <div className="text-center mb-32 space-y-6">
+                            <h2 className="text-brand-blue-600 font-black tracking-[0.3em] text-sm uppercase">EXECUTIVE LEADERSHIP</h2>
+                            <h3 className="text-5xl lg:text-7xl font-extrabold text-navy-950 tracking-tight leading-[1.1]">The Minds Behind <span className="text-brand-blue-600">the Magic</span></h3>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                            {[
+                                { name: "Thalha", role: "Senior Content Creator", img: "/assets/thalha_scc.png" },
+                                { name: "Mohammed Mufeez", role: "Graphic Designer", img: "/assets/mufeez_gd.png" },
+                                { name: "Jamal Abdul", role: "AI Director", img: "/assets/jamal_aid.png" },
+                                { name: "Abdul Raafih", role: "HR Manager", img: "/assets/abdul_raafih_hr.png" }
+                            ].map((member, i) => (
+                                <div key={i} className="group relative">
+                                    <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden mb-8 border border-navy-100 shadow-lg group-hover:shadow-premium transition-all duration-500">
+                                        <img src={member.img} alt={member.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                    </div>
+                                    <h4 className="text-2xl font-black text-navy-950 uppercase tracking-tighter mb-2 group-hover:text-brand-blue-600 transition-colors">{member.name}</h4>
+                                    <p className="text-brand-blue-600 font-extrabold tracking-widest text-xs uppercase">{member.role}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Ready to Transform Section */}
+                <section className="bg-navy-950 py-40 relative overflow-hidden">
+                    <div className="absolute inset-0">
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-brand-blue-600/20 rounded-full blur-[120px]"></div>
+                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                    </div>
+
+                    <div className="max-w-5xl mx-auto px-6 relative z-10 text-center space-y-12">
+                        <h2 className="text-5xl lg:text-8xl font-black text-white leading-tight tracking-tighter">
+                            Ready to Build Your <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-blue-400 to-brand-blue-100">Legacy?</span>
+                        </h2>
+                        <p className="text-2xl text-navy-200 font-light max-w-3xl mx-auto leading-relaxed">
+                            Join the ranks of global leaders who have scaled their operations with our elite engineering team.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-8 justify-center items-center pt-8">
+                            <a href="https://forms.gle/K3LySpfU6YYvQKGj9" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-12 py-5 bg-white text-navy-950 font-black uppercase tracking-widest rounded-full hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-white/10">
+                                Schedule Consultation
+                            </a>
+                            <a href="https://forms.gle/JNS54uLpgQXWP8NZ9" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-12 py-5 bg-white/5 border border-white/20 text-white font-black uppercase tracking-widest rounded-full hover:bg-white/10 transition-all backdrop-blur-md">
+                                Request Demo
+                            </a>
                         </div>
                     </div>
                 </section>
             </main>
 
-            <footer className="bg-[#1864ff] text-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                        <div className="col-span-1 md:col-span-2">
-                            <div className="mb-4">
-                                <img src="/assets/3.png" alt="Echoes Software Technologies" className="h-10" />
-                            </div>
-                            <p className="text-blue-100 mb-4 max-w-md">Delivering premium enterprise software solutions that transform businesses through technology and innovation.</p>
-                            <div className="flex space-x-4">
-                                <a href="https://www.linkedin.com/company/echoes-software-solutions/posts/?feedView=all" className="text-blue-100 hover:text-white transition-colors">
-                                    <i data-lucide="linkedin" className="w-5 h-5"></i>
-                                </a>
-                                <a href="https://wa.me/+918148549511" className="text-blue-100 hover:text-white transition-colors">
-                                    <i data-lucide="message-circle" className="w-5 h-5"></i>
-                                </a>
-                                <a href="https://www.instagram.com/echoes_software_technologies/" className="text-blue-100 hover:text-white transition-colors">
-                                    <i data-lucide="instagram" className="w-5 h-5"></i>
-                                </a>
+            <footer className="bg-navy-950 text-white relative overflow-hidden pt-32 pb-12 border-t border-white/5">
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-24">
+                        <div className="md:col-span-4 space-y-10">
+                            <img src="/assets/3.png" alt="Echoes Logo" className="h-10 w-auto" />
+                            <p className="text-navy-300 text-lg leading-relaxed font-light">
+                                Architecting elite enterprise solutions for global leaders. Our engineering legacy defines the future of digital infrastructure.
+                            </p>
+                            <div className="flex gap-6">
+                                {[
+                                    { icon: "linkedin", url: "https://www.linkedin.com/company/echoes-software-solutions/" },
+                                    { icon: "instagram", url: "https://www.instagram.com/echoes_software_technologies/" },
+                                    { icon: "message-circle", url: "https://wa.me/+918148549511" }
+                                ].map((social) => (
+                                    <a key={social.icon} href={social.url} target="_blank" rel="noopener noreferrer" className="w-12 h-12 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 hover:bg-brand-blue-600 hover:border-brand-blue-600 transition-all duration-300 group">
+                                        <i data-lucide={social.icon} className="w-5 h-5 text-navy-300 group-hover:text-white"></i>
+                                    </a>
+                                ))}
                             </div>
                         </div>
-                        <div>
-                            <h3 className="text-lg font-semibold mb-4">Solutions</h3>
-                            <ul className="space-y-2">
-                                <li><Link to="/solutions" className="text-blue-100 hover:text-white transition-colors">Enterprise Software</Link></li>
-                                <li><Link to="/solutions" className="text-blue-100 hover:text-white transition-colors">Cloud Solutions</Link></li>
-                                <li><Link to="/solutions" className="text-blue-100 hover:text-white transition-colors">Custom Development</Link></li>
-                                <li><Link to="/solutions" className="text-blue-100 hover:text-white transition-colors">Integration Services</Link></li>
+
+                        <div className="md:col-span-2 space-y-8">
+                            <h4 className="text-xs font-black uppercase tracking-[0.3em] text-brand-blue-400">Navigation</h4>
+                            <ul className="space-y-4">
+                                {['Home', 'Solutions', 'Services', 'About', 'Contact'].map((item) => (
+                                    <li key={item}>
+                                        <Link to={item === 'Home' ? '/' : `/${item.toLowerCase()}`} className="text-navy-300 hover:text-white transition-colors font-medium">
+                                            {item}
+                                        </Link>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
-                        <div>
-                            <h3 className="text-lg font-semibold mb-4">Company</h3>
-                            <ul className="space-y-2">
-                                <li><span className="text-blue-100 cursor-default">About Us</span></li>
-                                <li><a href="#" className="text-blue-100 hover:text-white transition-colors">Careers</a></li>
-                                <li><a href="#" className="text-blue-100 hover:text-white transition-colors">News</a></li>
-                                <li><Link to="/contact" className="text-blue-100 hover:text-white transition-colors">Contact</Link></li>
+
+                        <div className="md:col-span-3 space-y-8">
+                            <h4 className="text-xs font-black uppercase tracking-[0.3em] text-brand-blue-400">Solutions</h4>
+                            <ul className="space-y-4">
+                                {['Enterprise Architecture', 'AI & Neural Systems', 'Defense-Grade Security', 'Hyper-Scalable Cloud'].map((item) => (
+                                    <li key={item}>
+                                        <Link to="/solutions" className="text-navy-300 hover:text-white transition-colors font-medium">
+                                            {item}
+                                        </Link>
+                                    </li>
+                                ))}
                             </ul>
+                        </div>
+
+                        <div className="md:col-span-3 space-y-10">
+                            <h4 className="text-xs font-black uppercase tracking-[0.3em] text-brand-blue-400">Newsletter</h4>
+                            <p className="text-navy-300 font-light">Join our elite list for architecture insights.</p>
+                            <div className="relative group">
+                                <input type="email" placeholder="Professional Email" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-brand-blue-600 transition-all" />
+                                <button className="absolute right-2 top-2 bottom-2 px-6 bg-brand-blue-600 rounded-xl text-white font-black text-xs uppercase tracking-widest hover:bg-brand-blue-500 transition-all">Join</button>
+                            </div>
                         </div>
                     </div>
-                    <div className="border-t border-blue-400 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                        <p className="text-blue-100 text-sm">© 2026 Echoes Software Technologies. All rights reserved.</p>
-                        <div className="flex space-x-6 mt-4 md:mt-0">
-                            <Link to="/privacy-policy" className="text-blue-100 hover:text-white transition-colors text-sm">Privacy Policy</Link>
-                            <Link to="/terms-of-service" className="text-blue-100 hover:text-white transition-colors text-sm">Terms of Service</Link>
-                            <a href="#" className="text-blue-100 hover:text-white transition-colors text-sm">Security</a>
+
+                    <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+                        <p className="text-navy-400 text-sm font-light">© 2026 Echoes Software Technologies. All rights reserved.</p>
+                        <div className="flex gap-12">
+                            <Link to="/privacy-policy" className="text-navy-400 hover:text-white text-sm font-medium transition-colors">Privacy Policy</Link>
+                            <Link to="/terms-of-service" className="text-navy-400 hover:text-white text-sm font-medium transition-colors">Terms of Service</Link>
                         </div>
                     </div>
                 </div>
             </footer>
 
-            {/* Contact Modal */}
+            {/* Mobile Menu */}
+            {isMobileMenuOpen && (
+                <div className="md:hidden fixed inset-0 z-50 bg-navy-950/95 backdrop-blur-xl animate-fade-in">
+                    <div className="flex justify-end p-6 pt-10">
+                        <button onClick={toggleMobileMenu} className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/5 text-white">
+                            <i data-lucide="x" className="w-8 h-8"></i>
+                        </button>
+                    </div>
+                    <nav className="flex flex-col items-center justify-center gap-12 h-[70vh]">
+                        {['Home', 'Solutions', 'Services', 'About', 'Contact'].map((item, i) => (
+                            <Link
+                                key={item}
+                                to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
+                                onClick={toggleMobileMenu}
+                                className="text-4xl font-black text-white hover:text-brand-blue-400 transition-all uppercase tracking-tighter"
+                                style={{ animationDelay: `${i * 100}ms` }}
+                            >
+                                {item}
+                            </Link>
+                        ))}
+                    </nav>
+                </div>
+            )}
+
+            {/* Contact Modal Integration */}
             {isContactModalOpen && (
-                <div id="contactModal" className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden" onClick={(e) => e.stopPropagation()}>
-                        <div className="p-6">
-                            <div className="flex justify-between items-center mb-4">
-                                <h3 className="text-2xl font-bold text-gray-900">Get in Touch</h3>
-                                <button onClick={closeContactModal} className="text-gray-500 hover:text-gray-700">
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                                    </svg>
+                <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 sm:p-0">
+                    <div className="absolute inset-0 bg-navy-950/40 backdrop-blur-sm" onClick={closeContactModal}></div>
+                    <div className="relative w-full max-w-xl bg-white rounded-[3rem] shadow-3xl overflow-hidden animate-slide-up">
+                        <div className="p-12">
+                            <div className="flex justify-between items-center mb-10">
+                                <div>
+                                    <h3 className="text-3xl font-black text-navy-950 uppercase tracking-tighter">Get in Touch</h3>
+                                    <p className="text-navy-500 font-light pt-2">Our architecture team will respond within 4 hours.</p>
+                                </div>
+                                <button onClick={closeContactModal} className="w-12 h-12 flex items-center justify-center rounded-2xl bg-navy-50 text-navy-900 hover:bg-navy-100 transition-colors">
+                                    <i data-lucide="x" className="w-6 h-6"></i>
                                 </button>
                             </div>
-                            <form className="space-y-4">
-                                <div>
-                                    <label htmlFor="modalName" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                                    <input type="text" id="modalName" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent" />
+                            <form className="space-y-6">
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-black uppercase text-navy-400 tracking-widest pl-2">Full Name</label>
+                                        <input type="text" className="w-full bg-navy-50 border-none rounded-2xl px-6 py-4 text-navy-950 focus:ring-2 focus:ring-brand-blue-600 transition-all" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-black uppercase text-navy-400 tracking-widest pl-2">Professional Email</label>
+                                        <input type="email" className="w-full bg-navy-50 border-none rounded-2xl px-6 py-4 text-navy-950 focus:ring-2 focus:ring-brand-blue-600 transition-all" />
+                                    </div>
                                 </div>
-                                <div>
-                                    <label htmlFor="modalEmail" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                                    <input type="email" id="modalEmail" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent" />
+                                <div className="space-y-2">
+                                    <label className="text-xs font-black uppercase text-navy-400 tracking-widest pl-2">Project Vision</label>
+                                    <textarea rows={4} className="w-full bg-navy-50 border-none rounded-2xl px-6 py-4 text-navy-950 focus:ring-2 focus:ring-brand-blue-600 transition-all resize-none"></textarea>
                                 </div>
-                                <div>
-                                    <label htmlFor="modalMessage" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                                    <textarea id="modalMessage" rows={4} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-blue focus:border-transparent"></textarea>
-                                </div>
-                                <div className="pt-4">
-                                    <button type="submit" className="w-full bg-brand-blue text-white px-6 py-4 rounded-full font-semibold hover:bg-blue-700 transition-colors">
-                                        Send Message
-                                    </button>
-                                </div>
+                                <button className="w-full premium-gradient text-white py-5 rounded-[2rem] font-black uppercase tracking-[0.2em] shadow-xl shadow-brand-blue-500/20 hover:scale-[1.02] transition-all">
+                                    Initialize Briefing
+                                </button>
                             </form>
                         </div>
                     </div>
