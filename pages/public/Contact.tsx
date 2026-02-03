@@ -171,7 +171,7 @@ Email: ${email}`;
                                     {[
                                         { title: "Our Headquarters", content: "Covai Main Road, Karur, Tamil Nadu, India", icon: "map-pin" },
                                         { title: "Secure Communications", content: "+91 81485 49511\n+91 63796 44145", icon: "phone" },
-                                        { title: "Digital Correspondence", content: "support@echoess.in\nsales@echoess.in", icon: "mail" },
+                                        { title: "Digital Correspondence", content: "connect@echoess.in", icon: "mail" },
                                         { title: "Operational Hours", content: "Monday - Friday: 09:00 - 18:00 PST", icon: "clock" }
                                     ].map((item, i) => (
                                         <div key={i} className="flex gap-8 group">

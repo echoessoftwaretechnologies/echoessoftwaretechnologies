@@ -150,7 +150,7 @@ const About: React.FC = () => {
                             <div className="relative group">
                                 <div className="absolute -inset-4 bg-brand-blue-500/10 rounded-[4rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                                 <div className="relative overflow-hidden rounded-[3.5rem] shadow-2xl border border-navy-100 aspect-square">
-                                    <img src="/assets/our_mission.avif" alt="Our mission" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
+                                    <img src="assets/our mission.png" alt="Our mission" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
                                     <div className="absolute inset-0 bg-gradient-to-t from-navy-950/40 to-transparent"></div>
                                 </div>
                             </div>
@@ -258,7 +258,7 @@ const About: React.FC = () => {
                 {/* Leadership Section */}
                 <section className="py-40 bg-white relative overflow-hidden">
                     <div className="max-w-7xl mx-auto px-6 relative z-10">
-                        <div className="text-center mb-32 space-y-6">
+                        {/* <div className="text-center mb-32 space-y-6">
                             <h2 className="text-brand-blue-600 font-black tracking-[0.3em] text-sm uppercase">EXECUTIVE LEADERSHIP</h2>
                             <h3 className="text-5xl lg:text-7xl font-extrabold text-navy-950 tracking-tight leading-[1.1]">The Minds Behind <span className="text-brand-blue-600">the Magic</span></h3>
                         </div>
@@ -279,7 +279,7 @@ const About: React.FC = () => {
                                     <p className="text-brand-blue-600 font-extrabold tracking-widest text-xs uppercase">{member.role}</p>
                                 </div>
                             ))}
-                        </div>
+                        </div> */}
                     </div>
                 </section>
 

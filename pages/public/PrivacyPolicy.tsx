@@ -248,7 +248,7 @@ const PrivacyPolicy: React.FC = () => {
                             <ul className="space-y-4">
                                 <li className="flex items-start gap-3 text-navy-300 text-sm">
                                     <i data-lucide="mail" className="w-5 h-5 flex-shrink-0 mt-0.5"></i>
-                                    <span>info@echoestech.com</span>
+                                    <span>connect@echoess.in</span>
                                 </li>
                                 <li className="flex items-start gap-3 text-navy-300 text-sm">
                                     <i data-lucide="phone" className="w-5 h-5 flex-shrink-0 mt-0.5"></i>

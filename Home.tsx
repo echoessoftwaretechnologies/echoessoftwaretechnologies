@@ -229,135 +229,135 @@ const Home: React.FC = () => {
                                 {/* RIGHT IMAGE */}
                                 {/* RIGHT IMAGE – ULTRA CINEMATIC 3D */}
                                 <div
-  className="relative flex justify-center items-center"
-  style={{ perspective: "2200px" }}
->
-  {/* COSMIC BACKGROUND */}
-  <div
-    className="absolute -inset-40 blur-[160px] opacity-90"
-    style={{
-      background: `
+                                    className="relative flex justify-center items-center"
+                                    style={{ perspective: "2200px" }}
+                                >
+                                    {/* COSMIC BACKGROUND */}
+                                    <div
+                                        className="absolute -inset-40 blur-[160px] opacity-90"
+                                        style={{
+                                            background: `
         radial-gradient(circle at 20% 20%, rgba(99,102,241,0.6), transparent 40%),
         radial-gradient(circle at 80% 30%, rgba(168,85,247,0.5), transparent 45%),
         radial-gradient(circle at 50% 80%, rgba(34,211,238,0.45), transparent 50%)
       `,
-      transform: "translateZ(-300px)",
-    }}
-  />
+                                            transform: "translateZ(-300px)",
+                                        }}
+                                    />
 
-  {/* ENERGY PARTICLES */}
-  {[...Array(10)].map((_, i) => (
-    <span
-      key={i}
-      className="absolute rounded-full bg-white/70"
-      style={{
-        width: `${Math.random() * 5 + 3}px`,
-        height: `${Math.random() * 5 + 3}px`,
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-        filter: "blur(1px)",
-        animation: `energy ${6 + Math.random() * 6}s ease-in-out infinite`,
-      }}
-    />
-  ))}
+                                    {/* ENERGY PARTICLES */}
+                                    {[...Array(10)].map((_, i) => (
+                                        <span
+                                            key={i}
+                                            className="absolute rounded-full bg-white/70"
+                                            style={{
+                                                width: `${Math.random() * 5 + 3}px`,
+                                                height: `${Math.random() * 5 + 3}px`,
+                                                top: `${Math.random() * 100}%`,
+                                                left: `${Math.random() * 100}%`,
+                                                filter: "blur(1px)",
+                                                animation: `energy ${6 + Math.random() * 6}s ease-in-out infinite`,
+                                            }}
+                                        />
+                                    ))}
 
-  {/* MAIN 3D CARD */}
-  <div
-    className="relative rounded-[4rem] bg-white/60 backdrop-blur-2xl border border-white/40"
-    style={{
-      transformStyle: "preserve-3d",
-      animation: "float 8s ease-in-out infinite",
-      transition: "transform 0.12s cubic-bezier(.2,.8,.2,1)",
-      boxShadow: "0 40px 120px rgba(0,0,0,0.25)",
-    }}
-    onMouseMove={(e) => {
-      const r = e.currentTarget.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
+                                    {/* MAIN 3D CARD */}
+                                    <div
+                                        className="relative rounded-[4rem] bg-white/60 backdrop-blur-2xl border border-white/40"
+                                        style={{
+                                            transformStyle: "preserve-3d",
+                                            animation: "float 8s ease-in-out infinite",
+                                            transition: "transform 0.12s cubic-bezier(.2,.8,.2,1)",
+                                            boxShadow: "0 40px 120px rgba(0,0,0,0.25)",
+                                        }}
+                                        onMouseMove={(e) => {
+                                            const r = e.currentTarget.getBoundingClientRect();
+                                            const x = (e.clientX - r.left) / r.width - 0.5;
+                                            const y = (e.clientY - r.top) / r.height - 0.5;
 
-      e.currentTarget.style.transform = `
+                                            e.currentTarget.style.transform = `
         rotateX(${y * -20}deg)
         rotateY(${x * 20}deg)
       `;
 
-      e.currentTarget.style.setProperty("--lx", `${(x + 0.5) * 100}%`);
-      e.currentTarget.style.setProperty("--ly", `${(y + 0.5) * 100}%`);
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.transform = "rotateX(0deg) rotateY(0deg)";
-    }}
-  >
-    {/* CHROMATIC EDGE GLOW */}
-    <div
-      className="absolute inset-0 rounded-[4rem]"
-      style={{
-        background:
-          "linear-gradient(120deg, rgba(99,102,241,.35), rgba(168,85,247,.35), rgba(34,211,238,.35))",
-        filter: "blur(26px)",
-        opacity: 0.5,
-        transform: "translateZ(-120px)",
-      }}
-    />
+                                            e.currentTarget.style.setProperty("--lx", `${(x + 0.5) * 100}%`);
+                                            e.currentTarget.style.setProperty("--ly", `${(y + 0.5) * 100}%`);
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.transform = "rotateX(0deg) rotateY(0deg)";
+                                        }}
+                                    >
+                                        {/* CHROMATIC EDGE GLOW */}
+                                        <div
+                                            className="absolute inset-0 rounded-[4rem]"
+                                            style={{
+                                                background:
+                                                    "linear-gradient(120deg, rgba(99,102,241,.35), rgba(168,85,247,.35), rgba(34,211,238,.35))",
+                                                filter: "blur(26px)",
+                                                opacity: 0.5,
+                                                transform: "translateZ(-120px)",
+                                            }}
+                                        />
 
-    {/* SPECULAR LIGHT */}
-    <div
-      className="pointer-events-none absolute inset-0 rounded-[4rem]"
-      style={{
-        background:
-          "radial-gradient(800px circle at var(--lx,50%) var(--ly,50%), rgba(255,255,255,.45), transparent 50%)",
-        transform: "translateZ(160px)",
-        mixBlendMode: "overlay",
-      }}
-    />
+                                        {/* SPECULAR LIGHT */}
+                                        <div
+                                            className="pointer-events-none absolute inset-0 rounded-[4rem]"
+                                            style={{
+                                                background:
+                                                    "radial-gradient(800px circle at var(--lx,50%) var(--ly,50%), rgba(255,255,255,.45), transparent 50%)",
+                                                transform: "translateZ(160px)",
+                                                mixBlendMode: "overlay",
+                                            }}
+                                        />
 
-    {/* DEPTH SHADOW (VERY LIGHT) */}
-    <div
-      className="absolute inset-0 rounded-[4rem]"
-      style={{
-        transform: "translateZ(-80px)",
-        filter: "blur(12px)",
-        background:
-          "radial-gradient(circle at center, rgba(0,0,0,0.05), transparent 85%)",
-      }}
-    />
+                                        {/* DEPTH SHADOW (VERY LIGHT) */}
+                                        <div
+                                            className="absolute inset-0 rounded-[4rem]"
+                                            style={{
+                                                transform: "translateZ(-80px)",
+                                                filter: "blur(12px)",
+                                                background:
+                                                    "radial-gradient(circle at center, rgba(0,0,0,0.05), transparent 85%)",
+                                            }}
+                                        />
 
-    {/* IMAGE LAYER */}
-    <img
-      src="assets/hero_img.png"
-      alt="Enterprise software solutions"
-      className="relative w-full max-w-md rounded-[3.2rem] object-cover"
-      style={{
-        transform: "translateZ(180px)",
-        boxShadow: "0 6px 14px rgba(49,49,49,0.10)",
-      }}
-    />
+                                        {/* IMAGE LAYER */}
+                                        <img
+                                            src="assets/hero_img.png"
+                                            alt="Enterprise software solutions"
+                                            className="relative w-full max-w-md rounded-[3.2rem] object-cover"
+                                            style={{
+                                                transform: "translateZ(180px)",
+                                                boxShadow: "0 6px 14px rgba(49,49,49,0.10)",
+                                            }}
+                                        />
 
-    {/* FLOATING ICONS */}
-    <div
-      className="absolute -top-6 -left-6 w-14 h-14 bg-white/90 backdrop-blur-xl rounded-2xl shadow-md flex items-center justify-center"
-      style={{ transform: "translateZ(220px)" }}
-    >
-      <i data-lucide="sparkles" className="w-6 h-6 text-indigo-600"></i>
-    </div>
+                                        {/* FLOATING ICONS */}
+                                        <div
+                                            className="absolute -top-6 -left-6 w-14 h-14 bg-white/90 backdrop-blur-xl rounded-2xl shadow-md flex items-center justify-center"
+                                            style={{ transform: "translateZ(220px)" }}
+                                        >
+                                            <i data-lucide="sparkles" className="w-6 h-6 text-indigo-600"></i>
+                                        </div>
 
-    <div
-      className="absolute top-1/3 -right-6 w-12 h-12 bg-white/90 backdrop-blur-xl rounded-xl shadow-md flex items-center justify-center"
-      style={{ transform: "translateZ(220px)" }}
-    >
-      <i data-lucide="code-2" className="w-5 h-5 text-blue-600"></i>
-    </div>
+                                        <div
+                                            className="absolute top-1/3 -right-6 w-12 h-12 bg-white/90 backdrop-blur-xl rounded-xl shadow-md flex items-center justify-center"
+                                            style={{ transform: "translateZ(220px)" }}
+                                        >
+                                            <i data-lucide="code-2" className="w-5 h-5 text-blue-600"></i>
+                                        </div>
 
-    <div
-      className="absolute -bottom-6 left-1/4 w-12 h-12 bg-white/90 backdrop-blur-xl rounded-xl shadow-md flex items-center justify-center"
-      style={{ transform: "translateZ(220px)" }}
-    >
-      <i data-lucide="zap" className="w-5 h-5 text-yellow-500"></i>
-    </div>
-  </div>
+                                        <div
+                                            className="absolute -bottom-6 left-1/4 w-12 h-12 bg-white/90 backdrop-blur-xl rounded-xl shadow-md flex items-center justify-center"
+                                            style={{ transform: "translateZ(220px)" }}
+                                        >
+                                            <i data-lucide="zap" className="w-5 h-5 text-yellow-500"></i>
+                                        </div>
+                                    </div>
 
-  {/* ANIMATIONS */}
-  <style>
-    {`
+                                    {/* ANIMATIONS */}
+                                    <style>
+                                        {`
       @keyframes float {
         0%,100% { transform: translateY(0); }
         50% { transform: translateY(-28px); }
@@ -368,8 +368,8 @@ const Home: React.FC = () => {
         50% { transform: translateY(-50px); opacity: .9; }
       }
     `}
-  </style>
-</div>
+                                    </style>
+                                </div>
 
 
 
@@ -547,7 +547,7 @@ const Home: React.FC = () => {
                                 <ul className="space-y-4">
                                     <li className="flex items-start gap-3 text-navy-300 text-sm">
                                         <i data-lucide="mail" className="w-5 h-5 flex-shrink-0 mt-0.5"></i>
-                                        <span>info@echoestech.com</span>
+                                        <span>connect@echoess.in</span>
                                     </li>
                                     <li className="flex items-start gap-3 text-navy-300 text-sm">
                                         <i data-lucide="phone" className="w-5 h-5 flex-shrink-0 mt-0.5"></i>
@@ -555,7 +555,7 @@ const Home: React.FC = () => {
                                     </li>
                                     <li className="flex items-start gap-3 text-navy-300 text-sm">
                                         <i data-lucide="map-pin" className="w-5 h-5 flex-shrink-0 mt-0.5"></i>
-                                        <span>Global Headquarters<br />San Francisco, CA</span>
+                                        <span> Karur, Tamilnadu,<br />India - 639001</span>
                                     </li>
                                 </ul>
                             </div>
