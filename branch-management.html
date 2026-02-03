@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Branch Management - Echoes Software Technologies</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'vivid-blue': '#1864ff'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <button id="menuToggle" class="md:hidden mr-4 p-2 rounded-full text-gray-700 hover:bg-gray-100 transition-colors">
+            <i data-lucide="menu" class="h-6 w-6"></i>
+          </button>
+          <div class="flex-shrink-0 flex items-center">
+            <img src="2.png" alt="Echoes Software Technologies" width="150" height="40">
+          </div>
+        </div>
+        <nav class="hidden md:flex space-x-2">
+          <a href="admin-dashboard.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="home" class="h-4 w-4 inline mr-2"></i>
+            Home
+          </a>
+          <a href="branch-management.html" class="px-4 py-2 text-sm font-medium bg-vivid-blue text-white rounded-full transition-colors">
+            <i data-lucide="building" class="h-4 w-4 inline mr-2"></i>
+            Branch Management
+          </a>
+        </nav>
+        <div class="flex items-center space-x-4">
+          <div class="hidden md:block text-sm text-gray-600">
+            Welcome, <span id="currentUserName" class="font-medium text-vivid-blue">Admin</span>
+          </div>
+          <button id="logoutButton" class="hidden md:flex items-center space-x-1 bg-red-600 text-white px-4 py-2 rounded-full font-medium hover:bg-red-700 transition-colors">
+            <i data-lucide="log-out" class="h-4 w-4"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-white border-r border-gray-200 min-h-screen fixed md:static md:translate-x-0 z-40 transform -translate-x-full md:-translate-x-0 transition-transform duration-300 ease-in-out">
+      <div class="p-4">
+        <div class="flex justify-between items-center mb-4">
+          <button id="closeSidebar" class="md:hidden p-2 rounded-full text-gray-700 hover:bg-gray-100">
+            <i data-lucide="x" class="h-5 w-5"></i>
+          </button>
+        </div>
+        <nav>
+          <a href="crm-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="users" class="h-5 w-5"></i>
+            <span>CRM Management</span>
+          </a>
+          <a href="attendance-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="calendar" class="h-5 w-5"></i>
+            <span>Attendance Management</span>
+          </a>
+          <a href="employee-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="user" class="h-5 w-5"></i>
+            <span>Employee Management</span>
+          </a>
+          <a href="branch-management.html" class="flex items-center space-x-3 px-4 py-3 text-vivid-blue bg-blue-50 rounded-full transition-colors">
+            <i data-lucide="building" class="h-5 w-5"></i>
+            <span>Branch Management</span>
+          </a>
+          <a href="tieups-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="handshake" class="h-5 w-5"></i>
+            <span>Tie-ups Management</span>
+          </a>
+          <a href="password-manager.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="key" class="h-5 w-5"></i>
+            <span>Password Manager</span>
+          </a>
+          <a href="invoice-generator.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="file-text" class="h-5 w-5"></i>
+            <span>Invoice Generator</span>
+          </a>
+          <a href="browser-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="globe" class="h-5 w-5"></i>
+            <span>Browser</span>
+          </a>
+          <a href="meeting-arrangement.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="video" class="h-5 w-5"></i>
+            <span>Meeting Arrangement</span>
+          </a>
+        </nav>
+        
+        <div class="mt-auto pt-4 border-t border-gray-200">
+          <div class="p-4 bg-gray-50 rounded-full mb-4">
+            <div class="text-sm font-medium text-gray-900" id="sidebarUserName">Admin</div>
+            <div class="text-xs text-gray-600">Logged in as admin</div>
+          </div>
+          <button id="sidebarLogoutButton" class="w-full flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-full transition-colors">
+            <i data-lucide="log-out" class="h-5 w-5"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Overlay for mobile -->
+    <div id="sidebarOverlay" class="fixed inset-0 z-30 bg-black bg-opacity-50 hidden md:hidden"></div>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-center mb-8">
+          <h1 class="text-3xl font-bold text-gray-900">Branch Management</h1>
+          <button id="addBranchBtn" class="bg-vivid-blue text-white px-4 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors flex items-center">
+            <i data-lucide="plus" class="h-4 w-4 mr-2"></i>
+            Add New Branch
+          </button>
+        </div>
+
+        <!-- Branch Statistics -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                <i data-lucide="building" class="h-6 w-6 text-vivid-blue"></i>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-gray-900" id="totalBranches">0</div>
+                <div class="text-sm text-gray-600">Total Branches</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                <i data-lucide="users" class="h-6 w-6 text-green-600"></i>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-gray-900" id="totalEmployees">0</div>
+                <div class="text-sm text-gray-600">Total Employees</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                <i data-lucide="map-pin" class="h-6 w-6 text-yellow-600"></i>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-gray-900" id="activeBranches">0</div>
+                <div class="text-sm text-gray-600">Active Branches</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                <i data-lucide="trending-up" class="h-6 w-6 text-purple-600"></i>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-gray-900" id="growthRate">0%</div>
+                <div class="text-sm text-gray-600">Growth Rate</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Branch List -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+          <div class="p-6 border-b border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-900">Branch List</h2>
+            <div class="mt-4 flex flex-col sm:flex-row gap-4">
+              <div class="relative flex-1">
+                <i data-lucide="search" class="h-4 w-4 absolute left-3 top-3 text-gray-400"></i>
+                <input type="text" id="searchBranches" placeholder="Search branches..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+              </div>
+              <select id="filterStatus" class="px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                <option value="">All Status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="under-construction">Under Construction</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Branch</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Manager</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employees</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200" id="branchesTableBody">
+                <!-- Branches will be populated by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add/Edit Branch Modal -->
+  <div id="branchModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" id="modalBackdrop"></div>
+      <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+          <div class="sm:flex sm:items-start">
+            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+              <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modalTitle">
+                Add New Branch
+              </h3>
+              <form id="branchForm" class="space-y-4">
+                <input type="hidden" id="branchId">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Branch Name</label>
+                  <input type="text" id="branchName" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                  <input type="text" id="branchLocation" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Manager</label>
+                  <input type="text" id="branchManager" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Contact Email</label>
+                  <input type="email" id="branchEmail" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Contact Phone</label>
+                  <input type="tel" id="branchPhone" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                  <select id="branchStatus" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="under-construction">Under Construction</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                  <textarea id="branchDescription" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent"></textarea>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+          <button type="button" id="saveBranchBtn" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-vivid-blue text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-vivid-blue sm:ml-3 sm:w-auto sm:text-sm">
+            Save Branch
+          </button>
+          <button type="button" id="cancelBranchBtn" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-vivid-blue sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Check authentication status
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if user is logged in
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      
+      // If not logged in, redirect to login page
+      if (isLoggedIn !== 'true') {
+        window.location.href = 'login.html';
+      }
+      
+      // Initialize logout functionality
+      document.getElementById('logoutButton').addEventListener('click', function() {
+        // Clear login state
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentUser');
+        
+        // Redirect to login page
+        window.location.href = 'login.html';
+      });
+      
+      // Display current user's name in header and sidebar
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        document.getElementById('currentUserName').textContent = currentUser;
+        document.getElementById('sidebarUserName').textContent = currentUser;
+      }
+      
+      // Initialize sidebar logout functionality
+      const sidebarLogoutButton = document.getElementById('sidebarLogoutButton');
+      if (sidebarLogoutButton) {
+        sidebarLogoutButton.addEventListener('click', function() {
+          // Clear login state
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('currentUser');
+          
+          // Redirect to login page
+          window.location.href = 'login.html';
+        });
+      }
+      
+      // Initialize icons
+      lucide.createIcons();
+      
+      // Initialize branch management
+      initializeBranchManagement();
+    });
+
+    // Mobile sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById('menuToggle');
+      const closeSidebar = document.getElementById('closeSidebar');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      
+      // Toggle sidebar on menu button click
+      menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('-translate-x-full');
+        sidebarOverlay.classList.toggle('hidden');
+      });
+      
+      // Close sidebar on close button click
+      closeSidebar.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Close sidebar when clicking on overlay
+      sidebarOverlay.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth < 768 && 
+            !sidebar.contains(event.target) && 
+            !menuToggle.contains(event.target) &&
+            sidebar.classList.contains('translate-x-0')) {
+          sidebar.classList.add('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        }
+      });
+      
+      // Update sidebar position on window resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768) {
+          sidebar.classList.remove('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        } else {
+          sidebar.classList.add('-translate-x-full');
+        }
+      });
+    });
+
+    // Branch Management Functions
+    function initializeBranchManagement() {
+      loadBranches();
+      setupEventListeners();
+    }
+
+    function setupEventListeners() {
+      // Add branch button
+      document.getElementById('addBranchBtn').addEventListener('click', function() {
+        openBranchModal();
+      });
+
+      // Save branch button
+      document.getElementById('saveBranchBtn').addEventListener('click', function() {
+        saveBranch();
+      });
+
+      // Cancel branch button
+      document.getElementById('cancelBranchBtn').addEventListener('click', function() {
+        closeBranchModal();
+      });
+
+      // Modal backdrop
+      document.getElementById('modalBackdrop').addEventListener('click', function() {
+        closeBranchModal();
+      });
+
+      // Search branches
+      document.getElementById('searchBranches').addEventListener('input', function() {
+        filterBranches();
+      });
+
+      // Filter branches by status
+      document.getElementById('filterStatus').addEventListener('change', function() {
+        filterBranches();
+      });
+    }
+
+    function loadBranches() {
+      // Load branches from localStorage or use sample data
+      let branches = JSON.parse(localStorage.getItem('branches') || '[]');
+      
+      // If no branches exist, create sample data
+      if (branches.length === 0) {
+        branches = [
+          {
+            id: 1,
+            name: 'Head Office',
+            location: 'Mumbai, Maharashtra',
+            manager: 'Rajesh Kumar',
+            email: 'headoffice@echoes.com',
+            phone: '+91 98765 43210',
+            status: 'active',
+            employees: 45,
+            description: 'Main corporate office'
+          },
+          {
+            id: 2,
+            name: 'Delhi Branch',
+            location: 'New Delhi, Delhi',
+            manager: 'Priya Sharma',
+            email: 'delhi@echoes.com',
+            phone: '+91 98765 43211',
+            status: 'active',
+            employees: 32,
+            description: 'Northern region office'
+          },
+          {
+            id: 3,
+            name: 'Bangalore Branch',
+            location: 'Bangalore, Karnataka',
+            manager: 'Amit Patel',
+            email: 'bangalore@echoes.com',
+            phone: '+91 98765 43212',
+            status: 'active',
+            employees: 28,
+            description: 'Technology and development center'
+          },
+          {
+            id: 4,
+            name: 'Chennai Branch',
+            location: 'Chennai, Tamil Nadu',
+            manager: 'Sneha Reddy',
+            email: 'chennai@echoes.com',
+            phone: '+91 98765 43213',
+            status: 'under-construction',
+            employees: 0,
+            description: 'New branch opening soon'
+          }
+        ];
+        localStorage.setItem('branches', JSON.stringify(branches));
+      }
+
+      renderBranches(branches);
+      updateStatistics(branches);
+    }
+
+    function renderBranches(branches) {
+      const tableBody = document.getElementById('branchesTableBody');
+      
+      if (branches.length === 0) {
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="6" class="px-6 py-12 text-center text-gray-500">
+              <i data-lucide="building" class="h-12 w-12 mx-auto mb-4 text-gray-300"></i>
+              <p class="text-lg">No branches found</p>
+              <p class="text-sm mt-2">Add your first branch to get started</p>
+              <button id="addFirstBranchBtn" class="mt-4 bg-vivid-blue text-white px-4 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors">
+                Add Branch
+              </button>
+            </td>
+          </tr>
+        `;
+        lucide.createIcons();
+        document.getElementById('addFirstBranchBtn').addEventListener('click', function() {
+          openBranchModal();
+        });
+        return;
+      }
+
+      tableBody.innerHTML = branches.map(branch => `
+        <tr class="hover:bg-gray-50">
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i data-lucide="building" class="h-5 w-5 text-vivid-blue"></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-900">${branch.name}</div>
+                <div class="text-sm text-gray-500">${branch.description || ''}</div>
+              </div>
+            </div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+            <div class="flex items-center">
+              <i data-lucide="map-pin" class="h-4 w-4 mr-2 text-gray-400"></i>
+              ${branch.location}
+            </div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${branch.manager}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${branch.employees || 0}</td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+              ${branch.status === 'active' ? 'bg-green-100 text-green-800' : 
+                branch.status === 'inactive' ? 'bg-red-100 text-red-800' : 
+                'bg-yellow-100 text-yellow-800'}">
+              ${branch.status.replace('-', ' ').toUpperCase()}
+            </span>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+            <button onclick="editBranch(${branch.id})" class="text-vivid-blue hover:text-blue-700 mr-3">
+              <i data-lucide="edit" class="h-4 w-4"></i>
+            </button>
+            <button onclick="deleteBranch(${branch.id})" class="text-red-600 hover:text-red-900">
+              <i data-lucide="trash-2" class="h-4 w-4"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+      
+      lucide.createIcons();
+    }
+
+    function updateStatistics(branches) {
+      const totalBranches = branches.length;
+      const totalEmployees = branches.reduce((sum, branch) => sum + (branch.employees || 0), 0);
+      const activeBranches = branches.filter(branch => branch.status === 'active').length;
+      const growthRate = totalBranches > 0 ? Math.round((activeBranches / totalBranches) * 100) : 0;
+      
+      document.getElementById('totalBranches').textContent = totalBranches;
+      document.getElementById('totalEmployees').textContent = totalEmployees;
+      document.getElementById('activeBranches').textContent = activeBranches;
+      document.getElementById('growthRate').textContent = `${growthRate}%`;
+    }
+
+    function filterBranches() {
+      const searchTerm = document.getElementById('searchBranches').value.toLowerCase();
+      const statusFilter = document.getElementById('filterStatus').value;
+      
+      let branches = JSON.parse(localStorage.getItem('branches') || '[]');
+      
+      // Apply search filter
+      if (searchTerm) {
+        branches = branches.filter(branch => 
+          branch.name.toLowerCase().includes(searchTerm) ||
+          branch.location.toLowerCase().includes(searchTerm) ||
+          branch.manager.toLowerCase().includes(searchTerm)
+        );
+      }
+      
+      // Apply status filter
+      if (statusFilter) {
+        branches = branches.filter(branch => branch.status === statusFilter);
+      }
+      
+      renderBranches(branches);
+    }
+
+    function openBranchModal(branchId = null) {
+      const modal = document.getElementById('branchModal');
+      const title = document.getElementById('modalTitle');
+      const form = document.getElementById('branchForm');
+      
+      if (branchId) {
+        // Edit existing branch
+        title.textContent = 'Edit Branch';
+        const branches = JSON.parse(localStorage.getItem('branches') || '[]');
+        const branch = branches.find(b => b.id === branchId);
+        
+        if (branch) {
+          document.getElementById('branchId').value = branch.id;
+          document.getElementById('branchName').value = branch.name;
+          document.getElementById('branchLocation').value = branch.location;
+          document.getElementById('branchManager').value = branch.manager;
+          document.getElementById('branchEmail').value = branch.email;
+          document.getElementById('branchPhone').value = branch.phone;
+          document.getElementById('branchStatus').value = branch.status;
+          document.getElementById('branchDescription').value = branch.description || '';
+        }
+      } else {
+        // Add new branch
+        title.textContent = 'Add New Branch';
+        form.reset();
+        document.getElementById('branchId').value = '';
+      }
+      
+      modal.classList.remove('hidden');
+    }
+
+    function closeBranchModal() {
+      document.getElementById('branchModal').classList.add('hidden');
+    }
+
+    function saveBranch() {
+      const form = document.getElementById('branchForm');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      
+      const branchId = document.getElementById('branchId').value;
+      const branchData = {
+        name: document.getElementById('branchName').value,
+        location: document.getElementById('branchLocation').value,
+        manager: document.getElementById('branchManager').value,
+        email: document.getElementById('branchEmail').value,
+        phone: document.getElementById('branchPhone').value,
+        status: document.getElementById('branchStatus').value,
+        description: document.getElementById('branchDescription').value,
+        employees: branchId ? null : 0 // Will be updated when employees are added
+      };
+      
+      let branches = JSON.parse(localStorage.getItem('branches') || '[]');
+      
+      if (branchId) {
+        // Update existing branch
+        const index = branches.findIndex(b => b.id === parseInt(branchId));
+        if (index !== -1) {
+          branches[index] = { ...branches[index], ...branchData };
+        }
+      } else {
+        // Add new branch
+        branchData.id = Date.now(); // Simple ID generation
+        branches.push(branchData);
+      }
+      
+      localStorage.setItem('branches', JSON.stringify(branches));
+      closeBranchModal();
+      loadBranches();
+    }
+
+    function editBranch(branchId) {
+      openBranchModal(branchId);
+    }
+
+    function deleteBranch(branchId) {
+      if (confirm('Are you sure you want to delete this branch?')) {
+        let branches = JSON.parse(localStorage.getItem('branches') || '[]');
+        branches = branches.filter(branch => branch.id !== branchId);
+        localStorage.setItem('branches', JSON.stringify(branches));
+        loadBranches();
+      }
+    }
+  </script>
+</body>
+</html>

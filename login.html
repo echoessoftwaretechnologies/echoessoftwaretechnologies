@@ -132,12 +132,81 @@
     }
   </script>
   
-  <!-- Disable right-click functionality -->
+  <!-- Disable developer tools and right-click functionality -->
   <script>
+    // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+Shift+C
+    document.addEventListener('keydown', function(e) {
+      // F12 key
+      if (e.key === 'F12') {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+      
+      // Ctrl+Shift+I (Developer Tools)
+      if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+      
+      // Ctrl+Shift+J (Console)
+      if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+      
+      // Ctrl+U (View Source)
+      if (e.ctrlKey && e.key === 'u') {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+      
+      // Ctrl+Shift+C (Inspect Element)
+      if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+      
+      // Ctrl+Shift+K (Firefox Developer Tools)
+      if (e.ctrlKey && e.shiftKey && e.key === 'K') {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+    });
+    
+    // Disable right-click functionality
     document.addEventListener('contextmenu', function(e) {
       e.preventDefault();
       return false;
     });
+    
+    // Disable text selection (optional additional security)
+    document.addEventListener('selectstart', function(e) {
+      e.preventDefault();
+      return false;
+    });
+    
+    // Disable dragging of elements
+    document.addEventListener('dragstart', function(e) {
+      e.preventDefault();
+      return false;
+    });
+    
+    // Additional protection against developer tools opening
+    setInterval(function() {
+      // Check if developer tools are open by measuring devtools dimensions
+      if (window.outerHeight - window.innerHeight > 200 || 
+          window.outerWidth - window.innerWidth > 200) {
+        // Developer tools detected - you can add additional actions here
+        // For example, redirect or show warning
+        console.clear();
+      }
+    }, 1000);
   </script>
 </body>
 </html>
