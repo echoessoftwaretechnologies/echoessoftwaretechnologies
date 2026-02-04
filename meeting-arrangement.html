@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meeting Arrangement - Echoes Software Technologies</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'vivid-blue': '#1864ff'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .fade-in {
+      animation: fadeIn 0.3s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .calendar-day:hover {
+      background-color: #1864ff;
+      color: white;
+      cursor: pointer;
+    }
+    
+    .time-slot:hover {
+      background-color: #1864ff;
+      color: white;
+      cursor: pointer;
+    }
+    
+    .selected {
+      background-color: #1864ff;
+      color: white;
+      border-color: #1864ff;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <button id="menuToggle" class="md:hidden mr-4 p-2 rounded-full text-gray-700 hover:bg-gray-100 transition-colors">
+            <i data-lucide="menu" class="h-6 w-6"></i>
+          </button>
+          <div class="flex-shrink-0 flex items-center">
+            <img src="2.png" alt="Echoes Software Technologies" width="150" height="40">
+          </div>
+        </div>
+        <nav class="hidden md:flex space-x-2">
+          <a href="admin-dashboard.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="home" class="h-4 w-4 inline mr-2"></i>
+            Home
+          </a>
+        </nav>
+        <div class="flex items-center space-x-4">
+          <div class="hidden md:block text-sm text-gray-600">
+            Welcome, <span id="currentUserName" class="font-medium text-vivid-blue">Admin</span>
+          </div>
+          <button id="logoutButton" class="hidden md:flex items-center space-x-1 bg-red-600 text-white px-4 py-2 rounded-full font-medium hover:bg-red-700 transition-colors">
+            <i data-lucide="log-out" class="h-4 w-4"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-64 bg-white border-r border-gray-200 min-h-screen fixed md:static md:translate-x-0 z-40 transform -translate-x-full md:-translate-x-0 transition-transform duration-300 ease-in-out">
+      <div class="p-4">
+        <div class="flex justify-between items-center mb-4">
+          <button id="closeSidebar" class="md:hidden p-2 rounded-full text-gray-700 hover:bg-gray-100">
+            <i data-lucide="x" class="h-5 w-5"></i>
+          </button>
+        </div>
+        <nav>
+          <a href="crm-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="users" class="h-5 w-5"></i>
+            <span>CRM Management</span>
+          </a>
+          <a href="attendance-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="calendar" class="h-5 w-5"></i>
+            <span>Attendance Management</span>
+          </a>
+          <a href="employee-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="user" class="h-5 w-5"></i>
+            <span>Employee Management</span>
+          </a>
+          <a href="password-manager.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="key" class="h-5 w-5"></i>
+            <span>Password Manager</span>
+          </a>
+          <a href="invoice-generator.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="file-text" class="h-5 w-5"></i>
+            <span>Invoice Generator</span>
+          </a>
+          <a href="browser-management.html" class="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+            <i data-lucide="globe" class="h-5 w-5"></i>
+            <span>Browser</span>
+          </a>
+          <a href="meeting-arrangement.html" class="flex items-center space-x-3 px-4 py-3 text-vivid-blue bg-blue-50 rounded-full transition-colors">
+            <i data-lucide="video" class="h-5 w-5"></i>
+            <span>Meeting Arrangement</span>
+          </a>
+        </nav>
+        
+        <div class="mt-auto pt-4 border-t border-gray-200">
+          <div class="p-4 bg-gray-50 rounded-full mb-4">
+            <div class="text-sm font-medium text-gray-900" id="sidebarUserName">Admin</div>
+            <div class="text-xs text-gray-600">Logged in as admin</div>
+          </div>
+          <button id="sidebarLogoutButton" class="w-full flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-full transition-colors">
+            <i data-lucide="log-out" class="h-5 w-5"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Overlay for mobile -->
+    <div id="sidebarOverlay" class="fixed inset-0 z-30 bg-black bg-opacity-50 hidden md:hidden"></div>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+      <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">Meeting Arrangement</h1>
+        
+        <!-- Meeting Form Section -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8 fade-in">
+          <h2 class="text-xl font-semibold text-gray-900 mb-6">Schedule a New Meeting</h2>
+          
+          <form id="meetingForm" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Meeting Title -->
+              <div>
+                <label for="meetingTitle" class="block text-sm font-medium text-gray-700 mb-2">
+                  Meeting Title *
+                </label>
+                <input type="text" id="meetingTitle" required
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent transition-all"
+                       placeholder="Enter meeting title">
+              </div>
+              
+              <!-- Meeting Type -->
+              <div>
+                <label for="meetingType" class="block text-sm font-medium text-gray-700 mb-2">
+                  Meeting Type *
+                </label>
+                <select id="meetingType" required
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent transition-all">
+                  <option value="">Select meeting type</option>
+                  <option value="team-meeting">Team Meeting</option>
+                  <option value="client-meeting">Client Meeting</option>
+                  <option value="interview">Interview</option>
+                  <option value="training">Training Session</option>
+                  <option value="review">Review Meeting</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+            
+            <!-- Participants -->
+            <div>
+              <label for="participants" class="block text-sm font-medium text-gray-700 mb-2">
+                Participants *
+              </label>
+              <div class="flex flex-wrap gap-2 mb-3" id="selectedParticipants">
+                <!-- Selected participants will appear here -->
+              </div>
+              <div class="relative">
+                <input type="text" id="participants" 
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent transition-all"
+                       placeholder="Type participant names or emails...">
+                <div id="participantSuggestions" class="absolute z-10 w-full bg-white border border-gray-200 rounded-lg shadow-lg mt-1 hidden">
+                  <!-- Suggestions will appear here -->
+                </div>
+              </div>
+              <p class="text-xs text-gray-500 mt-1">Separate multiple participants with commas</p>
+            </div>
+            
+            <!-- Date Selection -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Select Date *
+              </label>
+              <div id="calendar" class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                <!-- Calendar will be generated here -->
+              </div>
+            </div>
+            
+            <!-- Time Selection -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Select Time *
+              </label>
+              <div id="timeSlots" class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
+                <!-- Time slots will be generated here -->
+              </div>
+            </div>
+            
+            <!-- Duration -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label for="duration" class="block text-sm font-medium text-gray-700 mb-2">
+                  Duration *
+                </label>
+                <select id="duration" required
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent transition-all">
+                  <option value="30">30 minutes</option>
+                  <option value="60" selected>1 hour</option>
+                  <option value="90">1.5 hours</option>
+                  <option value="120">2 hours</option>
+                </select>
+              </div>
+              
+              <!-- Meeting Platform -->
+              <div>
+                <label for="platform" class="block text-sm font-medium text-gray-700 mb-2">
+                  Meeting Platform *
+                </label>
+                <select id="platform" required
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent transition-all">
+                  <option value="google-meet">Google Meet</option>
+                  <option value="zoom">Zoom</option>
+                  <option value="teams">Microsoft Teams</option>
+                  <option value="in-person">In-Person</option>
+                </select>
+              </div>
+            </div>
+            
+            <!-- Description -->
+            <div>
+              <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
+                Description (Optional)
+              </label>
+              <textarea id="description" rows="4"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vivid-blue focus:border-transparent transition-all"
+                        placeholder="Enter meeting agenda or description..."></textarea>
+            </div>
+            
+            <!-- Google Meet Integration Options -->
+            <div id="googleMeetOptions" class="bg-blue-50 border border-blue-200 rounded-lg p-4 hidden">
+              <h3 class="font-medium text-blue-900 mb-3">Google Meet Settings</h3>
+              <div class="space-y-3">
+                <label class="flex items-center">
+                  <input type="checkbox" id="recordMeeting" class="rounded text-vivid-blue focus:ring-vivid-blue">
+                  <span class="ml-2 text-sm text-blue-800">Record meeting automatically</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" id="muteParticipants" class="rounded text-vivid-blue focus:ring-vivid-blue">
+                  <span class="ml-2 text-sm text-blue-800">Mute participants upon entry</span>
+                </label>
+                <label class="flex items-center">
+                  <input type="checkbox" id="waitingRoom" class="rounded text-vivid-blue focus:ring-vivid-blue">
+                  <span class="ml-2 text-sm text-blue-800">Enable waiting room</span>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+              <button type="submit" 
+                      class="flex-1 bg-vivid-blue text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center">
+                <i data-lucide="calendar-plus" class="h-5 w-5 mr-2"></i>
+                Schedule Meeting
+              </button>
+              <button type="button" id="generateMeetLink"
+                      class="flex-1 bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition-colors flex items-center justify-center">
+                <i data-lucide="video" class="h-5 w-5 mr-2"></i>
+                Generate Meet Link
+              </button>
+            </div>
+          </form>
+        </div>
+        
+        <!-- Upcoming Meetings -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 fade-in">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-semibold text-gray-900">Upcoming Meetings</h2>
+            <button id="refreshMeetings" class="text-vivid-blue hover:text-blue-700 flex items-center">
+              <i data-lucide="refresh-ccw" class="h-4 w-4 mr-1"></i>
+              Refresh
+            </button>
+          </div>
+          
+          <div id="meetingsList" class="space-y-4">
+            <!-- Meetings will be populated here -->
+            <div class="text-center py-8 text-gray-500">
+              <i data-lucide="calendar" class="h-12 w-12 mx-auto mb-3 text-gray-300"></i>
+              <p>No upcoming meetings scheduled</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="successModal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-6 relative">
+        <button id="closeSuccessModal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+          <i data-lucide="x" class="h-5 w-5"></i>
+        </button>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="check-circle" class="h-8 w-8 text-green-600"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Meeting Scheduled Successfully!</h3>
+          <p class="text-gray-600 mb-4" id="successMessage">Your meeting has been scheduled and invitations sent.</p>
+          <div id="meetingDetails" class="bg-gray-50 rounded-lg p-4 text-left mb-6">
+            <!-- Meeting details will be shown here -->
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button id="copyLinkBtn" class="flex-1 bg-vivid-blue text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              Copy Meeting Link
+            </button>
+            <button id="addToCalendarBtn" class="flex-1 bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors">
+              Add to Calendar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Check authentication status
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if user is logged in
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      
+      // If not logged in, redirect to login page
+      if (isLoggedIn !== 'true') {
+        window.location.href = 'login.html';
+      }
+      
+      // Initialize logout functionality
+      document.getElementById('logoutButton').addEventListener('click', function() {
+        // Clear login state
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentUser');
+        
+        // Redirect to login page
+        window.location.href = 'login.html';
+      });
+      
+      // Display current user's name in header and sidebar
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        document.getElementById('currentUserName').textContent = currentUser;
+        document.getElementById('sidebarUserName').textContent = currentUser;
+      }
+      
+      // Initialize sidebar logout functionality
+      const sidebarLogoutButton = document.getElementById('sidebarLogoutButton');
+      if (sidebarLogoutButton) {
+        sidebarLogoutButton.addEventListener('click', function() {
+          // Clear login state
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('currentUser');
+          
+          // Redirect to login page
+          window.location.href = 'login.html';
+        });
+      }
+      
+      // Initialize icons
+      lucide.createIcons();
+      
+      // Initialize meeting arrangement functionality
+      initializeMeetingArrangement();
+    });
+
+    // Mobile sidebar toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById('menuToggle');
+      const closeSidebar = document.getElementById('closeSidebar');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      
+      // Toggle sidebar on menu button click
+      menuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('-translate-x-full');
+        sidebarOverlay.classList.toggle('hidden');
+      });
+      
+      // Close sidebar on close button click
+      closeSidebar.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Close sidebar when clicking on overlay
+      sidebarOverlay.addEventListener('click', function() {
+        sidebar.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth < 768 && 
+            !sidebar.contains(event.target) && 
+            !menuToggle.contains(event.target) &&
+            sidebar.classList.contains('translate-x-0')) {
+          sidebar.classList.add('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        }
+      });
+      
+      // Update sidebar position on window resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768) {
+          sidebar.classList.remove('-translate-x-full');
+          sidebarOverlay.classList.add('hidden');
+        } else {
+          sidebar.classList.add('-translate-x-full');
+        }
+      });
+    });
+
+    // Meeting Arrangement Functionality
+    function initializeMeetingArrangement() {
+      // Sample participants data
+      const participants = [
+        'john.smith@company.com',
+        'sarah.johnson@company.com',
+        'mike.wilson@company.com',
+        'emma.davis@company.com',
+        'robert.brown@company.com',
+        'lisa.miller@company.com'
+      ];
+      
+      let selectedDate = null;
+      let selectedTime = null;
+      let selectedParticipants = [];
+      
+      // Initialize calendar
+      generateCalendar();
+      
+      // Initialize time slots
+      generateTimeSlots();
+      
+      // Platform change handler
+      document.getElementById('platform').addEventListener('change', function() {
+        const googleMeetOptions = document.getElementById('googleMeetOptions');
+        if (this.value === 'google-meet') {
+          googleMeetOptions.classList.remove('hidden');
+        } else {
+          googleMeetOptions.classList.add('hidden');
+        }
+      });
+      
+      // Participant input handler
+      const participantsInput = document.getElementById('participants');
+      const suggestionsContainer = document.getElementById('participantSuggestions');
+      
+      participantsInput.addEventListener('input', function() {
+        const value = this.value.toLowerCase();
+        if (value.length > 0) {
+          const filtered = participants.filter(p => 
+            p.toLowerCase().includes(value) && !selectedParticipants.includes(p)
+          );
+          showParticipantSuggestions(filtered);
+        } else {
+          suggestionsContainer.classList.add('hidden');
+        }
+      });
+      
+      // Handle participant selection
+      function showParticipantSuggestions(suggestions) {
+        if (suggestions.length === 0) {
+          suggestionsContainer.classList.add('hidden');
+          return;
+        }
+        
+        suggestionsContainer.innerHTML = '';
+        suggestions.forEach(participant => {
+          const div = document.createElement('div');
+          div.className = 'px-4 py-2 hover:bg-gray-100 cursor-pointer';
+          div.textContent = participant;
+          div.addEventListener('click', () => {
+            addParticipant(participant);
+            participantsInput.value = '';
+            suggestionsContainer.classList.add('hidden');
+          });
+          suggestionsContainer.appendChild(div);
+        });
+        
+        suggestionsContainer.classList.remove('hidden');
+      }
+      
+      // Add participant
+      function addParticipant(email) {
+        if (!selectedParticipants.includes(email)) {
+          selectedParticipants.push(email);
+          renderSelectedParticipants();
+        }
+      }
+      
+      // Remove participant
+      function removeParticipant(email) {
+        selectedParticipants = selectedParticipants.filter(p => p !== email);
+        renderSelectedParticipants();
+      }
+      
+      // Render selected participants
+      function renderSelectedParticipants() {
+        const container = document.getElementById('selectedParticipants');
+        container.innerHTML = '';
+        
+        selectedParticipants.forEach(participant => {
+          const span = document.createElement('span');
+          span.className = 'inline-flex items-center bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm';
+          span.innerHTML = `
+            ${participant}
+            <button type="button" onclick="removeParticipant('${participant}')" class="ml-2 text-blue-600 hover:text-blue-800">
+              <i data-lucide="x" class="h-4 w-4"></i>
+            </button>
+          `;
+          container.appendChild(span);
+        });
+        
+        lucide.createIcons();
+      }
+      
+      // Make removeParticipant globally accessible
+      window.removeParticipant = removeParticipant;
+      
+      // Calendar generation
+      function generateCalendar() {
+        const calendar = document.getElementById('calendar');
+        const today = new Date();
+        const month = today.getMonth();
+        const year = today.getFullYear();
+        
+        // Get first day of month and number of days
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        
+        // Month name
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+        
+        let html = `<div class="text-center font-medium text-gray-900 mb-4">${monthNames[month]} ${year}</div>`;
+        html += '<div class="grid grid-cols-7 gap-1">';
+        
+        // Day headers
+        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        dayNames.forEach(day => {
+          html += `<div class="text-center text-xs font-medium text-gray-500 py-2">${day}</div>`;
+        });
+        
+        // Empty cells for days before the first day
+        for (let i = 0; i < firstDay; i++) {
+          html += '<div class="h-10"></div>';
+        }
+        
+        // Days of the month
+        for (let day = 1; day <= daysInMonth; day++) {
+          const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+          const isPast = new Date(dateStr) < new Date().setHours(0, 0, 0, 0);
+          
+          html += `
+            <div class="calendar-day h-10 flex items-center justify-center text-sm rounded-full border ${isPast ? 'text-gray-300 cursor-not-allowed' : ''}" 
+                 data-date="${dateStr}" ${isPast ? '' : 'onclick="selectDate(this)"'}>
+              ${day}
+            </div>
+          `;
+        }
+        
+        html += '</div>';
+        calendar.innerHTML = html;
+      }
+      
+      // Select date
+      window.selectDate = function(element) {
+        // Remove previous selection
+        document.querySelectorAll('.calendar-day').forEach(el => {
+          el.classList.remove('selected');
+        });
+        
+        // Add selection to clicked element
+        element.classList.add('selected');
+        selectedDate = element.dataset.date;
+      };
+      
+      // Generate time slots
+      function generateTimeSlots() {
+        const container = document.getElementById('timeSlots');
+        const times = [];
+        
+        // Generate time slots from 9 AM to 6 PM
+        for (let hour = 9; hour <= 18; hour++) {
+          times.push(`${hour}:00`);
+          if (hour < 18) times.push(`${hour}:30`);
+        }
+        
+        container.innerHTML = times.map(time => `
+          <div class="time-slot text-center py-2 px-1 border border-gray-200 rounded-lg text-sm hover:bg-gray-100 cursor-pointer"
+               onclick="selectTime(this)" data-time="${time}">
+            ${time}
+          </div>
+        `).join('');
+      }
+      
+      // Select time
+      window.selectTime = function(element) {
+        // Remove previous selection
+        document.querySelectorAll('.time-slot').forEach(el => {
+          el.classList.remove('selected');
+        });
+        
+        // Add selection to clicked element
+        element.classList.add('selected');
+        selectedTime = element.dataset.time;
+      };
+      
+      // Form submission
+      document.getElementById('meetingForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        scheduleMeeting();
+      });
+      
+      // Generate Meet link button
+      document.getElementById('generateMeetLink').addEventListener('click', function() {
+        generateMeetLink();
+      });
+      
+      // Schedule meeting function
+      function scheduleMeeting() {
+        const title = document.getElementById('meetingTitle').value;
+        const type = document.getElementById('meetingType').value;
+        const duration = document.getElementById('duration').value;
+        const platform = document.getElementById('platform').value;
+        const description = document.getElementById('description').value;
+        
+        // Validation
+        if (!title || !type || !selectedDate || !selectedTime || selectedParticipants.length === 0) {
+          alert('Please fill in all required fields and select at least one participant.');
+          return;
+        }
+        
+        // Create meeting object
+        const meeting = {
+          id: Date.now(),
+          title,
+          type,
+          date: selectedDate,
+          time: selectedTime,
+          duration,
+          platform,
+          participants: selectedParticipants,
+          description,
+          createdAt: new Date().toISOString()
+        };
+        
+        // Save to localStorage
+        let meetings = JSON.parse(localStorage.getItem('meetings') || '[]');
+        meetings.push(meeting);
+        localStorage.setItem('meetings', JSON.stringify(meetings));
+        
+        // Show success modal
+        showSuccessModal(meeting);
+        
+        // Reset form
+        resetForm();
+      }
+      
+      // Generate Meet link
+      function generateMeetLink() {
+        const title = document.getElementById('meetingTitle').value || 'Untitled Meeting';
+        const encodedTitle = encodeURIComponent(title);
+        const meetLink = `https://meet.google.com/new?title=${encodedTitle}`;
+        
+        // Open in new tab
+        window.open(meetLink, '_blank');
+        
+        // Also copy to clipboard
+        navigator.clipboard.writeText(meetLink).then(() => {
+          alert('Google Meet link generated and copied to clipboard!');
+        }).catch(() => {
+          alert(`Google Meet link generated: ${meetLink}`);
+        });
+      }
+      
+      // Show success modal
+      function showSuccessModal(meeting) {
+        const modal = document.getElementById('successModal');
+        const message = document.getElementById('successMessage');
+        const details = document.getElementById('meetingDetails');
+        
+        // Set message
+        message.textContent = `Your ${meeting.title} meeting has been scheduled successfully!`;
+        
+        // Set meeting details
+        const dateObj = new Date(meeting.date);
+        const dateStr = dateObj.toLocaleDateString('en-US', { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        });
+        
+        details.innerHTML = `
+          <div class="space-y-2 text-sm">
+            <div><strong>Title:</strong> ${meeting.title}</div>
+            <div><strong>Date:</strong> ${dateStr}</div>
+            <div><strong>Time:</strong> ${meeting.time}</div>
+            <div><strong>Duration:</strong> ${meeting.duration} minutes</div>
+            <div><strong>Platform:</strong> ${meeting.platform === 'google-meet' ? 'Google Meet' : meeting.platform}</div>
+            <div><strong>Participants:</strong> ${meeting.participants.join(', ')}</div>
+            ${meeting.description ? `<div><strong>Description:</strong> ${meeting.description}</div>` : ''}
+          </div>
+        `;
+        
+        // Show modal
+        modal.classList.remove('hidden');
+        
+        // Add event listeners for modal buttons
+        document.getElementById('closeSuccessModal').addEventListener('click', () => {
+          modal.classList.add('hidden');
+        });
+        
+        document.getElementById('copyLinkBtn').addEventListener('click', () => {
+          const meetLink = `https://meet.google.com/new?title=${encodeURIComponent(meeting.title)}`;
+          navigator.clipboard.writeText(meetLink).then(() => {
+            alert('Meeting link copied to clipboard!');
+          });
+        });
+        
+        document.getElementById('addToCalendarBtn').addEventListener('click', () => {
+          addToCalendar(meeting);
+        });
+      }
+      
+      // Add to calendar function
+      function addToCalendar(meeting) {
+        const startDate = new Date(`${meeting.date}T${meeting.time.replace(':', '')}`);
+        const endDate = new Date(startDate.getTime() + (parseInt(meeting.duration) * 60000));
+        
+        const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(meeting.title)}&dates=${startDate.toISOString().replace(/[-:]/g, '').slice(0, -5)}/${endDate.toISOString().replace(/[-:]/g, '').slice(0, -5)}&details=${encodeURIComponent(meeting.description || '')}&location=${encodeURIComponent('Google Meet')}`;
+        
+        window.open(calendarUrl, '_blank');
+      }
+      
+      // Reset form
+      function resetForm() {
+        document.getElementById('meetingForm').reset();
+        selectedParticipants = [];
+        selectedDate = null;
+        selectedTime = null;
+        renderSelectedParticipants();
+        
+        // Remove selections from UI
+        document.querySelectorAll('.calendar-day.selected, .time-slot.selected').forEach(el => {
+          el.classList.remove('selected');
+        });
+        
+        // Hide Google Meet options
+        document.getElementById('googleMeetOptions').classList.add('hidden');
+      }
+      
+      // Refresh meetings
+      document.getElementById('refreshMeetings').addEventListener('click', loadMeetings);
+      
+      // Load meetings
+      function loadMeetings() {
+        const meetings = JSON.parse(localStorage.getItem('meetings') || '[]');
+        const container = document.getElementById('meetingsList');
+        
+        if (meetings.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-8 text-gray-500">
+              <i data-lucide="calendar" class="h-12 w-12 mx-auto mb-3 text-gray-300"></i>
+              <p>No upcoming meetings scheduled</p>
+            </div>
+          `;
+          lucide.createIcons();
+          return;
+        }
+        
+        // Sort meetings by date
+        meetings.sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        // Filter upcoming meetings (today and future)
+        const today = new Date().setHours(0, 0, 0, 0);
+        const upcomingMeetings = meetings.filter(meeting => new Date(meeting.date) >= today);
+        
+        if (upcomingMeetings.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-8 text-gray-500">
+              <i data-lucide="calendar" class="h-12 w-12 mx-auto mb-3 text-gray-300"></i>
+              <p>No upcoming meetings scheduled</p>
+            </div>
+          `;
+          lucide.createIcons();
+          return;
+        }
+        
+        container.innerHTML = upcomingMeetings.map(meeting => {
+          const dateObj = new Date(meeting.date);
+          const dateStr = dateObj.toLocaleDateString('en-US', { 
+            weekday: 'short', 
+            month: 'short', 
+            day: 'numeric' 
+          });
+          
+          return `
+            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+              <div class="flex justify-between items-start">
+                <div class="flex-1">
+                  <h3 class="font-semibold text-gray-900">${meeting.title}</h3>
+                  <div class="flex items-center text-sm text-gray-600 mt-1">
+                    <i data-lucide="calendar" class="h-4 w-4 mr-1"></i>
+                    ${dateStr} at ${meeting.time}
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600 mt-1">
+                    <i data-lucide="clock" class="h-4 w-4 mr-1"></i>
+                    ${meeting.duration} minutes
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600 mt-1">
+                    <i data-lucide="users" class="h-4 w-4 mr-1"></i>
+                    ${meeting.participants.length} participants
+                  </div>
+                  ${meeting.description ? `<p class="text-sm text-gray-600 mt-2">${meeting.description}</p>` : ''}
+                </div>
+                <div class="flex flex-col gap-2 ml-4">
+                  <button onclick="joinMeeting(${meeting.id})" 
+                          class="bg-vivid-blue text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                    Join Meeting
+                  </button>
+                  <button onclick="deleteMeeting(${meeting.id})" 
+                          class="bg-red-100 text-red-700 px-3 py-1 rounded text-sm hover:bg-red-200 transition-colors">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+        
+        lucide.createIcons();
+      }
+      
+      // Join meeting
+      window.joinMeeting = function(meetingId) {
+        const meetings = JSON.parse(localStorage.getItem('meetings') || '[]');
+        const meeting = meetings.find(m => m.id === meetingId);
+        
+        if (meeting) {
+          if (meeting.platform === 'google-meet') {
+            const meetLink = `https://meet.google.com/new?title=${encodeURIComponent(meeting.title)}`;
+            window.open(meetLink, '_blank');
+          } else {
+            alert(`Please join the meeting through your ${meeting.platform} application.`);
+          }
+        }
+      };
+      
+      // Delete meeting
+      window.deleteMeeting = function(meetingId) {
+        if (confirm('Are you sure you want to cancel this meeting?')) {
+          let meetings = JSON.parse(localStorage.getItem('meetings') || '[]');
+          meetings = meetings.filter(m => m.id !== meetingId);
+          localStorage.setItem('meetings', JSON.stringify(meetings));
+          loadMeetings();
+        }
+      };
+      
+      // Load meetings on page load
+      loadMeetings();
+    }
+  </script>
+</body>
+</html>
